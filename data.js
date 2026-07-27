@@ -139,13 +139,82 @@ const DAYS = [
   })
 },
 
-/* ============ DAG 3 · 6–10 augustus · GARDAMEER (modulair) ============ */
+/* ============ DAG 3 · 6 augustus · reisdag naar Italië ============ */
 {
-  tab:{n:'3', label:'6–10 aug'}, id:'gardapool', isPool:true,
-  eyebrow:'6 t/m 10 augustus · Basiskamp',
-  title:'Gardameer — vijf vrije dagen',
+  tab:{n:'3', label:'6 aug'}, id:'d3',
+  eyebrow:'Donderdag 6 augustus · Dag 3',
+  title:'Weggis → Desenzano',
+  subtitle:'Over de Gotthard van Zwitserland naar het Gardameer',
+  route:{origin:'Hotel Alpenblick, Weggis, Zwitserland', dest:'Hotel Aquila d\'Oro, Desenzano del Garda, Italië',
+         epic:['Flüelen, Zwitserland','Gotthard Pass, Zwitserland','Tremola San Gottardo, Airolo, Zwitserland','Menaggio, Italië','Lecco, Italië']},
+  km:'± 350 km', drive:'4 u (rijden)', driveComfort:'≈ 4 u', driveEpic:'≈ 5 u 45 rijden', depart:'08:30', arrive:'± 17:00',
+  weather:'Bergweer telt: de Gotthard is alleen mooi bij goed zicht. Beneden aan het Como- en Gardameer is het zomers warm.',
+  badWeather:'Bij regen of laaghangende bewolking op de Gotthard: neem de tunnel (A2) en rijd rechtstreeks via Como naar Desenzano.',
+  advice:'Bij goed weer: Gotthardpas + de oude Tremola-kasseienweg — hét rij-hoogtepunt van de heenweg. Anders tunnel en een lunchstop aan het Comomeer.',
+  cats:{
+    must:[
+      {emoji:'🏔️', title:'Gotthardpas', stars:5, time:'30–45 min', best:'Ochtend, helder zicht',
+       nav:'Gotthard Pass', parking:'Gotthard Pass Passhöhe parking', photo:'Gotthard Pass viewpoint',
+       weather:'Alleen bij goed zicht',
+       warning:'Google stuurt je vaak de tunnel in — kies expliciet de pasroute (Passo del San Gottardo).',
+       desc:'De klassieke bergpas op 2.106 m, veel mooier dan door de tunnel verdwijnen. Klein museum en bergmeertjes op de top.',
+       tip:'Boven is het koud en winderig — warme laag mee. Perfecte plek voor de eerste bergkoffie.'},
+      {emoji:'🔥', title:'Oude Tremola', stars:5, time:'30–45 min', best:'Aansluitend op de pas',
+       nav:'Tremola San Gottardo', parking:'Tremola San Gottardo Airolo', photo:'Tremola San Gottardo',
+       weather:'Niet bij stortregen',
+       warning:'Niet de moderne hoofdweg nemen; zoek op \'Tremola San Gottardo\' voor de historische kasseienweg.',
+       desc:'Historische kasseienweg met eindeloze haarspelden aan de zuidkant van de Gotthard — hét Range Rover-fotomoment van de heenreis.',
+       tip:'GoPro op de motorkap richting de haarspelden; rustig sturen op de kasseien.'}
+    ],
+    nice:[
+      {emoji:'📸', title:'Axenstrasse / Flüelen', stars:4, time:'15–25 min', best:'Vroege ochtend',
+       nav:'Flüelen', parking:'Flüelen waterfront parking', photo:'Axenstrasse viewpoint',
+       desc:'Korte fotostop aan het Urnersee met bergen en water — meteen Zwitserse roadtrip-sfeer voordat je gaat klimmen.',
+       tip:'Even benen strekken aan het water voor de klim naar de pas.'},
+      {emoji:'🍝', title:'Menaggio (Comomeer)', stars:4, time:'60–75 min', best:'Lunch',
+       nav:'Menaggio', parking:'Parcheggio Menaggio centro', photo:'Menaggio lungolago',
+       desc:'Lunch aan het Comomeer zonder Como-stad in te hoeven. Mooie promenade en de eerste echte Italiaanse vibe.',
+       tip:'Terras aan het water pakken; daarna is het nog ± 2 uur naar Desenzano.'}
+    ],
+    bonus:[
+      {emoji:'🌊', title:'Lecco waterfront', stars:3, time:'30–45 min', best:'Als de dag soepel loopt',
+       nav:'Lecco', parking:'Parcheggio Lecco lungolago', photo:'Lecco lungolago',
+       desc:'Zuidpunt van het oostelijke Comomeer, minder toeristisch. Korte koffiestop als je op schema ligt.',
+       tip:'Bij tijdsdruk overslaan en doorrijden naar het Gardameer.'}
+    ]
+  },
+  restaurants:[
+    {t:'Lunch · Menaggio (Comomeer)', q:'restaurant Menaggio lungolago'},
+    {t:'Diner · Desenzano haven', q:'restaurant Porto Vecchio Desenzano del Garda'},
+    {t:'Koffie · Gotthard top', q:'café Gotthard Passhöhe'}
+  ],
+  gopro:[
+    {t:'Haarspelden oude Tremola', q:'Tremola San Gottardo'},
+    {t:'Axenstrasse langs het meer', q:'Axenstrasse Switzerland'}
+  ],
+  fotospots:[
+    {t:'Gotthard passhöhe', q:'Gotthard Pass viewpoint'},
+    {t:'Tremola-serpentines', q:'Tremola San Gottardo'},
+    {t:'Menaggio promenade', q:'Menaggio lungolago'}
+  ],
+  fuel:'Tank vóór de Gotthard nog een keer bij (Zwitserse pompen zijn duur maar boven schaars). De grote tankbeurt pas ná de Italiaanse grens — daar is het goedkoper.',
+  hotel: hotel({
+    name:'Hotel Aquila d’Oro', booked:true, bookedLabel:'betaald',
+    address:'Desenzano del Garda · Gardameer · Italië',
+    mapsQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
+    website:'Hotel Aquila d\'Oro Desenzano del Garda', bookingQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
+    checkin:'vanaf 14:00', parking:'Parkeren navragen — centrum Desenzano is beperkt',
+    ev:'Laadpalen in Desenzano centrum', restaurant:'Ontbijt inbegrepen', wellness:'—'
+  })
+},
+
+/* ============ DAG 4 · 7–10 augustus · GARDAMEER (modulair) ============ */
+{
+  tab:{n:'4', label:'7–10 aug'}, id:'gardapool', isPool:true,
+  eyebrow:'7 t/m 10 augustus · Basiskamp',
+  title:'Gardameer — vier vrije dagen',
   subtitle:'Basis: Hotel Aquila d’Oro, Desenzano del Garda',
-  poolIntro:'Geen vaste planning. Dit zijn vijf dagen vanuit één basis — kies elke ochtend op gevoel en op het weer. Hieronder staan de beste bestemmingen; vink af wat je hebt gedaan. Alles is dagtrip-afstand vanaf Desenzano.',
+  poolIntro:'Geen vaste planning. Vier vrije dagen vanuit één basis — kies elke ochtend op gevoel en op het weer. Hieronder staan de beste bestemmingen; vink af wat je hebt gedaan. Alles is dagtrip-afstand vanaf Desenzano.',
   km:'Vrij', drive:'Naar keuze', depart:'—', arrive:'—',
   weather:'Hoogzomer aan het meer: 30°+ en broeierig in het dal. Combineer laag (dorpen, water) met hoog (Monte Baldo) op de heetste dagen.',
   badWeather:'Bij regen of onweer: Sirmione en Malcesine hebben overdekte steegjes en terrassen; stel Monte Baldo uit tot een heldere dag.',
@@ -210,7 +279,7 @@ const DAYS = [
 
 /* ============ DAG 4 · 11 augustus ============ */
 {
-  tab:{n:'4', label:'11 aug'}, id:'d4',
+  tab:{n:'5', label:'11 aug'}, id:'d4',
   eyebrow:'Dinsdag 11 augustus · Dag 4',
   title:'Desenzano → Canazei',
   subtitle:'Van het meer de Dolomieten in',
@@ -280,7 +349,7 @@ const DAYS = [
 
 /* ============ DAG 5 · 12 augustus · DE MOOISTE DAG ============ */
 {
-  tab:{n:'5', label:'12 aug'}, id:'d5', isEpic:true,
+  tab:{n:'6', label:'12 aug'}, id:'d5', isEpic:true,
   eyebrow:'Woensdag 12 augustus · Dag 5 · Hoogtepunt',
   title:'Canazei → San Candido',
   subtitle:'De Grote Dolomieten-dag: vier passen en twee bergmeren',
@@ -378,7 +447,7 @@ const DAYS = [
 
 /* ============ DAG 6 · 13 augustus ============ */
 {
-  tab:{n:'6', label:'13 aug'}, id:'d6',
+  tab:{n:'7', label:'13 aug'}, id:'d6',
   eyebrow:'Donderdag 13 augustus · Dag 6',
   title:'San Candido → Heidelberg',
   subtitle:'De lange terugrit — met een mooi slot',
@@ -439,7 +508,7 @@ const DAYS = [
 
 /* ============ DAG 7 · 14 augustus ============ */
 {
-  tab:{n:'7', label:'14 aug'}, id:'d7',
+  tab:{n:'8', label:'14 aug'}, id:'d7',
   eyebrow:'Vrijdag 14 augustus · Dag 7',
   title:'Heidelberg → Almere',
   subtitle:'Rustig naar huis',
