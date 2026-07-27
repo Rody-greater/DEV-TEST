@@ -15,20 +15,31 @@ en Google Maps — mobile-first, grote knoppen, perfect leesbaar in fel zonlicht
 
 | Bestand | Inhoud |
 |---|---|
-| `index.html` | Structuur / shell (header, tabs, main, floating dock) |
-| `styles.css` | Volledige premium dark-theme styling |
-| `script.js` | Data-model van de hele reis + rendering-engine + logica |
+| **`Roadtrip-Companion-2026.html`** | **👉 Dit openen op je telefoon.** Één zelfstandig bestand — alle CSS + JS + icoon zitten erin. |
+| `index.html` | Dev-versie van de shell (verwijst naar de losse `styles.css` / `script.js`) |
+| `styles.css` | Volledige premium dark-theme styling (bron) |
+| `script.js` | Data-model van de hele reis + rendering-engine + logica (bron) |
 | `assets/icon.svg` | App-icoon (favicon / touch-icon) |
 | `README.md` | Deze uitleg |
 
 Geen backend, geen frameworks, geen build-stap. Puur **HTML5 + CSS + vanilla JavaScript**.
 
-## Gebruiken
+## Gebruiken — belangrijk
 
-Open `index.html` in een browser — that's it. Werkt op de iPhone via *Deel → Zet op
-beginscherm* als volledig-schermse web-app (offline).
+Gebruik **`Roadtrip-Companion-2026.html`**: dat is één losstaand bestand dat je overal kunt
+openen zonder de andere bestanden ernaast.
 
-Alle bestanden zijn relatief gelinkt, dus de map werkt ook zonder internet.
+1. Download / AirDrop het bestand naar je iPhone.
+2. Open het **in Safari of Chrome** (Bestanden-app → tik op het bestand → open in browser).
+3. Optioneel: *Deel → Zet op beginscherm* voor een volledig-schermse offline app.
+
+> ⚠️ Zie je alleen de **broncode** in plaats van de pagina? Dan bekijk je het bestand als
+> tekst (bijv. de GitHub-bronweergave of een tekst-/preview-viewer). Download het bestand en
+> open het in een **webbrowser** — dan rendert de pagina.
+
+De losse `index.html` + `styles.css` + `script.js` zijn de bron om in te ontwikkelen. Wijzig je
+die, bouw dan `Roadtrip-Companion-2026.html` opnieuw door de CSS in een `<style>` en de JS in
+een `<script>` te plakken (het icoon staat als data-URI in het bestand).
 
 ## Functies
 
