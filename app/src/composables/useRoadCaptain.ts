@@ -192,7 +192,7 @@ export function useRoadCaptain(day: Ref<Day>, nowRef?: Ref<Date>) {
       }
     }
 
-    const advice = buildAdvice(level, slack, optionalIncluded, skippedOptional, victims)
+    const advice = buildAdvice(level, slack, optionalIncluded, skippedOptional, victims, p.appointment, remainingStops)
 
     return {
       mode: liveActive ? 'live' : 'reference',
@@ -221,30 +221,44 @@ export function useRoadCaptain(day: Ref<Day>, nowRef?: Ref<Date>) {
 }
 
 /* ---- helpers ---- */
+/**
+ * Advice in the voice of a calm, experienced co-pilot: proactive and helpful,
+ * never commanding. Every suggestion is phrased as an option and makes clear the
+ * driver stays in control ("als je wilt", "je zou kunnen", "jij bepaalt").
+ */
 function buildAdvice(
   level: CaptainLevel, slack: number | null,
-  optionalIncluded: CaptainStop[], skippedOptional: CaptainStop[], victims: CaptainStop[]
+  optionalIncluded: CaptainStop[], skippedOptional: CaptainStop[], victims: CaptainStop[],
+  appointment: { label: string; time: string } | null, remainingStops: number
 ): string {
+  const inTime = appointment ? ` — ruim op tijd voor het ${appointment.label.toLowerCase()}` : ''
+  const behind = humanDuration(Math.abs(slack ?? 0))
+
   switch (level) {
     case 'green-plus':
-      if (skippedOptional.length) return `Je hebt ruim de tijd. Je kunt ${skippedOptional[0].title} nog toevoegen.`
-      return 'Je hebt ruim voldoende tijd. Neem gerust een koffiestop.'
+      if (skippedOptional.length) return `Je zit ruim voor op schema. Als je zin hebt, kun je ${skippedOptional[0].title} er nog rustig bij pakken.`
+      return `Ontspannen — je hebt tijd zat${inTime}. Geniet gerust van een koffiestop onderweg.`
     case 'green':
-      return slack != null ? `Je ligt op schema — nog ${humanDuration(slack)} speling.` : 'Je ligt op schema.'
+      return slack != null
+        ? `Mooi op schema, zo'n ${humanDuration(slack)} speling${inTime}. Neem rustig de tijd bij de stops.`
+        : 'Je ligt op schema. Neem rustig de tijd.'
     case 'yellow':
       return slack != null
-        ? `Let een beetje op de tijd — nog ${humanDuration(slack)} speling. Hou je stops kort.`
-        : 'Let een beetje op de tijd.'
+        ? `Het loopt lekker, al wordt de marge wat kleiner (${humanDuration(slack)}). Niets aan de hand — hou de tijd een beetje in de gaten.`
+        : 'Het loopt lekker; hou de tijd een beetje in de gaten.'
     case 'orange': {
       if (optionalIncluded.length) {
         const big = [...optionalIncluded].sort((a, b) => b.dwellMin - a.dwellMin)[0]
-        return `Krap op schema. Beperk ${big.title} tot 30 minuten.`
+        return `De tijd wordt wat krap. Je zou ${big.title} wat korter kunnen houden — dan zit je zo weer ruim. Jij bepaalt.`
       }
-      return 'Krap op schema. Vertrek zo snel mogelijk door.'
+      return `De marge is klein, maar als je straks doorrijdt kom je prima aan${inTime}.`
     }
     case 'red':
-      if (victims.length) return `Je loopt ~${humanDuration(-(slack ?? 0))} achter. Sla ${victims.map(v => v.title).join(' en ')} over.`
-      return `Je loopt ~${humanDuration(-(slack ?? 0))} achter. Kort je stops flink in.`
+      if (victims.length) {
+        const names = victims.map(v => v.title).join(' en ')
+        return `Je loopt zo'n ${behind} achter op plan. Een idee: ${names} overslaan, dan haal je het weer ruim${inTime}. Maar jij houdt de regie.`
+      }
+      return `Je loopt zo'n ${behind} achter. Geen stress — je zou de stops wat korter kunnen houden, dan komt het goed.${remainingStops <= 1 ? ' Je bent er bijna.' : ''}`
     default:
       return ''
   }
