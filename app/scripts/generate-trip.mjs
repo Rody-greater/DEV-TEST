@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const { DAYS, CHECKLISTS } = await import(resolve(__dirname, '../../data.js'))
+const { DAYS, CHECKLISTS } = await import(resolve(__dirname, '../../standalone/data.js'))
 
 /* ---- echte coördinaten (geverifieerde, bekende locaties) ---- */
 const COORDS = {

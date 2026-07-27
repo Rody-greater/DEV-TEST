@@ -22,7 +22,7 @@ Andere scripts:
 ```bash
 npm run build        # type-check (vue-tsc) + productie-build naar dist/
 npm run preview      # bekijk de productie-build lokaal
-npm run data         # genereer src/data/trip.json opnieuw uit ../data.js
+npm run data         # genereer src/data/trip.json opnieuw uit ../standalone/data.js
 ```
 
 ## Deployen naar je eigen ontwikkelserver
@@ -81,7 +81,7 @@ app/
 
 ## Data
 
-Alle inhoud staat in `src/data/trip.json`. De bron is `../data.js` (in de repo-root);
+Alle inhoud staat in `src/data/trip.json`. De bron is `../standalone/data.js`;
 `npm run data` genereert de JSON opnieuw en verrijkt met geverifieerde coördinaten en
 Road-Captain-planning. Google Maps opent altijd extern met echte locaties — geen placeholders.
 
