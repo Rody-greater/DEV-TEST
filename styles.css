@@ -1,0 +1,372 @@
+/* =========================================================
+   Roadtrip Companion 2026 — premium dark theme
+   Mobile-first · high-contrast for sunlight · Land Rover Bronze
+   ========================================================= */
+
+:root{
+  /* Core surfaces */
+  --bg:#111111;
+  --bg-2:#0c0c0c;
+  --card:#191919;
+  --card-2:#1f1f20;
+  --card-3:#242426;
+  --line:#2c2c2e;
+  --line-soft:#242426;
+
+  /* Text */
+  --text:#f5f5f4;
+  --muted:#a4a4a2;
+  --faint:#77776f;
+
+  /* Land Rover Bronze accent */
+  --bronze:#c79a63;
+  --bronze-deep:#a97c46;
+  --bronze-soft:#3a2f22;
+  --bronze-glow:rgba(199,154,99,.16);
+
+  /* Semantic */
+  --must:#ff6a2b;      /* oranje / rood-oranje = MOET */
+  --nice:#f5a623;      /* oranje = LEUK */
+  --bonus:#2fa66d;     /* groen = BONUS + afgerond */
+  --nav:#4f9cf0;       /* blauw = navigatie */
+  --done:#2fa66d;
+
+  --radius:20px;
+  --radius-sm:14px;
+  --radius-xs:11px;
+  --shadow:0 10px 40px rgba(0,0,0,.5);
+  --shadow-soft:0 4px 18px rgba(0,0,0,.35);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --maxw:840px;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 620px at 82% -8%, #1a1712 0%, transparent 58%),
+    radial-gradient(900px 500px at -12% 4%, #14161a 0%, transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  padding-bottom:calc(120px + env(safe-area-inset-bottom));
+}
+
+/* ---------- Header ---------- */
+.app-header{
+  position:sticky;top:0;z-index:40;
+  background:rgba(14,14,14,.82);
+  backdrop-filter:saturate(160%) blur(18px);
+  -webkit-backdrop-filter:saturate(160%) blur(18px);
+  border-bottom:1px solid var(--line-soft);
+}
+.header-inner{max-width:var(--maxw);margin:auto;padding:calc(env(safe-area-inset-top) + 12px) 16px 0}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{
+  font-size:20px;color:var(--bronze);
+  border:1.5px solid var(--bronze-deep);border-radius:12px;
+  width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;
+  background:linear-gradient(160deg,var(--bronze-soft),transparent);
+  letter-spacing:-2px;
+}
+.brand-text{min-width:0}
+.brand-text h1{margin:0;font-size:19px;font-weight:800;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text p{margin:2px 0 0;color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.01em}
+
+.progress-ring{
+  flex:0 0 auto;width:52px;height:52px;border-radius:50%;
+  border:none;cursor:pointer;color:var(--text);
+  font-size:12px;font-weight:800;
+  background:
+    radial-gradient(closest-side, var(--card) 78%, transparent 79%),
+    conic-gradient(var(--bronze) var(--p,0%), #2a2a2a 0);
+  display:grid;place-items:center;
+  transition:transform .2s var(--ease);
+}
+.progress-ring:active{transform:scale(.92)}
+
+/* ---------- Day tabs (swipe) ---------- */
+.day-tabs{
+  display:flex;gap:9px;overflow-x:auto;scroll-behavior:smooth;
+  padding:14px 0 13px;margin-top:10px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tab{
+  flex:0 0 auto;min-width:60px;
+  border:1px solid var(--line);background:#161616;color:var(--text);
+  border-radius:var(--radius-xs);padding:9px 12px;
+  font-weight:800;font-size:16px;line-height:1;text-align:center;cursor:pointer;
+  transition:background .22s var(--ease),border-color .22s var(--ease),transform .12s var(--ease),color .22s var(--ease);
+}
+.day-tab span{display:block;color:var(--muted);font-size:10.5px;font-weight:700;margin-top:5px;letter-spacing:.02em}
+.day-tab:active{transform:scale(.95)}
+.day-tab.active{
+  background:linear-gradient(155deg,var(--bronze),var(--bronze-deep));
+  border-color:var(--bronze);color:#161009;
+  box-shadow:0 6px 20px var(--bronze-glow);
+}
+.day-tab.active span{color:#3a2a15}
+.day-tab.practical.active{background:linear-gradient(155deg,#e0e0dc,#b8b8b3);border-color:#cfcfc9;color:#161616}
+.day-tab.practical.active span{color:#333}
+
+/* ---------- Main / panels ---------- */
+main{max-width:var(--maxw);margin:auto;padding:20px 16px 40px}
+.panel{display:none;animation:fadeUp .45s var(--ease)}
+.panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- Day hero ---------- */
+.day-hero{margin-bottom:18px}
+.day-eyebrow{color:var(--bronze);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+.day-hero h2{margin:8px 0 4px;font-size:29px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
+.day-hero .subtitle{margin:0;color:var(--muted);font-size:15px}
+
+/* Stat strip: km / rijtijd / vertrek / aankomst */
+.stat-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0;
+}
+.stat{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:11px 10px;text-align:center;
+}
+.stat .k{display:block;font-size:10px;color:var(--faint);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.stat .v{display:block;font-size:16px;font-weight:800;margin-top:4px}
+.stat.accent .v{color:var(--bronze)}
+.stat.nav .v{color:var(--nav)}
+
+/* Route buttons */
+.routes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 16px}
+.route-btn{
+  display:flex;flex-direction:column;gap:2px;align-items:flex-start;justify-content:center;
+  min-height:60px;border-radius:var(--radius-sm);text-decoration:none;padding:12px 14px;
+  font-weight:800;color:#fff;border:1px solid transparent;
+  transition:transform .12s var(--ease),filter .2s var(--ease);
+}
+.route-btn small{font-weight:700;font-size:11px;opacity:.85}
+.route-btn:active{transform:scale(.97)}
+.route-comfort{background:linear-gradient(150deg,#1f6b4a,#17583c)}
+.route-epic{background:linear-gradient(150deg,var(--bronze),var(--bronze-deep));color:#1a1206}
+
+/* Advice / weather-alt / warning banners */
+.banner{border-radius:var(--radius-sm);padding:13px 15px;line-height:1.5;font-size:14px;margin-bottom:14px}
+.banner strong{color:var(--text)}
+.banner-advice{background:linear-gradient(150deg,#241d13,#1c1710);border:1px solid var(--bronze-soft);color:#e9d3b4}
+.banner-weather{background:#12202f;border:1px solid #244566;color:#a9cdf3}
+.banner-weather::before{content:"🌧️  ";}
+.warning{background:#2a1c12;border:1px solid #5c3d24;color:#f4c9a5;border-radius:var(--radius-xs);padding:10px 12px;font-size:13.5px;line-height:1.45;margin:10px 0}
+
+/* ---------- Section headings (MUST / NICE / BONUS) ---------- */
+.cat-head{display:flex;align-items:center;gap:9px;margin:24px 0 12px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+.cat-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}
+.cat-must .cat-dot{background:var(--must);box-shadow:0 0 0 4px rgba(255,106,43,.15)}
+.cat-nice .cat-dot{background:var(--nice);box-shadow:0 0 0 4px rgba(245,166,35,.15)}
+.cat-bonus .cat-dot{background:var(--bonus);box-shadow:0 0 0 4px rgba(47,166,109,.15)}
+.cat-must{color:#ffb492}.cat-nice{color:#f6cd83}.cat-bonus{color:#8ad9b3}
+
+/* ---------- Stop card (accordion) ---------- */
+.stop{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  margin-bottom:11px;overflow:hidden;
+  transition:border-color .25s var(--ease),background .25s var(--ease);
+}
+.stop.done{border-color:rgba(47,166,109,.5);background:linear-gradient(160deg,#14201a,#161616)}
+.stop-summary{
+  display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:12px;
+  padding:15px 16px;cursor:pointer;user-select:none;
+}
+/* Big checkbox */
+.check{position:relative;flex:0 0 auto}
+.check input{position:absolute;opacity:0;width:30px;height:30px;margin:0;cursor:pointer}
+.check .box{
+  width:30px;height:30px;border-radius:9px;border:2px solid #5c5c5a;
+  display:grid;place-items:center;transition:all .2s var(--ease);
+  background:#141414;
+}
+.check input:checked + .box{background:var(--done);border-color:var(--done);transform:scale(1)}
+.check .box::after{content:"✓";font-weight:900;font-size:17px;color:#0c1a12;opacity:0;transform:scale(.4);transition:all .22s var(--ease)}
+.check input:checked + .box::after{opacity:1;transform:scale(1)}
+.stop-emoji{font-size:23px;line-height:1}
+.stop-main{min-width:0}
+.stop-title{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.stop-sub{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:5px;font-size:12.5px;color:var(--muted)}
+.stop-sub .stars{color:var(--bronze);letter-spacing:1px}
+.chev{color:var(--faint);font-size:15px;transition:transform .28s var(--ease);flex:0 0 auto}
+.stop.open .chev{transform:rotate(180deg)}
+
+.stop-body{
+  max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .4s var(--ease),opacity .3s var(--ease),padding .3s var(--ease);
+  padding:0 16px;
+}
+.stop.open .stop-body{max-height:1400px;opacity:1;padding:0 16px 16px}
+.stop-body p{color:var(--muted);line-height:1.55;margin:2px 0 12px;font-size:14.5px}
+.tip{display:flex;gap:8px;background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius-xs);padding:10px 12px;font-size:13.5px;color:#d8d3ca;margin-bottom:12px}
+.tip b{color:var(--bronze);white-space:nowrap}
+.info-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.pill{background:var(--card-3);border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:700;color:#cfcbc2}
+.pill.best{color:#a9cdf3;border-color:#244566;background:#12202f}
+.pill.weather{color:#f4c9a5;border-color:#5c3d24;background:#2a1c12}
+
+/* Action buttons inside stop / hotel */
+.actions{display:flex;flex-direction:column;gap:8px}
+.action{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius-xs);
+  padding:14px 15px;color:var(--text);text-decoration:none;font-weight:700;font-size:14.5px;
+  min-height:52px;transition:transform .12s var(--ease),border-color .2s var(--ease),background .2s var(--ease);
+}
+.action:active{transform:scale(.98)}
+.action .lead{display:flex;align-items:center;gap:11px;min-width:0}
+.action .lead .ic{font-size:18px;flex:0 0 auto}
+.action .go{color:var(--nav);font-weight:800;white-space:nowrap;font-size:13px}
+.action.nav{border-color:#28425f;background:#14202e}
+.action.nav .go{color:var(--nav)}
+.action.book .go{color:var(--bronze)}
+
+/* ---------- Hotel card ---------- */
+.hotel{
+  background:linear-gradient(165deg,#1c1a16,#161616);
+  border:1px solid var(--bronze-soft);border-radius:var(--radius);
+  padding:18px 16px;margin-top:26px;box-shadow:var(--shadow-soft);
+}
+.hotel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+.hotel-head h3{margin:0;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.hotel-head .tag-booked{background:rgba(47,166,109,.16);color:#7fdcae;border:1px solid rgba(47,166,109,.4);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+.hotel .addr{color:var(--muted);font-size:14px;margin:0 0 14px}
+.hotel .feat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.feat-item{background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius-xs);padding:10px 12px;font-size:12.5px;color:#d4cfc6}
+.feat-item b{display:block;color:var(--faint);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;font-weight:800}
+
+/* ---------- Leitlhof wellness card ---------- */
+.wellness-card{
+  background:linear-gradient(165deg,#141c1a,#141414);
+  border:1px solid #204039;border-radius:var(--radius);
+  padding:18px 16px;margin-top:16px;
+}
+.wellness-card h3{margin:0 0 4px;font-size:18px;display:flex;align-items:center;gap:8px}
+.ritual{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:linear-gradient(150deg,#1c3a30,#15251f);border:1px solid #2f6b57;
+  border-radius:var(--radius-sm);padding:14px 16px;margin:12px 0;
+}
+.ritual .t{font-size:15px;font-weight:800}
+.ritual .time{font-size:24px;font-weight:900;color:#7fdcae;line-height:1}
+.ritual .tag-booked{background:rgba(47,166,109,.2);color:#8fe3b8;border:1px solid rgba(47,166,109,.5);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800}
+
+/* ---------- Timeline (day 12) ---------- */
+.timeline{margin:8px 0 4px;padding:2px 0 2px 6px}
+.tl-item{position:relative;padding:0 0 20px 30px}
+.tl-item::before{content:"";position:absolute;left:5px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--bronze);box-shadow:0 0 0 4px var(--bronze-glow)}
+.tl-item::after{content:"";position:absolute;left:10px;top:16px;bottom:-4px;width:2px;background:var(--line)}
+.tl-item:last-child::after{display:none}
+.tl-item.key::before{background:var(--nav);box-shadow:0 0 0 4px rgba(79,156,240,.2)}
+.tl-item.end::before{background:var(--done);box-shadow:0 0 0 4px rgba(47,166,109,.2)}
+.tl-time{font-weight:900;font-size:13px;color:var(--bronze);letter-spacing:.02em}
+.tl-item.key .tl-time{color:var(--nav)}
+.tl-item.end .tl-time{color:var(--done)}
+.tl-title{font-weight:700;font-size:15px;margin-top:1px}
+.tl-note{color:var(--muted);font-size:13px;margin-top:2px}
+
+/* Depart advice highlight */
+.depart-advice{
+  display:flex;align-items:center;gap:13px;
+  background:linear-gradient(150deg,#241d13,#1a1610);border:1px solid var(--bronze-deep);
+  border-radius:var(--radius-sm);padding:14px 16px;margin:6px 0 16px;
+}
+.depart-advice .big{font-size:26px;font-weight:900;color:var(--bronze);line-height:1}
+.depart-advice .lbl{font-size:12px;color:var(--faint);text-transform:uppercase;font-weight:800;letter-spacing:.05em}
+.depart-advice .txt{font-size:13.5px;color:#e5d6bf;line-height:1.4}
+
+/* Lists: restaurants / gopro / fotospots / fuel */
+.mini-block{margin:18px 0}
+.mini-block h4{margin:0 0 9px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);font-weight:800}
+.chiplist{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:9px 13px;font-size:13.5px;font-weight:700;color:var(--text);
+  transition:transform .12s var(--ease),border-color .2s var(--ease);
+}
+.chip:active{transform:scale(.96)}
+.chip .ic{font-size:15px}
+.fuel-note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--bronze);border-radius:var(--radius-xs);padding:12px 14px;font-size:13.5px;color:#d8d3ca;line-height:1.5}
+
+/* ---------- Modular Garda pool ---------- */
+.pool-intro{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px;color:var(--muted);font-size:14px;line-height:1.55}
+.pool-intro b{color:var(--text)}
+
+/* ---------- Practical / checklist tab ---------- */
+.checklist-group{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.cl-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px;cursor:pointer;user-select:none}
+.cl-head h3{margin:0;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.cl-count{font-size:12px;color:var(--faint);font-weight:800}
+.cl-body{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+.checklist-group.open .cl-body{max-height:1200px}
+.cl-item{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:center;padding:12px 16px;border-top:1px solid var(--line-soft);cursor:pointer}
+.cl-item .box{width:26px;height:26px;border-radius:8px;border:2px solid #5c5c5a;display:grid;place-items:center;background:#141414;transition:all .2s var(--ease)}
+.cl-item input{position:absolute;opacity:0;pointer-events:none}
+.cl-item input:checked + .box{background:var(--done);border-color:var(--done)}
+.cl-item .box::after{content:"✓";font-weight:900;color:#0c1a12;opacity:0;font-size:14px;transition:opacity .2s}
+.cl-item input:checked + .box::after{opacity:1}
+.cl-item span.lbl{font-size:15px;transition:color .2s,opacity .2s}
+.cl-item input:checked ~ span.lbl{color:var(--muted);text-decoration:line-through;opacity:.7}
+
+/* ---------- Floating action dock ---------- */
+.fab-dock{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:50;display:flex;flex-direction:column-reverse;align-items:flex-end;gap:12px}
+.fab-toggle{
+  width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(150deg,var(--bronze),var(--bronze-deep));
+  box-shadow:0 8px 26px rgba(0,0,0,.5),0 0 0 1px rgba(199,154,99,.3);
+  display:grid;place-items:center;transition:transform .25s var(--ease)}
+.fab-toggle .fab-icon{font-size:26px;transition:transform .3s var(--ease)}
+.fab-dock.open .fab-toggle{transform:rotate(45deg) scale(1.04)}
+.fab-dock.open .fab-toggle .fab-icon{transform:rotate(-45deg)}
+.fab-menu{display:flex;flex-direction:column;gap:9px;align-items:flex-end;pointer-events:none}
+.fab-item{
+  display:flex;align-items:center;gap:10px;border:none;cursor:pointer;
+  background:rgba(28,28,28,.96);backdrop-filter:blur(10px);color:var(--text);
+  border:1px solid var(--line);border-radius:999px;padding:11px 16px;font-weight:700;font-size:14.5px;
+  box-shadow:var(--shadow-soft);
+  opacity:0;transform:translateY(12px) scale(.9);transition:all .28s var(--ease);
+}
+.fab-item span{font-size:18px}
+.fab-dock.open .fab-menu{pointer-events:auto}
+.fab-dock.open .fab-item{opacity:1;transform:none}
+.fab-dock.open .fab-item:nth-child(1){transition-delay:.02s}
+.fab-dock.open .fab-item:nth-child(2){transition-delay:.05s}
+.fab-dock.open .fab-item:nth-child(3){transition-delay:.08s}
+.fab-dock.open .fab-item:nth-child(4){transition-delay:.11s}
+.fab-dock.open .fab-item:nth-child(5){transition-delay:.14s}
+
+/* ---------- Toast ---------- */
+.toast{
+  position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
+  background:#2a2a2a;color:var(--text);border:1px solid var(--line);
+  padding:12px 18px;border-radius:999px;font-size:14px;font-weight:700;
+  box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:all .3s var(--ease);z-index:60;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Footer note ---------- */
+.foot{margin:30px 0 10px;text-align:center;color:var(--faint);font-size:12px;line-height:1.6}
+
+/* ---------- Wider screens ---------- */
+@media(min-width:620px){
+  .day-hero h2{font-size:34px}
+  .actions{display:grid;grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .routes{grid-template-columns:1fr}
+  .hotel .feat{grid-template-columns:1fr}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}

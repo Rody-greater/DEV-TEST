@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Premium offline roadtrip companion — Duitsland · Zwitserland · Noord-Italië · Dolomieten">
+  <title>Roadtrip Companion 2026</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== Sticky header + swipe tabs ===== -->
+  <header class="app-header" id="appHeader">
+    <div class="header-inner">
+      <div class="header-top">
+        <div class="brand">
+          <span class="brand-mark">▚</span>
+          <div class="brand-text">
+            <h1>Roadtrip Companion</h1>
+            <p id="headerSubtitle">Range Rover Sport · Aug 2026</p>
+          </div>
+        </div>
+        <button class="progress-ring" id="progressRing" type="button" title="Voortgang" aria-label="Voortgang">
+          <span id="progressPct">0%</span>
+        </button>
+      </div>
+      <nav class="day-tabs" id="dayTabs" aria-label="Dagen"></nav>
+    </div>
+  </header>
+
+  <!-- ===== Day panels get rendered here ===== -->
+  <main id="main"></main>
+
+  <!-- ===== Floating quick-action dock ===== -->
+  <div class="fab-dock" id="fabDock">
+    <button class="fab fab-toggle" id="fabToggle" type="button" aria-label="Snelacties">
+      <span class="fab-icon">⚡</span>
+    </button>
+    <div class="fab-menu" id="fabMenu" aria-hidden="true">
+      <button class="fab-item" data-quick="here"><span>📍</span> Ik ben hier</button>
+      <button class="fab-item" data-quick="food"><span>🍝</span> Restaurant</button>
+      <button class="fab-item" data-quick="coffee"><span>☕</span> Koffie</button>
+      <button class="fab-item" data-quick="fuel"><span>⛽</span> Tankstation</button>
+      <button class="fab-item" data-quick="photo"><span>📸</span> Fotospot</button>
+    </div>
+  </div>
+
+  <!-- ===== Toast ===== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
