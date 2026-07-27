@@ -69,8 +69,14 @@ app/
   (groen “op schema” / oranje “krap” / rood “sla bonusstops over”).
 - **Reisdagen:** elke dag een eigen pagina met samenvatting, route (comfort + epic met
   rijtijden), must/nice/bonus, restaurants, GoPro-momenten, fotospots, hotel en checklists.
-- **Road Captain:** vul je **werkelijke vertrektijd** in → de app berekent verwachte
-  aankomst, speling en welke (bonus)stops beter geskipt kunnen worden om op tijd te komen.
+- **Road Captain (live):** vul je **werkelijke vertrektijd** in en geef per stop de status
+  (niet bezocht / aangekomen / vertrokken / overgeslagen). De app rekent live opnieuw:
+  verwachte aankomst, speling, resterende stops en contextuele adviezen. Status volgt de
+  speling (🟢 ruim > 60 min · 🟢 op schema 30–60 · 🟡 let op 15–30 · 🟠 krap 0–15 ·
+  🔴 achter < 0), dus op de standaardvertrektijd nooit “krap” bij positieve speling.
+  Optioneel GPS: binnen ~100 m van een stop stelt de app “ben je aangekomen?” voor
+  (bevestiging vereist, werkt offline). Aankomst-/vertrektijden en verblijftijd worden
+  lokaal bewaard.
 - **Kaart (Leaflet):** alle stops, hotels en parkeerplaatsen met echte coördinaten;
   klik op een marker voor navigeren/parkeren. Tiles worden offline gecachet.
 - **Leitlhof-highlight:** Wellbeing Ritual (17:00, geboekt) met countdown, spa/sauna/zwembad,

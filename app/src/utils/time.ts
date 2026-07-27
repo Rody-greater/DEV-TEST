@@ -29,6 +29,17 @@ export function humanSlack(min: number): string {
   return `${humanDuration(a)} ${min >= 0 ? 'speling' : 'achter'}`
 }
 
+/** Date -> minutes since midnight (with fractional seconds for live ticking). */
+export function nowMinutes(d: Date): number {
+  return d.getHours() * 60 + d.getMinutes() + d.getSeconds() / 60
+}
+
+/** epoch ms -> minutes since midnight (whole minutes). */
+export function clockMinutes(ms: number): number {
+  const d = new Date(ms)
+  return d.getHours() * 60 + d.getMinutes()
+}
+
 export function dutchDate(iso: string): string {
   const d = new Date(iso + 'T12:00:00')
   return d.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' })

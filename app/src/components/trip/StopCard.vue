@@ -4,6 +4,7 @@ import type { Stop } from '@/types/trip'
 import { useUserStore } from '@/stores/user'
 import { mapsSearch, openExternal } from '@/composables/useMaps'
 import Stars from '@/components/ui/Stars.vue'
+import StopStatusControl from '@/components/trip/StopStatusControl.vue'
 import {
   CheckIcon, ChevronDownIcon, HeartIcon as HeartOutline,
   MapPinIcon, CameraIcon, TruckIcon
@@ -15,6 +16,13 @@ const user = useUserStore()
 const open = ref(false)
 
 const done = computed(() => user.isChecked(props.stop.id))
+const status = computed(() => user.statusOf(props.stop.id))
+const statusChip = computed(() => ({
+  pending: null,
+  arrived: { t: '🟢 Aangekomen', c: 'text-bonus' },
+  departed: { t: '🚗 Vertrokken', c: 'text-nav' },
+  skipped: { t: '⏭ Overgeslagen', c: 'text-[#f97316]' }
+}[status.value]))
 const fav = computed(() => user.isFavorite(props.stop.id))
 const rating = computed(() => user.ratingOf(props.stop.id))
 const note = computed({
@@ -67,6 +75,7 @@ function onLeave(el: Element) {
           <span class="uppercase font-bold tracking-wide" :class="catColor">
             {{ stop.category === 'must' ? 'Must' : stop.category === 'nice' ? 'Leuk' : stop.category === 'bonus' ? 'Bonus' : 'Optie' }}
           </span>
+          <span v-if="statusChip" class="font-bold" :class="statusChip.c">{{ statusChip.t }}</span>
         </div>
       </button>
 
@@ -114,6 +123,12 @@ function onLeave(el: Element) {
             <button v-if="stop.photo" type="button" class="flex items-center justify-between rounded-xl2 border border-line bg-card2 px-4 py-3 font-bold text-sm tap" @click="go(stop.photo)">
               <span class="flex items-center gap-2"><CameraIcon class="w-5 h-5 text-muted" /> Fotospot</span><span class="text-nav text-xs font-extrabold">Maps →</span>
             </button>
+          </div>
+
+          <!-- Road Captain: stop status + timers -->
+          <div class="rounded-xl2 border border-line bg-bg2/60 p-3">
+            <div class="text-xs font-bold text-faint uppercase tracking-wide mb-2">Status</div>
+            <StopStatusControl :stop-id="stop.id" />
           </div>
 
           <!-- personal: rating + note -->

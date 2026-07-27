@@ -19,7 +19,7 @@ const user = useUserStore()
 const now = useNow(30_000)
 const { phase, activeDay, dayNumber, totalDays, daysUntilStart, progressPct } = useTripStatus(now)
 
-const { result } = useRoadCaptain(activeDay)
+const { result } = useRoadCaptain(activeDay, now)
 
 const hotel = computed(() => activeDay.value.hotel)
 const nextStop = computed(() => {
@@ -89,20 +89,36 @@ const totalStops = computed(() => trip.days.reduce((n, d) => n + d.stops.length,
       </div>
     </RouterLink>
 
-    <!-- planning status -->
+    <!-- Road Captain dashboard -->
     <div v-if="activeDay.planning" class="card p-4 space-y-3 animate-fadeUp">
       <div class="flex items-center justify-between">
-        <span class="text-xs font-extrabold uppercase tracking-wide text-faint">Planningstatus</span>
-        <StatusBadge :level="result.level">{{ result.headline }}</StatusBadge>
-      </div>
-      <p class="text-sm text-muted">{{ result.detail }}</p>
-      <div class="flex items-center gap-4 text-sm">
-        <span class="flex items-center gap-1.5"><ClockIcon class="w-4 h-4 text-nav" /> ETA hotel <b class="text-ink">{{ result.eta }}</b></span>
-        <span v-if="result.slackMin != null" class="flex items-center gap-1.5">
-          Speling <b :class="result.slackMin < 0 ? 'text-must' : 'text-bonus'">
-            {{ result.slackMin >= 0 ? '+' : '−' }}{{ humanDuration(Math.abs(result.slackMin)) }}
-          </b>
+        <span class="text-xs font-extrabold uppercase tracking-wide text-faint">
+          Road Captain <span v-if="result.mode === 'live'" class="text-bonus">· live</span>
         </span>
+        <StatusBadge :level="result.level">{{ result.label }}</StatusBadge>
+      </div>
+      <Transition name="fade" mode="out-in">
+        <p :key="result.advice" class="text-sm text-ink/90 leading-relaxed">{{ result.advice }}</p>
+      </Transition>
+      <div class="grid grid-cols-3 gap-2 text-center">
+        <div class="rounded-xl2 border border-line bg-bg2/60 py-2">
+          <div class="text-[10px] font-extrabold uppercase text-faint">Hotel ETA</div>
+          <div class="text-sm font-black text-bronze tabular-nums">{{ result.hotelEta }}</div>
+        </div>
+        <div class="rounded-xl2 border border-line bg-bg2/60 py-2">
+          <div class="text-[10px] font-extrabold uppercase text-faint">Speling</div>
+          <div class="text-sm font-black tabular-nums" :class="result.slackMin != null && result.slackMin < 0 ? 'text-[#ef4444]' : 'text-bonus'">
+            {{ result.slackMin != null ? (result.slackMin >= 0 ? '+' : '−') + humanDuration(Math.abs(result.slackMin)) : '—' }}
+          </div>
+        </div>
+        <div class="rounded-xl2 border border-line bg-bg2/60 py-2">
+          <div class="text-[10px] font-extrabold uppercase text-faint">Nog te rijden</div>
+          <div class="text-sm font-black text-ink tabular-nums">{{ humanDuration(result.remainingDriveMin) }}</div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs">
+        <span class="flex items-center gap-1.5 text-muted"><ClockIcon class="w-4 h-4 text-nav" /> Nog te bezoeken <b class="text-ink">{{ result.remainingStops }}</b></span>
+        <span v-if="result.appointment" class="text-muted">Afspraak <b class="text-bronze">{{ result.appointment.time }}</b></span>
       </div>
       <RouterLink :to="`/day/${activeDay.id}`" class="block text-center text-xs font-extrabold text-nav pt-1">Open Road Captain →</RouterLink>
     </div>
