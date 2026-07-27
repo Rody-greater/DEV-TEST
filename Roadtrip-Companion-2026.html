@@ -131,8 +131,11 @@ body{
 
 /* ---------- Main / panels ---------- */
 main{max-width:var(--maxw);margin:auto;padding:20px 16px 40px}
+/* Radio inputs drive the tabs with zero JavaScript */
+.tabstate{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;clip:rect(0 0 0 0)}
 .panel{display:none;animation:fadeUp .45s var(--ease)}
-.panel.active{display:block}
+.tabstate:checked + .panel{display:block}
+.panel.active{display:block}          /* JS-enhancement fallback */
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* ---------- Day hero ---------- */
@@ -183,17 +186,20 @@ main{max-width:var(--maxw);margin:auto;padding:20px 16px 40px}
 .cat-bonus .cat-dot{background:var(--bonus);box-shadow:0 0 0 4px rgba(47,166,109,.15)}
 .cat-must{color:#ffb492}.cat-nice{color:#f6cd83}.cat-bonus{color:#8ad9b3}
 
-/* ---------- Stop card (accordion) ---------- */
+/* ---------- Stop card (native <details> accordion, no JS needed) ---------- */
 .stop{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   margin-bottom:11px;overflow:hidden;
   transition:border-color .25s var(--ease),background .25s var(--ease);
 }
-.stop.done{border-color:rgba(47,166,109,.5);background:linear-gradient(160deg,#14201a,#161616)}
+.stop.done,
+details.stop:has(.stop-check:checked){border-color:rgba(47,166,109,.5);background:linear-gradient(160deg,#14201a,#161616)}
 .stop-summary{
   display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:12px;
-  padding:15px 16px;cursor:pointer;user-select:none;
+  padding:15px 16px;cursor:pointer;user-select:none;list-style:none;
 }
+.stop-summary::-webkit-details-marker{display:none}
+.stop-summary::marker{content:""}
 /* Big checkbox */
 .check{position:relative;flex:0 0 auto}
 .check input{position:absolute;opacity:0;width:30px;height:30px;margin:0;cursor:pointer}
@@ -211,14 +217,11 @@ main{max-width:var(--maxw);margin:auto;padding:20px 16px 40px}
 .stop-sub{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:5px;font-size:12.5px;color:var(--muted)}
 .stop-sub .stars{color:var(--bronze);letter-spacing:1px}
 .chev{color:var(--faint);font-size:15px;transition:transform .28s var(--ease);flex:0 0 auto}
-.stop.open .chev{transform:rotate(180deg)}
+.stop.open .chev,
+details.stop[open] .chev{transform:rotate(180deg)}
 
-.stop-body{
-  max-height:0;opacity:0;overflow:hidden;
-  transition:max-height .4s var(--ease),opacity .3s var(--ease),padding .3s var(--ease);
-  padding:0 16px;
-}
-.stop.open .stop-body{max-height:1400px;opacity:1;padding:0 16px 16px}
+.stop-body{padding:0 16px 16px}
+details.stop[open] .stop-body{animation:fadeUp .3s var(--ease)}
 .stop-body p{color:var(--muted);line-height:1.55;margin:2px 0 12px;font-size:14.5px}
 .tip{display:flex;gap:8px;background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius-xs);padding:10px 12px;font-size:13.5px;color:#d8d3ca;margin-bottom:12px}
 .tip b{color:var(--bronze);white-space:nowrap}
@@ -341,22 +344,29 @@ main{max-width:var(--maxw);margin:auto;padding:20px 16px 40px}
 .fab-toggle .fab-icon{font-size:26px;transition:transform .3s var(--ease)}
 .fab-dock.open .fab-toggle{transform:rotate(45deg) scale(1.04)}
 .fab-dock.open .fab-toggle .fab-icon{transform:rotate(-45deg)}
+.fab-state{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
 .fab-menu{display:flex;flex-direction:column;gap:9px;align-items:flex-end;pointer-events:none}
 .fab-item{
-  display:flex;align-items:center;gap:10px;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:10px;border:none;cursor:pointer;text-decoration:none;
   background:rgba(28,28,28,.96);backdrop-filter:blur(10px);color:var(--text);
   border:1px solid var(--line);border-radius:999px;padding:11px 16px;font-weight:700;font-size:14.5px;
   box-shadow:var(--shadow-soft);
   opacity:0;transform:translateY(12px) scale(.9);transition:all .28s var(--ease);
 }
 .fab-item span{font-size:18px}
-.fab-dock.open .fab-menu{pointer-events:auto}
-.fab-dock.open .fab-item{opacity:1;transform:none}
-.fab-dock.open .fab-item:nth-child(1){transition-delay:.02s}
-.fab-dock.open .fab-item:nth-child(2){transition-delay:.05s}
-.fab-dock.open .fab-item:nth-child(3){transition-delay:.08s}
-.fab-dock.open .fab-item:nth-child(4){transition-delay:.11s}
-.fab-dock.open .fab-item:nth-child(5){transition-delay:.14s}
+/* open state — works via checkbox (no JS) or via .open class (JS) */
+.fab-state:checked ~ .fab-toggle,.fab-dock.open .fab-toggle{transform:rotate(45deg) scale(1.04)}
+.fab-state:checked ~ .fab-toggle .fab-icon,.fab-dock.open .fab-toggle .fab-icon{transform:rotate(-45deg)}
+.fab-state:checked ~ .fab-menu,.fab-dock.open .fab-menu{pointer-events:auto}
+.fab-state:checked ~ .fab-menu .fab-item,.fab-dock.open .fab-item{opacity:1;transform:none}
+.fab-menu .fab-item:nth-child(1){transition-delay:.02s}
+.fab-menu .fab-item:nth-child(2){transition-delay:.05s}
+.fab-menu .fab-item:nth-child(3){transition-delay:.08s}
+.fab-menu .fab-item:nth-child(4){transition-delay:.11s}
+.fab-menu .fab-item:nth-child(5){transition-delay:.14s}
+
+/* day-tab is now a <label>; keep it tappable & consistent */
+label.day-tab{display:inline-block;cursor:pointer}
 
 /* ---------- Toast ---------- */
 .toast{
@@ -384,1031 +394,801 @@ main{max-width:var(--maxw);margin:auto;padding:20px 16px 40px}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 
+
+/* no-JS active tab highlight */
+body:has(#day-0:checked) .day-tab[for="day-0"],body:has(#day-1:checked) .day-tab[for="day-1"],body:has(#day-2:checked) .day-tab[for="day-2"],body:has(#day-3:checked) .day-tab[for="day-3"],body:has(#day-4:checked) .day-tab[for="day-4"],body:has(#day-5:checked) .day-tab[for="day-5"],body:has(#day-6:checked) .day-tab[for="day-6"]{background:linear-gradient(155deg,var(--bronze),var(--bronze-deep));border-color:var(--bronze);color:#161009;box-shadow:0 6px 20px var(--bronze-glow)}
+body:has(#day-0:checked) .day-tab[for="day-0"] span,body:has(#day-1:checked) .day-tab[for="day-1"] span,body:has(#day-2:checked) .day-tab[for="day-2"] span,body:has(#day-3:checked) .day-tab[for="day-3"] span,body:has(#day-4:checked) .day-tab[for="day-4"] span,body:has(#day-5:checked) .day-tab[for="day-5"] span,body:has(#day-6:checked) .day-tab[for="day-6"] span{color:#3a2a15}
+body:has(#day-7:checked) .day-tab.practical{background:linear-gradient(155deg,#e0e0dc,#b8b8b3);border-color:#cfcfc9;color:#161616}
+body:has(#day-7:checked) .day-tab.practical span{color:#333}
   </style>
 </head>
 <body>
-
-  <!-- ===== Sticky header + swipe tabs ===== -->
   <header class="app-header" id="appHeader">
     <div class="header-inner">
       <div class="header-top">
-        <div class="brand">
-          <span class="brand-mark">▚</span>
-          <div class="brand-text">
-            <h1>Roadtrip Companion</h1>
-            <p id="headerSubtitle">Range Rover Sport · Aug 2026</p>
-          </div>
-        </div>
-        <button class="progress-ring" id="progressRing" type="button" title="Voortgang" aria-label="Voortgang">
-          <span id="progressPct">0%</span>
-        </button>
+        <div class="brand"><span class="brand-mark">▚</span>
+          <div class="brand-text"><h1>Roadtrip Companion</h1><p id="headerSubtitle">Dinsdag 4 augustus · Dag 1</p></div></div>
+        <button class="progress-ring" id="progressRing" type="button" title="Voortgang / Praktisch" aria-label="Voortgang"><span id="progressPct">0%</span></button>
       </div>
-      <nav class="day-tabs" id="dayTabs" aria-label="Dagen"></nav>
+      <nav class="day-tabs" id="dayTabs" aria-label="Dagen"><label class="day-tab active" for="day-0">1<span>4 aug</span></label><label class="day-tab" for="day-1">2<span>5 aug</span></label><label class="day-tab" for="day-2">3<span>6–10 aug</span></label><label class="day-tab" for="day-3">4<span>11 aug</span></label><label class="day-tab" for="day-4">5<span>12 aug</span></label><label class="day-tab" for="day-5">6<span>13 aug</span></label><label class="day-tab" for="day-6">7<span>14 aug</span></label><label class="day-tab practical" for="day-7">⚙️<span>Praktisch</span></label></nav>
     </div>
   </header>
 
-  <!-- ===== Day panels get rendered here ===== -->
-  <main id="main"></main>
+  <main id="main">
+<input class="tabstate" type="radio" name="day" id="day-0" checked data-sub="Dinsdag 4 augustus · Dag 1">
+     <section class="panel" id="panel-0"><div class="day-hero"><div class="day-eyebrow">Dinsdag 4 augustus · Dag 1</div>
+    <h2>Almere → Bernkastel-Kues</h2><p class="subtitle">Warmdraaien door de Eifel en de Moezel</p></div><div class="stat-strip">
+      <div class="stat accent"><span class="k">Afstand</span><span class="v">± 415 km</span></div>
+      <div class="stat"><span class="k">Rijtijd</span><span class="v">4 u 20 (rijden)</span></div>
+      <div class="stat nav"><span class="k">Vertrek</span><span class="v">08:30</span></div>
+      <div class="stat"><span class="k">Aankomst</span><span class="v">± 16:30</span></div></div><div class="routes">
+      <a class="route-btn route-comfort" href="https://www.google.com/maps/dir/?api=1&origin=Almere%2C%20Nederland&destination=Burgblickhotel%2C%20Bernkastel-Kues%2C%20Duitsland&travelmode=driving" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
+      <a class="route-btn route-epic" href="https://www.google.com/maps/dir/?api=1&origin=Almere%2C%20Nederland&destination=Burgblickhotel%2C%20Bernkastel-Kues%2C%20Duitsland&travelmode=driving&waypoints=Monschau%2C%20Duitsland|N%C3%BCrburgring%2C%20N%C3%BCrburg%2C%20Duitsland|Cochem%2C%20Duitsland" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a></div><div class="banner banner-advice"><strong>Weer:</strong> Zomers en warm in het dal (25–30°). In de Eifel kan het rond de middag onweren — plan Monschau daarom vroeg.</div><div class="banner banner-weather"><strong>Bij slecht weer:</strong> Bij regen: sla Geierlay over (glad op de brug) en maak van Cochem je overdekte koffie- en lunchstop.</div><div class="banner banner-advice"><strong>Mijn keuze:</strong> Monschau en de Nürburgring altijd meepakken. Cochem alleen als je energie over hebt — anders rechtstreeks naar de Moezel.</div><div class="cat-head cat-must"><span class="cat-dot"></span>🟥 Must do</div><details class="stop" data-key="d1-must-monschau-altstadt">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d1-must-monschau-altstadt"><label class="box" for="chk-d1-must-monschau-altstadt" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏘️</span>
+    <div class="stop-main"><div class="stop-title">Monschau Altstadt</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 60–75 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Ochtend, vóór de bussen</span></div>
+    <p>Perfecte eerste stop: vakwerkhuizen tegen de rotswand, de Rur die dwars door het stadje loopt en compact genoeg om niet je halve dag te kosten.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Parkeer bij P Au en loop langs de rivier het centrum in — mooiste aanblik en je auto staat in de schaduw.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkhaus%20Au%20Monschau" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Monschau%20Altstadt" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Rotes%20Haus%20Monschau" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d1-must-n-rburgring-boulevard">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d1-must-n-rburgring-boulevard"><label class="box" for="chk-d1-must-n-rburgring-boulevard" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏁</span>
+    <div class="stop-main"><div class="stop-title">Nürburgring — Boulevard</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 45–60 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Late ochtend</span></div>
+    <p>Je rijdt een Range Rover Sport door de Eifel en komt er praktisch langs. Even de Boulevard op, de pitstraat ruiken en verder. Overslaan zou raar zijn.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>GoPro: monteer de suction mount op de motorkap vóór je de aanrijroute door het bos neemt — dat stuk is filmisch.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=N%C3%BCrburgring%20Grand-Prix-Strecke%20Parkplatz" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=N%C3%BCrburgring" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=N%C3%BCrburgring%20Boulevard" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-nice"><span class="cat-dot"></span>🟧 Leuk / nice to have</div><details class="stop" data-key="d1-nice-cochem-aan-de-moezel">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d1-nice-cochem-aan-de-moezel"><label class="box" for="chk-d1-nice-cochem-aan-de-moezel" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏰</span>
+    <div class="stop-main"><div class="stop-title">Cochem aan de Moezel</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 60–90 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Namiddag</span></div>
+    <p>Reichsburg hoog boven de Moezel, een compact wijnstadje en de eerste echte vakantie-vibe. Fijne plek voor een late lunch.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Rijd de Moezelroute (B49) langs het water i.p.v. de snelweg — het laatste half uur naar het hotel is dan al genieten.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkplatz%20Endertplatz%20Cochem" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Cochem%20aan%20de%20Moezel" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Reichsburg%20Cochem" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-bonus"><span class="cat-dot"></span>🟩 Bonus</div><details class="stop" data-key="d1-bonus-geierlay-hangbrug">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d1-bonus-geierlay-hangbrug"><label class="box" for="chk-d1-bonus-geierlay-hangbrug" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🌉</span>
+    <div class="stop-main"><div class="stop-title">Geierlay hangbrug</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 75–90 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Droog, helder weer</span><span class="pill weather">🌦️ Alleen bij droog weer</span></div>
+    <p>360 meter hangbrug over een groen dal. Spectaculair, maar je bent relatief veel tijd kwijt aan parkeren en de wandeling er naartoe.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Alleen doen als je vóór 15:00 bij Mörsdorf bent — anders schuift het diner te ver op.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Besucherzentrum%20Geierlay%20M%C3%B6rsdorf" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Geierlay%20hangbrug" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Geierlay%20H%C3%A4ngeseilbr%C3%BCcke" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="mini-block"><h4>🍝 Restauranttips</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Altstadt%20Monschau" target="_blank" rel="noopener"><span class="ic">📍</span>Lunch · Monschau</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Altstadt%20Bernkastel-Kues" target="_blank" rel="noopener"><span class="ic">📍</span>Moezel-diner · Bernkastel</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Weinstube%20Bernkastel-Kues" target="_blank" rel="noopener"><span class="ic">📍</span>Wijnstube</a></div></div><div class="mini-block"><h4>🎬 GoPro-momenten</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=N%C3%BCrburgring%20Nordschleife" target="_blank" rel="noopener"><span class="ic">📍</span>Aanrijroute Nürburgring (bos)</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Moezelroute%20B49%20Cochem" target="_blank" rel="noopener"><span class="ic">📍</span>Moezelroute B49 langs het water</a></div></div><div class="mini-block"><h4>📸 Fotospots</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Rurbr%C3%BCcke%20Monschau" target="_blank" rel="noopener"><span class="ic">📍</span>Rurbrücke Monschau</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Reichsburg%20Cochem%20viewpoint" target="_blank" rel="noopener"><span class="ic">📍</span>Reichsburg viewpoint</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Bernkasteler%20Doctor%20Weinberg" target="_blank" rel="noopener"><span class="ic">📍</span>Wijngaarden bij Bernkastel</a></div></div><div class="mini-block"><h4>⛽ Tankadvies</h4><div class="fuel-note">Tank vol in Nederland of vlak over de grens — brandstof in NL/DE is deze dag het voordeligst. Ligt de route langs Luxemburg, dan is dáár tanken het goedkoopst van de hele reis.</div></div><section class="hotel"><div class="hotel-head"><h3>🏨 Burgblickhotel</h3><span class="tag-booked">✓ geboekt</span></div>
+    <p class="addr">Bernkastel-Kues, Moezel · Duitsland</p>
+    <div class="feat"><div class="feat-item"><b>Inchecken</b>vanaf 15:00</div><div class="feat-item"><b>Parkeren</b>Eigen parkeerplaats</div><div class="feat-item"><b>EV laden</b>Laadpunten in Bernkastel-Kues centrum</div><div class="feat-item"><b>Restaurant</b>Regionale Moezelkeuken</div></div><div class="actions" style="margin-top:14px"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Burgblickhotel%20Bernkastel-Kues" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Burgblickhotel%20Bernkastel-Kues" target="_blank" rel="noopener"><span class="lead"><span class="ic">📞</span> Adres &amp; telefoon</span><span class="go">Maps →</span></a><a class="action book" href="https://www.google.com/search?q=Burgblickhotel%20Bernkastel-Kues%20offici%C3%ABle%20website" target="_blank" rel="noopener"><span class="lead"><span class="ic">🌐</span> Website</span><span class="go">Zoek →</span></a><a class="action book" href="https://www.booking.com/searchresults.nl.html?ss=Burgblickhotel%20Bernkastel-Kues" target="_blank" rel="noopener"><span class="lead"><span class="ic">🛏️</span> Booking</span><span class="go">Open →</span></a></div></section></section>
+<input class="tabstate" type="radio" name="day" id="day-1" data-sub="Woensdag 5 augustus · Dag 2">
+     <section class="panel" id="panel-1"><div class="day-hero"><div class="day-eyebrow">Woensdag 5 augustus · Dag 2</div>
+    <h2>Bernkastel-Kues → Weggis</h2><p class="subtitle">Van de Moezel naar het Vierwoudstrekenmeer</p></div><div class="stat-strip">
+      <div class="stat accent"><span class="k">Afstand</span><span class="v">± 490 km</span></div>
+      <div class="stat"><span class="k">Rijtijd</span><span class="v">5 u (rijden)</span></div>
+      <div class="stat nav"><span class="k">Vertrek</span><span class="v">08:00</span></div>
+      <div class="stat"><span class="k">Aankomst</span><span class="v">± 17:30</span></div></div><div class="routes">
+      <a class="route-btn route-comfort" href="https://www.google.com/maps/dir/?api=1&origin=Bernkastel-Kues%2C%20Duitsland&destination=Hotel%20Alpenblick%2C%20Weggis%2C%20Zwitserland&travelmode=driving" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
+      <a class="route-btn route-epic" href="https://www.google.com/maps/dir/?api=1&origin=Bernkastel-Kues%2C%20Duitsland&destination=Hotel%20Alpenblick%2C%20Weggis%2C%20Zwitserland&travelmode=driving&waypoints=Baden-Baden%2C%20Duitsland|Rheinfall%2C%20Schaffhausen%2C%20Zwitserland|Luzern%2C%20Zwitserland" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a></div><div class="banner banner-advice"><strong>Weer:</strong> Kans op stapelwolken boven de Alpen in de namiddag. Rheinfall is ook bij bewolking indrukwekkend; Luzern het mooist met avondlicht.</div><div class="banner banner-weather"><strong>Bij slecht weer:</strong> Bij aanhoudende regen: sla de Rheinfall-lus over, rijd door de tunnel richting Luzern en check vroeg in bij Alpenblick.</div><div class="banner banner-advice"><strong>Mijn keuze:</strong> Rheinfall is de hoofdstop. Luzern compact meepakken (Kapellbrücke + meer), anders wordt dit een lange dag.</div><div class="cat-head cat-must"><span class="cat-dot"></span>🟥 Must do</div><details class="stop" data-key="d2-must-rheinfall">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d2-must-rheinfall"><label class="box" for="chk-d2-must-rheinfall" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🌊</span>
+    <div class="stop-main"><div class="stop-title">Rheinfall</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 45–60 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Rond het middaguur</span></div>
+    <p>De grootste waterval van Europa, en precies het soort natuurgeweld waarvoor je zo’n reis maakt. Vanaf Schloss Laufen sta je er bovenop.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Parkeer aan de Schloss-Laufen-kant (zuid) — rustiger, mooiste uitzichtplatforms en direct aan de A4.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Rheinfall%20Parkplatz%20Schloss%20Laufen" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Rheinfall" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Schloss%20Laufen%20am%20Rheinfall" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d2-must-luzern-kapellbr-cke-meer">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d2-must-luzern-kapellbr-cke-meer"><label class="box" for="chk-d2-must-luzern-kapellbr-cke-meer" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏙️</span>
+    <div class="stop-main"><div class="stop-title">Luzern — Kapellbrücke &amp; meer</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 60–90 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Namiddag / avondlicht</span></div>
+    <p>Houten Kapellbrücke, de oude stad en het meer met bergpanorama in één compacte stop. De ideale opmaat naar Weggis.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Vignette-check: je hebt de Zwitserse autobahnvignette nodig vóór de grens (zie tab Praktisch).</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkhaus%20Altstadt%20Luzern" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Luzern" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Kapellbr%C3%BCcke%20Luzern" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-nice"><span class="cat-dot"></span>🟧 Leuk / nice to have</div><details class="stop" data-key="d2-nice-baden-baden">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d2-nice-baden-baden"><label class="box" for="chk-d2-nice-baden-baden" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">♨️</span>
+    <div class="stop-main"><div class="stop-title">Baden-Baden</div>
+      <div class="stop-sub"><span class="stars">★★★☆☆</span><span>⏱ 45–60 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Late ochtend</span></div>
+    <p>Een beschaafde koffiestop met een wandeling door de Lichtentaler Allee — veel prettiger dan een tankstation langs de A5.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Kort houden: even benen strekken, koffie, en door richting de grens.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkgarage%20Kurhaus%20Baden-Baden" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Baden-Baden" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Lichtentaler%20Allee%20Baden-Baden" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-bonus"><span class="cat-dot"></span>🟩 Bonus</div><details class="stop" data-key="d2-bonus-weggis-seepromenade">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d2-bonus-weggis-seepromenade"><label class="box" for="chk-d2-bonus-weggis-seepromenade" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🌅</span>
+    <div class="stop-main"><div class="stop-title">Weggis Seepromenade</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 30–45 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Bij aankomst / zonsondergang</span></div>
+    <p>Na het inchecken even uitwaaien aan het water met de Rigi op de achtergrond. Rustig landen na een lange rijdag.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Reserveer een tafel met meerzicht — de zonsondergang over het meer is de beloning van deze dag.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Weggis%20Seepromenade" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Weggis%20Seepromenade" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Weggis%20Seepromenade%20Rigi" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="mini-block"><h4>🍝 Restauranttips</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Weggis%20lake%20view" target="_blank" rel="noopener"><span class="ic">📍</span>Meerzicht-diner · Weggis</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Altstadt%20Luzern" target="_blank" rel="noopener"><span class="ic">📍</span>Lunch · Luzern oude stad</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=caf%C3%A9%20Schloss%20Laufen%20Rheinfall" target="_blank" rel="noopener"><span class="ic">📍</span>Koffie · Rheinfall</a></div></div><div class="mini-block"><h4>🎬 GoPro-momenten</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=K%C3%BCssnacht%20am%20Rigi" target="_blank" rel="noopener"><span class="ic">📍</span>Afdaling richting Vierwoudstrekenmeer</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Seestrasse%20Weggis" target="_blank" rel="noopener"><span class="ic">📍</span>Seestrasse langs het meer naar Weggis</a></div></div><div class="mini-block"><h4>📸 Fotospots</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Schloss%20Laufen%20am%20Rheinfall" target="_blank" rel="noopener"><span class="ic">📍</span>Schloss Laufen platform</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Kapellbr%C3%BCcke%20Luzern" target="_blank" rel="noopener"><span class="ic">📍</span>Kapellbrücke bij avond</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Weggis%20Rigi%20viewpoint" target="_blank" rel="noopener"><span class="ic">📍</span>Rigi-panorama Weggis</a></div></div><div class="mini-block"><h4>⛽ Tankadvies</h4><div class="fuel-note">Brandstof in Zwitserland is fors duurder. Tank vol in Duitsland vóór de grens (rond Freiburg / Basel). In Zwitserland alleen bijvullen als het echt nodig is.</div></div><section class="hotel"><div class="hotel-head"><h3>🏨 Hotel Alpenblick</h3><span class="tag-booked">✓ geboekt</span></div>
+    <p class="addr">Weggis · Vierwoudstrekenmeer · Zwitserland</p>
+    <div class="feat"><div class="feat-item"><b>Inchecken</b>vanaf 15:00</div><div class="feat-item"><b>Parkeren</b>Hotelparking</div><div class="feat-item"><b>EV laden</b>Laadpunt navragen bij receptie</div><div class="feat-item"><b>Restaurant</b>Terras met meerzicht</div><div class="feat-item"><b>Wellness</b>Kleine spa / sauna</div></div><div class="actions" style="margin-top:14px"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Alpenblick%20Weggis" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Hotel%20Alpenblick%20Weggis" target="_blank" rel="noopener"><span class="lead"><span class="ic">📞</span> Adres &amp; telefoon</span><span class="go">Maps →</span></a><a class="action book" href="https://www.google.com/search?q=Hotel%20Alpenblick%20Weggis%20offici%C3%ABle%20website" target="_blank" rel="noopener"><span class="lead"><span class="ic">🌐</span> Website</span><span class="go">Zoek →</span></a><a class="action book" href="https://www.booking.com/searchresults.nl.html?ss=Hotel%20Alpenblick%20Weggis" target="_blank" rel="noopener"><span class="lead"><span class="ic">🛏️</span> Booking</span><span class="go">Open →</span></a></div></section></section>
+<input class="tabstate" type="radio" name="day" id="day-2" data-sub="6 t/m 10 augustus · Basiskamp">
+     <section class="panel" id="panel-2"><div class="day-hero"><div class="day-eyebrow">6 t/m 10 augustus · Basiskamp</div>
+    <h2>Gardameer — vijf vrije dagen</h2><p class="subtitle">Basis: Hotel Aquila d’Oro, Desenzano del Garda</p></div><div class="banner banner-advice"><strong>Weer:</strong> Hoogzomer aan het meer: 30°+ en broeierig in het dal. Combineer laag (dorpen, water) met hoog (Monte Baldo) op de heetste dagen.</div><div class="banner banner-weather"><strong>Bij slecht weer:</strong> Bij regen of onweer: Sirmione en Malcesine hebben overdekte steegjes en terrassen; stel Monte Baldo uit tot een heldere dag.</div><div class="pool-intro"><b>Zo werkt het:</b> Geen vaste planning. Dit zijn vijf dagen vanuit één basis — kies elke ochtend op gevoel en op het weer. Hieronder staan de beste bestemmingen; vink af wat je hebt gedaan. Alles is dagtrip-afstand vanaf Desenzano.</div><div class="cat-head cat-nice"><span class="cat-dot"></span>Kies je bestemmingen</div><details class="stop" data-key="gardapool-pool-sirmione">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-gardapool-pool-sirmione"><label class="box" for="chk-gardapool-pool-sirmione" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏰</span>
+    <div class="stop-main"><div class="stop-title">Sirmione</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 2–3 uur</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Vroege ochtend (vóór 10:30)</span><span class="pill weather">🌦️ Vroeg = druktevrij</span></div>
+    <p>Scaliger-waterkasteel, smalle straatjes en water aan drie kanten. Het meest iconische dorp van het zuidelijke meer.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Parkeer bij Monte Baldo (auto’s mogen het centrum niet in) en loop het schiereiland op naar Grotte di Catullo &amp; Jamaica Beach.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Monte%20Baldo%20Sirmione" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Sirmione" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Castello%20Scaligero%20Sirmione" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="gardapool-pool-limone-sul-garda">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-gardapool-pool-limone-sul-garda"><label class="box" for="chk-gardapool-pool-limone-sul-garda" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🍋</span>
+    <div class="stop-main"><div class="stop-title">Limone sul Garda</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 2–3 uur</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Ochtend of late namiddag</span></div>
+    <p>Citroenhuizen tegen de rotswand, een fotogeniek haventje en bergen die recht uit het meer lijken te rijzen.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>De aanrijroute langs de westoever (SS45bis) met zijn tunnels is zelf al een belevenis — GoPro aan.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Limone%20sul%20Garda" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Limone%20sul%20Garda" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Limone%20sul%20Garda%20porto" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="gardapool-pool-malcesine">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-gardapool-pool-malcesine"><label class="box" for="chk-gardapool-pool-malcesine" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏰</span>
+    <div class="stop-main"><div class="stop-title">Malcesine</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 2–3 uur</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Ochtend</span></div>
+    <p>Kasteel op een rots, een middeleeuwse haven en het startpunt van de kabelbaan naar Monte Baldo. Een van de mooiste dorpen aan het meer.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Combineer met Monte Baldo: ’s ochtends dorp, daarna omhoog als het zicht helder is.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Malcesine%20centro" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Malcesine" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Castello%20Scaligero%20Malcesine" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="gardapool-pool-monte-baldo-kabelbaan">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-gardapool-pool-monte-baldo-kabelbaan"><label class="box" for="chk-gardapool-pool-monte-baldo-kabelbaan" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🚠</span>
+    <div class="stop-main"><div class="stop-title">Monte Baldo (kabelbaan)</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 2–3 uur</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Heldere ochtend</span><span class="pill weather">🌦️ Alleen bij helder zicht</span></div>
+    <p>Draaiende gondel vanaf Malcesine naar 1.760 m: van meerniveau naar alpien panorama in tien minuten. Boven is het 10–15° koeler.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Ga vroeg of reserveer online — bij mooi weer lopen de wachtrijen op. Neem een laag mee, boven waait het.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Funivia%20Malcesine%20Monte%20Baldo" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Monte%20Baldo" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Monte%20Baldo%20vetta%20panorama" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="gardapool-pool-riva-del-garda">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-gardapool-pool-riva-del-garda"><label class="box" for="chk-gardapool-pool-riva-del-garda" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🌊</span>
+    <div class="stop-main"><div class="stop-title">Riva del Garda</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ halve dag</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Ochtend</span></div>
+    <p>De noordpunt van het meer, omringd door steile rotswanden. Levendige promenade, mooie haven en frisser dan het zuiden.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Combineer met Lago di Tenno vlak erboven — samen een perfecte halve dag.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Riva%20del%20Garda%20centro" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Riva%20del%20Garda" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Riva%20del%20Garda%20porto" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="gardapool-pool-lago-di-tenno">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-gardapool-pool-lago-di-tenno"><label class="box" for="chk-gardapool-pool-lago-di-tenno" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">💎</span>
+    <div class="stop-main"><div class="stop-title">Lago di Tenno</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 1–2 uur</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Zon = turquoise water</span><span class="pill weather">🌦️ Mooist bij zon</span></div>
+    <p>Onwerkelijk turquoise bergmeertje boven Riva. Bij zonlicht lijkt het water te gloeien — een van de mooiste fotostops van de streek.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Neem eventueel het middeleeuwse dorpje Canale di Tenno mee, op loopafstand.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Lago%20di%20Tenno" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Tenno" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Tenno" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="gardapool-pool-lago-di-molveno">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-gardapool-pool-lago-di-molveno"><label class="box" for="chk-gardapool-pool-lago-di-molveno" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏔️</span>
+    <div class="stop-main"><div class="stop-title">Lago di Molveno</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ halve dag</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Heldere dag</span></div>
+    <p>Kristalhelder meer aan de voet van de Brenta-Dolomieten. Verder rijden (± 1u15), maar een adembenemende dagtrip weg van de meerdrukte.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Alleen op een heldere dag doen — de Brenta-toppen máken hier het plaatje.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Lido%20Molveno" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Molveno" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Molveno" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="mini-block"><h4>🍝 Restauranttips</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Porto%20Vecchio%20Desenzano%20del%20Garda" target="_blank" rel="noopener"><span class="ic">📍</span>Meerzicht · Desenzano haven</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=pizzeria%20Sirmione%20lake%20view" target="_blank" rel="noopener"><span class="ic">📍</span>Pizza · Sirmione</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=wine%20bar%20Desenzano%20del%20Garda" target="_blank" rel="noopener"><span class="ic">📍</span>Aperitivo · Desenzano</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=gelateria%20Desenzano%20del%20Garda" target="_blank" rel="noopener"><span class="ic">📍</span>Gelato</a></div></div><div class="mini-block"><h4>🎬 GoPro-momenten</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Strada%20della%20Forra%20Tremosine" target="_blank" rel="noopener"><span class="ic">📍</span>Westoever SS45bis (tunnels)</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Funivia%20Malcesine%20Monte%20Baldo" target="_blank" rel="noopener"><span class="ic">📍</span>Draaigondel Monte Baldo</a></div></div><div class="mini-block"><h4>📸 Fotospots</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Jamaica%20Beach%20Sirmione" target="_blank" rel="noopener"><span class="ic">📍</span>Jamaica Beach Sirmione</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Porto%20Vecchio%20Limone%20sul%20Garda" target="_blank" rel="noopener"><span class="ic">📍</span>Haventje Limone</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Monte%20Baldo%20vetta%20panorama" target="_blank" rel="noopener"><span class="ic">📍</span>Panorama Monte Baldo</a></div></div><div class="mini-block"><h4>⛽ Tankadvies</h4><div class="fuel-note">Tank in Italië buiten de dorpskernen (bij een “self” pomp langs de SS) — goedkoper dan de bemande pompen in de toeristendorpen.</div></div><section class="hotel"><div class="hotel-head"><h3>🏨 Hotel Aquila d’Oro</h3><span class="tag-booked">✓ betaald</span></div>
+    <p class="addr">Desenzano del Garda · Gardameer · Italië</p>
+    <div class="feat"><div class="feat-item"><b>Inchecken</b>vanaf 14:00</div><div class="feat-item"><b>Parkeren</b>Parkeren navragen — centrum Desenzano is beperkt</div><div class="feat-item"><b>EV laden</b>Laadpalen in Desenzano centrum</div><div class="feat-item"><b>Restaurant</b>Ontbijt inbegrepen</div></div><div class="actions" style="margin-top:14px"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Aquila%20d'Oro%20Desenzano%20del%20Garda" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Hotel%20Aquila%20d'Oro%20Desenzano%20del%20Garda" target="_blank" rel="noopener"><span class="lead"><span class="ic">📞</span> Adres &amp; telefoon</span><span class="go">Maps →</span></a><a class="action book" href="https://www.google.com/search?q=Hotel%20Aquila%20d'Oro%20Desenzano%20del%20Garda%20offici%C3%ABle%20website" target="_blank" rel="noopener"><span class="lead"><span class="ic">🌐</span> Website</span><span class="go">Zoek →</span></a><a class="action book" href="https://www.booking.com/searchresults.nl.html?ss=Hotel%20Aquila%20d'Oro%20Desenzano%20del%20Garda" target="_blank" rel="noopener"><span class="lead"><span class="ic">🛏️</span> Booking</span><span class="go">Open →</span></a></div></section></section>
+<input class="tabstate" type="radio" name="day" id="day-3" data-sub="Dinsdag 11 augustus · Dag 4">
+     <section class="panel" id="panel-3"><div class="day-hero"><div class="day-eyebrow">Dinsdag 11 augustus · Dag 4</div>
+    <h2>Desenzano → Canazei</h2><p class="subtitle">Van het meer de Dolomieten in</p></div><div class="stat-strip">
+      <div class="stat accent"><span class="k">Afstand</span><span class="v">± 240 km</span></div>
+      <div class="stat"><span class="k">Rijtijd</span><span class="v">4 u (met passen)</span></div>
+      <div class="stat nav"><span class="k">Vertrek</span><span class="v">08:30</span></div>
+      <div class="stat"><span class="k">Aankomst</span><span class="v">± 16:30</span></div></div><div class="routes">
+      <a class="route-btn route-comfort" href="https://www.google.com/maps/dir/?api=1&origin=Desenzano%20del%20Garda%2C%20Itali%C3%AB&destination=Chalet%20Vites%2C%20Canazei%2C%20Itali%C3%AB&travelmode=driving" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
+      <a class="route-btn route-epic" href="https://www.google.com/maps/dir/?api=1&origin=Desenzano%20del%20Garda%2C%20Itali%C3%AB&destination=Chalet%20Vites%2C%20Canazei%2C%20Itali%C3%AB&travelmode=driving&waypoints=Riva%20del%20Garda%2C%20Itali%C3%AB|Lago%20di%20Carezza%2C%20Itali%C3%AB|Passo%20di%20Costalunga%2C%20Itali%C3%AB|Passo%20Sella%2C%20Itali%C3%AB" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a></div><div class="banner banner-advice"><strong>Weer:</strong> Beneden warm, boven fris. In de Dolomieten kan het na 15:00 onweren — plan de passen daarom vóór de middag/vroege middag.</div><div class="banner banner-weather"><strong>Bij slecht weer:</strong> Bij laaghangende bewolking op de passen: neem de dalroute via Bolzano en bewaar Passo Sella voor morgen (dan rijd je ’m sowieso).</div><div class="banner banner-advice"><strong>Mijn keuze:</strong> Lange, mooie dag. Riva + Lago di Carezza + één pas is genoeg — probeer niet alles af te vinken, morgen is de grote passendag.</div><div class="cat-head cat-must"><span class="cat-dot"></span>🟥 Must do</div><details class="stop" data-key="d4-must-riva-del-garda">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d4-must-riva-del-garda"><label class="box" for="chk-d4-must-riva-del-garda" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🌊</span>
+    <div class="stop-main"><div class="stop-title">Riva del Garda</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 45–60 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Ochtend</span></div>
+    <p>Laatste blik op het Gardameer met de dramatische rotswanden eromheen. Perfecte koffie- en benen-strekken-stop voor je klimt.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Vanaf hier begint het echt te klimmen — controleer koelvloeistof niet, maar geniet wél van de haarspelden.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Riva%20del%20Garda%20centro" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Riva%20del%20Garda" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Riva%20del%20Garda%20porto" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d4-must-lago-di-carezza">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d4-must-lago-di-carezza"><label class="box" for="chk-d4-must-lago-di-carezza" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">💠</span>
+    <div class="stop-main"><div class="stop-title">Lago di Carezza</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 45–60 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Ochtend, windstil water</span></div>
+    <p>Het “regenboogmeer” met de Latemar-toppen erin weerspiegeld. Klein, maar een van de meest gefotografeerde plekken van de Dolomieten.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Windstil = spiegelbeeld. Ga vroeg; na de middag steekt vaak de wind op en verdwijnt de reflectie.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Lago%20di%20Carezza" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Carezza" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Carezza%20Latemar" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d4-must-passo-di-costalunga">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d4-must-passo-di-costalunga"><label class="box" for="chk-d4-must-passo-di-costalunga" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏔️</span>
+    <div class="stop-main"><div class="stop-title">Passo di Costalunga</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 20–30 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Vóór de middag</span></div>
+    <p>De pas net boven Carezza — vloeiende bochten en je eerste echte Dolomieten-panorama. Mooie opwarmer voor Passo Sella.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Even stoppen bij de passhöhe voor koffie en het uitzicht over het Latemar-massief.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20di%20Costalunga" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Passo%20di%20Costalunga" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Costalunga%20viewpoint" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d4-must-passo-sella">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d4-must-passo-sella"><label class="box" for="chk-d4-must-passo-sella" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏔️</span>
+    <div class="stop-main"><div class="stop-title">Passo Sella</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 30–45 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Vroege middag</span><span class="pill weather">🌦️ Alleen bij goed zicht</span></div>
+    <p>Recht onder de Sassolungo-torens door. Een van de indrukwekkendste passen van de Alpen — en morgen rijd je ’m opnieuw als opener.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>GoPro op de motorkap richting de Sassolungo. De laatste klim naar de top is hét beeld van de dag.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella%20Sassolungo" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-nice"><span class="cat-dot"></span>🟧 Leuk / nice to have</div><details class="stop" data-key="d4-nice-lago-di-molveno">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d4-nice-lago-di-molveno"><label class="box" for="chk-d4-nice-lago-di-molveno" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏞️</span>
+    <div class="stop-main"><div class="stop-title">Lago di Molveno</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ als tijd over</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Alleen bij ruime tijd</span></div>
+    <p>Optioneel: het schitterende Molveno-meer ligt op de vroege route. Alleen meenemen als je ruim op schema ligt — anders bewaar je energie voor de passen.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Kort houden bij twijfel; de passen van vandaag en morgen zijn de hoofdact.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Lido%20Molveno" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Molveno" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Molveno" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-bonus"><span class="cat-dot"></span>🟩 Bonus</div><details class="stop" data-key="d4-bonus-val-di-fassa-canazei-dorp">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d4-bonus-val-di-fassa-canazei-dorp"><label class="box" for="chk-d4-bonus-val-di-fassa-canazei-dorp" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🌲</span>
+    <div class="stop-main"><div class="stop-title">Val di Fassa / Canazei dorp</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 30–45 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Bij aankomst</span></div>
+    <p>Gezellig bergdorp op 1.450 m, omringd door de Sella- en Marmolada-massieven. Fijn rondje voor het diner.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Vroeg inchecken bij Chalet Vites en op een terras in het dorp de eerste bergavond vieren.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Canazei%20centro" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Val%20di%20Fassa" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Canazei%20Dolomiti" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="mini-block"><h4>🍝 Restauranttips</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Canazei%20Val%20di%20Fassa" target="_blank" rel="noopener"><span class="ic">📍</span>Berghut-diner · Canazei</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Lago%20di%20Carezza" target="_blank" rel="noopener"><span class="ic">📍</span>Lunch · Lago di Carezza</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=caf%C3%A9%20Riva%20del%20Garda%20porto" target="_blank" rel="noopener"><span class="ic">📍</span>Koffie · Riva del Garda</a></div></div><div class="mini-block"><h4>🎬 GoPro-momenten</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Passo%20Ballino" target="_blank" rel="noopener"><span class="ic">📍</span>Haarspelden boven Riva</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella" target="_blank" rel="noopener"><span class="ic">📍</span>Klim naar Passo Sella</a></div></div><div class="mini-block"><h4>📸 Fotospots</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Carezza%20Latemar" target="_blank" rel="noopener"><span class="ic">📍</span>Spiegeling Lago di Carezza</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella%20Sassolungo" target="_blank" rel="noopener"><span class="ic">📍</span>Sassolungo bij Passo Sella</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Canazei%20Dolomiti" target="_blank" rel="noopener"><span class="ic">📍</span>Canazei bergpanorama</a></div></div><div class="mini-block"><h4>⛽ Tankadvies</h4><div class="fuel-note">Tank vol in het dal (rond Bolzano/Bozen) vóór je de passen in gaat — boven zijn pompen schaars en duurder. Met een volle tank rij je zorgeloos twee passendagen.</div></div><section class="hotel"><div class="hotel-head"><h3>🏨 Chalet Vites</h3><span class="tag-booked">✓ geboekt</span></div>
+    <p class="addr">Canazei · Val di Fassa · Dolomieten · Italië</p>
+    <div class="feat"><div class="feat-item"><b>Inchecken</b>vanaf 15:00</div><div class="feat-item"><b>Parkeren</b>Eigen parkeerplaats bij het chalet</div><div class="feat-item"><b>EV laden</b>Laadpunten in Canazei centrum</div><div class="feat-item"><b>Restaurant</b>Alpiene keuken</div><div class="feat-item"><b>Wellness</b>Sauna / relaxruimte</div></div><div class="actions" style="margin-top:14px"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Chalet%20Vites%20Canazei" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Chalet%20Vites%20Canazei" target="_blank" rel="noopener"><span class="lead"><span class="ic">📞</span> Adres &amp; telefoon</span><span class="go">Maps →</span></a><a class="action book" href="https://www.google.com/search?q=Chalet%20Vites%20Canazei%20offici%C3%ABle%20website" target="_blank" rel="noopener"><span class="lead"><span class="ic">🌐</span> Website</span><span class="go">Zoek →</span></a><a class="action book" href="https://www.booking.com/searchresults.nl.html?ss=Chalet%20Vites%20Canazei" target="_blank" rel="noopener"><span class="lead"><span class="ic">🛏️</span> Booking</span><span class="go">Open →</span></a></div></section></section>
+<input class="tabstate" type="radio" name="day" id="day-4" data-sub="Woensdag 12 augustus · Dag 5 · Hoogtepunt">
+     <section class="panel" id="panel-4"><div class="day-hero"><div class="day-eyebrow">Woensdag 12 augustus · Dag 5 · Hoogtepunt</div>
+    <h2>Canazei → San Candido</h2><p class="subtitle">De Grote Dolomieten-dag: vier passen en twee bergmeren</p></div><div class="stat-strip">
+      <div class="stat accent"><span class="k">Afstand</span><span class="v">± 185 km</span></div>
+      <div class="stat"><span class="k">Rijtijd</span><span class="v">5–6 u (met passen &amp; stops)</span></div>
+      <div class="stat nav"><span class="k">Vertrek</span><span class="v">08:30</span></div>
+      <div class="stat"><span class="k">Aankomst</span><span class="v">± 16:00</span></div></div><div class="routes">
+      <a class="route-btn route-comfort" href="https://www.google.com/maps/dir/?api=1&origin=Canazei%2C%20Itali%C3%AB&destination=Naturhotel%20Leitlhof%2C%20Innichen%20(San%20Candido)%2C%20Itali%C3%AB&travelmode=driving" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
+      <a class="route-btn route-epic" href="https://www.google.com/maps/dir/?api=1&origin=Canazei%2C%20Itali%C3%AB&destination=Naturhotel%20Leitlhof%2C%20Innichen%20(San%20Candido)%2C%20Itali%C3%AB&travelmode=driving&waypoints=Passo%20Sella%2C%20Itali%C3%AB|Passo%20Gardena%2C%20Itali%C3%AB|Passo%20Falzarego%2C%20Itali%C3%AB|Lago%20di%20Misurina%2C%20Itali%C3%AB|Lago%20di%20Braies%2C%20Itali%C3%AB" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a></div><div class="depart-advice"><div><div class="lbl">Aanbevolen vertrek</div>
+      <div class="big">08:30</div></div><div class="txt">Vertrek uiterlijk 08:30. Met de vier passen en twee meren kom je dan rond 16:00 relaxed aan — ruim vóór het Wellbeing Ritual van 17:00.</div></div><div class="banner banner-advice"><strong>Weer:</strong> Vroeg de passen op: helder ochtendlicht en nog geen wolken op de toppen. Onweer bouwt vaak na 15:00 op — dan wil je al richting Braies/hotel zijn.</div><div class="banner banner-weather"><strong>Bij slecht weer:</strong> Bij dichte bewolking op de hoogste passen: Passo Falzarego kan in de wolken hangen. Val Gardena → Val Badia door het dal blijft dan de mooie backup naar Braies.</div><div class="banner banner-advice"><strong>Mijn keuze:</strong> Rijd de passen in deze volgorde: Sella → Gardena → Falzarego → Misurina → Braies. Tre Cime en Santa Maddalena laten we bewust weg — die kosten te veel tijd voor vandaag.</div><div class="mini-block"><h4>⏱ Tijdlijn van de dag</h4><div class="timeline"><div class="tl-item"><div class="tl-time">08:30</div>
+      <div class="tl-title">Vertrek Canazei</div><div class="tl-note">Volle tank, GoPro geladen, koffie mee.</div></div><div class="tl-item"><div class="tl-time">09:00</div>
+      <div class="tl-title">Passo Sella</div><div class="tl-note">Onder de Sassolungo door — ochtendlicht.</div></div><div class="tl-item"><div class="tl-time">09:45</div>
+      <div class="tl-title">Passo Gardena</div><div class="tl-note">Groene weiden onder de Sella-torens.</div></div><div class="tl-item"><div class="tl-time">11:30</div>
+      <div class="tl-title">Passo Falzarego</div><div class="tl-note">Hoogste punt; kabelbaan Lagazuoi optioneel.</div></div><div class="tl-item"><div class="tl-time">13:00</div>
+      <div class="tl-title">Lago di Misurina</div><div class="tl-note">Lunch aan het meer met Dolomieten-decor.</div></div><div class="tl-item key"><div class="tl-time">14:30</div>
+      <div class="tl-title">Lago di Braies — P2</div><div class="tl-note">Geboekte parking. Rondje langs het water.</div></div><div class="tl-item end"><div class="tl-time">16:00</div>
+      <div class="tl-title">Aankomst Naturhotel Leitlhof</div><div class="tl-note">Inchecken, rustig aan.</div></div><div class="tl-item end"><div class="tl-time">17:00</div>
+      <div class="tl-title">Wellbeing Ritual</div><div class="tl-note">Vaste afspraak — geboekt.</div></div></div></div><div class="cat-head cat-must"><span class="cat-dot"></span>🟥 Must do</div><details class="stop" data-key="d5-must-passo-sella">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d5-must-passo-sella"><label class="box" for="chk-d5-must-passo-sella" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏔️</span>
+    <div class="stop-main"><div class="stop-title">Passo Sella</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 30 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ 09:00 — ochtendlicht</span></div>
+    <p>De opener. Recht onder de getande Sassolungo-torens door, met ochtendlicht op de rotsen. De mooiste start die je je kunt wensen.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Stop bij de passhöhe voor het klassieke beeld van de weg die naar de torens kronkelt.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella%20Sassolungo" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d5-must-passo-gardena-gr-dner-joch">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d5-must-passo-gardena-gr-dner-joch"><label class="box" for="chk-d5-must-passo-gardena-gr-dner-joch" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏔️</span>
+    <div class="stop-main"><div class="stop-title">Passo Gardena (Grödner Joch)</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 30 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Late ochtend</span></div>
+    <p>Glooiende alpenweiden onder de verticale wanden van het Sella-massief. Zachter en groener dan Sella, minstens zo fotogeniek.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Ideale koffiestop bij de bergpost op de top voor je doorrijdt naar Falzarego.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Gardena" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Passo%20Gardena" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Gardena%20Gr%C3%B6dner%20Joch" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d5-must-passo-falzarego">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d5-must-passo-falzarego"><label class="box" for="chk-d5-must-passo-falzarego" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">⛰️</span>
+    <div class="stop-main"><div class="stop-title">Passo Falzarego</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 45 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ ± 11:30</span><span class="pill weather">🌦️ Kan in de wolken hangen</span></div>
+    <p>Het hoogste punt van de dag (2.105 m), kaal en groots. Optioneel: kabelbaan Lagazuoi omhoog voor een 360°-panorama over de Dolomieten.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Even uit de auto: op deze hoogte is de lucht scherp en het uitzicht eindeloos. Warme laag mee.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Falzarego" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Passo%20Falzarego" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Falzarego%20Lagazuoi" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d5-must-lago-di-misurina">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d5-must-lago-di-misurina"><label class="box" for="chk-d5-must-lago-di-misurina" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏞️</span>
+    <div class="stop-main"><div class="stop-title">Lago di Misurina</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ lunch · 60–75 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ 13:00 — lunchstop</span></div>
+    <p>Rustig bergmeer op 1.750 m met de Dolomieten weerspiegeld in het water. De perfecte lunchstop op de route — zonder de drukte en de tijd van Tre Cime.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Terras aan het water pakken; hiervandaan is het nog maar een dik half uur naar Braies.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20Lago%20di%20Misurina" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Misurina" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Misurina" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d5-must-lago-di-braies-p2-geboekt">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d5-must-lago-di-braies-p2-geboekt"><label class="box" for="chk-d5-must-lago-di-braies-p2-geboekt" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">💙</span>
+    <div class="stop-main"><div class="stop-title">Lago di Braies — P2 geboekt</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ 75–90 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ 14:30 — vóór de middagdrukte wegtrekt</span></div>
+    <p>Het smaragdgroene kroonjuweel van de Dolomieten, met de houten roeibootjes en de Seekofel erachter. Je P2-parking is gereserveerd — geen zoekstress.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Gebruik de aparte knop “Navigeer naar P2” hieronder. Loop het meer (deels) rond voor het beste licht op het water.</span></div>
+    
+    <div class="actions"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20P2%20Lago%20di%20Braies%20Prags" target="_blank" rel="noopener"><span class="lead"><span class="ic">🅿️</span> Navigeer naar P2 <em style="color:var(--muted);font-style:normal">· geboekt</em></span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parcheggio%20P2%20Lago%20di%20Braies%20Prags" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Braies" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Braies" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-nice"><span class="cat-dot"></span>🟧 Leuk / nice to have</div><details class="stop" data-key="d5-nice-lagazuoi-kabelbaan">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d5-nice-lagazuoi-kabelbaan"><label class="box" for="chk-d5-nice-lagazuoi-kabelbaan" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🚡</span>
+    <div class="stop-main"><div class="stop-title">Lagazuoi kabelbaan</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 60–90 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Alleen bij helder weer</span><span class="pill weather">🌦️ Alleen bij helder zicht</span></div>
+    <p>Optioneel vanaf Falzarego: omhoog naar 2.750 m voor het meest weidse uitzicht van de dag. Alleen als je ruim op schema ligt.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Houd de klok in de gaten — het Wellbeing Ritual om 17:00 staat vast.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Rifugio%20Lagazuoi%20funivia%20Passo%20Falzarego" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Lagazuoi%20kabelbaan" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Rifugio%20Lagazuoi%20panorama" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-bonus"><span class="cat-dot"></span>🟩 Bonus</div><details class="stop" data-key="d5-bonus-rifugio-stop-naar-keuze">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d5-bonus-rifugio-stop-naar-keuze"><label class="box" for="chk-d5-bonus-rifugio-stop-naar-keuze" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">☕</span>
+    <div class="stop-main"><div class="stop-title">Rifugio-stop naar keuze</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 30 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Onderweg</span></div>
+    <p>Tussen de passen liggen tal van berghutten (rifugi) voor een espresso met uitzicht. Pak er eentje waar het je aanstaat.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Kleine, on-toeristische rifugi net naast de pas zijn vaak het lekkerst én het rustigst.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Valparola" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Passo%20Valparola" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Passo%20Valparola" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="mini-block"><h4>🍝 Restauranttips</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Lago%20di%20Misurina" target="_blank" rel="noopener"><span class="ic">📍</span>Lunch aan het water · Misurina</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=rifugio%20Passo%20Gardena" target="_blank" rel="noopener"><span class="ic">📍</span>Rifugio · Passo Gardena</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Naturhotel%20Leitlhof%20Innichen%20restaurant" target="_blank" rel="noopener"><span class="ic">📍</span>Diner · Naturhotel Leitlhof</a></div></div><div class="mini-block"><h4>🎬 GoPro-momenten</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Passo%20Gardena" target="_blank" rel="noopener"><span class="ic">📍</span>Sella → Gardena serpentines</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Passo%20Falzarego" target="_blank" rel="noopener"><span class="ic">📍</span>Afdaling Falzarego</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Braies" target="_blank" rel="noopener"><span class="ic">📍</span>Aankomst Lago di Braies</a></div></div><div class="mini-block"><h4>📸 Fotospots</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Passo%20Sella%20Sassolungo" target="_blank" rel="noopener"><span class="ic">📍</span>Sassolungo vanaf Passo Sella</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Passo%20Gardena%20Gr%C3%B6dner%20Joch" target="_blank" rel="noopener"><span class="ic">📍</span>Sella-torens vanaf Gardena</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Braies%20boats" target="_blank" rel="noopener"><span class="ic">📍</span>Roeibootjes Lago di Braies</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Lago%20di%20Misurina" target="_blank" rel="noopener"><span class="ic">📍</span>Spiegeling Lago di Misurina</a></div></div><div class="mini-block"><h4>⛽ Tankadvies</h4><div class="fuel-note">Cruciaal: vertrek met een vólle tank uit Canazei. Tussen de passen zijn pompen schaars. Zo rij je de hele dag zonder omweg of stress.</div></div><section class="wellness-card"><h3>🧖 Leitlhof Spa &amp; Wellbeing</h3>
+    <div class="ritual"><div><div class="t">Wellbeing Ritual</div>
+      <div style="color:var(--muted);font-size:12.5px;margin-top:2px">Vaste afspraak</div></div>
+      <div style="text-align:right"><div class="time">17:00</div><span class="tag-booked">✓ geboekt</span></div></div>
+    <div class="feat">
+      <div class="feat-item"><b>Spa openingstijden</b>Spa doorgaans 12:00–20:00 (check exact bij de receptie)</div>
+      <div class="feat-item"><b>Zwembad</b>Verwarmd binnen- en buitenzwembad met bergzicht</div>
+      <div class="feat-item"><b>Sauna</b>Finse sauna, biosauna en stoombad in het saunapark</div>
+      <div class="feat-item"><b>Textielvrij</b>De saunaruimte is doorgaans textielvrij (bloot) — neem een grote handdoek mee; badkleding mag wél bij het zwembad.</div></div>
+    <div class="tip" style="margin-top:12px"><b>Massage &nbsp;</b><span>Boek een massage bij het inchecken (16:00) zodat je die ná het 17:00-ritual kunt plannen — populaire slots zijn ’s avonds snel vol.</span></div></section><section class="hotel"><div class="hotel-head"><h3>🏨 Naturhotel Leitlhof</h3><span class="tag-booked">✓ geboekt</span></div>
+    <p class="addr">Innichen / San Candido · Zuid-Tirol · Italië</p>
+    <div class="feat"><div class="feat-item"><b>Inchecken</b>vanaf 15:00 · Wellbeing Ritual 17:00</div><div class="feat-item"><b>Parkeren</b>Eigen parkeerplaats / garage</div><div class="feat-item"><b>EV laden</b>EV-laadpunten aanwezig bij het hotel</div><div class="feat-item"><b>Restaurant</b>Duurzaam fine-dining (halfpension)</div><div class="feat-item"><b>Wellness</b>Groot spa- &amp; saunapark met bergzicht</div></div><div class="actions" style="margin-top:14px"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Naturhotel%20Leitlhof%20Innichen" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Naturhotel%20Leitlhof%20Innichen" target="_blank" rel="noopener"><span class="lead"><span class="ic">📞</span> Adres &amp; telefoon</span><span class="go">Maps →</span></a><a class="action book" href="https://www.google.com/search?q=Naturhotel%20Leitlhof%20offici%C3%ABle%20website" target="_blank" rel="noopener"><span class="lead"><span class="ic">🌐</span> Website</span><span class="go">Zoek →</span></a><a class="action book" href="https://www.booking.com/searchresults.nl.html?ss=Naturhotel%20Leitlhof%20San%20Candido" target="_blank" rel="noopener"><span class="lead"><span class="ic">🛏️</span> Booking</span><span class="go">Open →</span></a></div></section></section>
+<input class="tabstate" type="radio" name="day" id="day-5" data-sub="Donderdag 13 augustus · Dag 6">
+     <section class="panel" id="panel-5"><div class="day-hero"><div class="day-eyebrow">Donderdag 13 augustus · Dag 6</div>
+    <h2>San Candido → Heidelberg</h2><p class="subtitle">De lange terugrit — met een mooi slot</p></div><div class="stat-strip">
+      <div class="stat accent"><span class="k">Afstand</span><span class="v">± 600 km</span></div>
+      <div class="stat"><span class="k">Rijtijd</span><span class="v">6 u (rijden)</span></div>
+      <div class="stat nav"><span class="k">Vertrek</span><span class="v">08:00</span></div>
+      <div class="stat"><span class="k">Aankomst</span><span class="v">± 18:00</span></div></div><div class="routes">
+      <a class="route-btn route-comfort" href="https://www.google.com/maps/dir/?api=1&origin=Innichen%20(San%20Candido)%2C%20Itali%C3%AB&destination=Berggasthof%20K%C3%B6nigstuhl%2C%20Heidelberg%2C%20Duitsland&travelmode=driving" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
+      <a class="route-btn route-epic" href="https://www.google.com/maps/dir/?api=1&origin=Innichen%20(San%20Candido)%2C%20Itali%C3%AB&destination=Berggasthof%20K%C3%B6nigstuhl%2C%20Heidelberg%2C%20Duitsland&travelmode=driving&waypoints=Brennerpass%2C%20Itali%C3%AB%2FOostenrijk|Innsbruck%2C%20Oostenrijk|Heidelberg%20Altstadt%2C%20Duitsland" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a></div><div class="banner banner-advice"><strong>Weer:</strong> Wisselend onderweg. Deze dag draait om kilometers maken; bewaar je energie voor de avond in Heidelberg.</div><div class="banner banner-weather"><strong>Bij slecht weer:</strong> Regen op de A-wegen? Geen bezwaar — dit is een transitdag. Plan gewoon een langere, droge lunchstop in Innsbruck.</div><div class="banner banner-advice"><strong>Mijn keuze:</strong> Efficiënt doorrijden via Brenner en Innsbruck. Één goede lunchstop, en ’s avonds Heidelberg als beloning.</div><div class="cat-head cat-must"><span class="cat-dot"></span>🟥 Must do</div><details class="stop" data-key="d6-must-innsbruck-lunchstop">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d6-must-innsbruck-lunchstop"><label class="box" for="chk-d6-must-innsbruck-lunchstop" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏙️</span>
+    <div class="stop-main"><div class="stop-title">Innsbruck — lunchstop</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 75–90 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Middag</span></div>
+    <p>Perfect gelegen halverwege: bergstad met een compacte oude stad, het Goldene Dachl en bergen aan alle kanten. Ideaal om de benen te strekken.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Kort en krachtig: parkeer in de Altstadt-garage, lunch, en weer door — nog een flinke rit te gaan.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkgarage%20Altstadt%20Innsbruck" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Innsbruck" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Goldenes%20Dachl%20Innsbruck" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><details class="stop" data-key="d6-must-heidelberg-altstadt-schloss">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d6-must-heidelberg-altstadt-schloss"><label class="box" for="chk-d6-must-heidelberg-altstadt-schloss" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏰</span>
+    <div class="stop-main"><div class="stop-title">Heidelberg — Altstadt &amp; Schloss</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ avond</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Avondlicht</span></div>
+    <p>Aankomst met stijl: het beroemde kasteel boven de Neckar en de Alte Brücke in avondlicht. Mooie afsluiter van de reis.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Berggasthof Königstuhl ligt bóven de stad — geniet eerst van het uitzicht en rijd daarna omhoog naar het hotel.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkhaus%20P12%20Kornmarkt%2FSchloss%20Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Heidelberger%20Schloss" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-nice"><span class="cat-dot"></span>🟧 Leuk / nice to have</div><details class="stop" data-key="d6-nice-vipiteno-sterzing">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d6-nice-vipiteno-sterzing"><label class="box" for="chk-d6-nice-vipiteno-sterzing" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">⛪</span>
+    <div class="stop-main"><div class="stop-title">Vipiteno / Sterzing</div>
+      <div class="stop-sub"><span class="stars">★★★☆☆</span><span>⏱ 30–40 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Ochtend</span></div>
+    <p>Kleurrijk Zuid-Tirools stadje net vóór de Brenner. Fijne koffiestop om de laatste keer echt Italië te proeven.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Laatste kans op een goede Italiaanse espresso en Speck voor onderweg.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkplatz%20Sterzing%20Zentrum" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Vipiteno" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Zw%C3%B6lferturm%20Sterzing" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-bonus"><span class="cat-dot"></span>🟩 Bonus</div><details class="stop" data-key="d6-bonus-alte-br-cke-heidelberg">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d6-bonus-alte-br-cke-heidelberg"><label class="box" for="chk-d6-bonus-alte-br-cke-heidelberg" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🌉</span>
+    <div class="stop-main"><div class="stop-title">Alte Brücke Heidelberg</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 30 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Zonsondergang</span></div>
+    <p>De klassieke wandeling over de oude brug met zicht op kasteel en rivier. Rustig uitwaaien na een dag rijden.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Even naar de overkant (Philosophenweg-zijde) lopen voor het beroemde ansichtkaart-uitzicht.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkhaus%20P12%20Kornmarkt%2FSchloss%20Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Alte%20Br%C3%BCcke%20Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Alte%20Br%C3%BCcke%20Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="mini-block"><h4>🍝 Restauranttips</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Altstadt%20Innsbruck" target="_blank" rel="noopener"><span class="ic">📍</span>Lunch · Innsbruck Altstadt</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20Altstadt%20Heidelberg" target="_blank" rel="noopener"><span class="ic">📍</span>Diner · Heidelberg Altstadt</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Berggasthof%20K%C3%B6nigstuhl%20Heidelberg%20restaurant" target="_blank" rel="noopener"><span class="ic">📍</span>Uitzicht · Königstuhl</a></div></div><div class="mini-block"><h4>🎬 GoPro-momenten</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Brennerpass" target="_blank" rel="noopener"><span class="ic">📍</span>Afdaling Brennerpas</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=K%C3%B6nigstuhl%20Heidelberg" target="_blank" rel="noopener"><span class="ic">📍</span>Klim naar Königstuhl</a></div></div><div class="mini-block"><h4>📸 Fotospots</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Goldenes%20Dachl%20Innsbruck" target="_blank" rel="noopener"><span class="ic">📍</span>Goldenes Dachl Innsbruck</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Heidelberger%20Schloss" target="_blank" rel="noopener"><span class="ic">📍</span>Heidelberger Schloss</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Alte%20Br%C3%BCcke%20Heidelberg" target="_blank" rel="noopener"><span class="ic">📍</span>Alte Brücke bij avond</a></div></div><div class="mini-block"><h4>⛽ Tankadvies</h4><div class="fuel-note">Let op de tol: Oostenrijk vereist een vignette (Brenner heeft daarnaast aparte Maut). Tank het voordeligst in Oostenrijk of net over de Duitse grens — goedkoper dan Italië en Zwitserland.</div></div><section class="hotel"><div class="hotel-head"><h3>🏨 Berggasthof Königstuhl</h3><span class="tag-booked">✓ geboekt</span></div>
+    <p class="addr">Königstuhl · boven Heidelberg · Duitsland</p>
+    <div class="feat"><div class="feat-item"><b>Inchecken</b>vanaf 15:00</div><div class="feat-item"><b>Parkeren</b>Eigen parkeerplaats bij de berggasthof</div><div class="feat-item"><b>EV laden</b>Laadpunten in Heidelberg (dal)</div><div class="feat-item"><b>Restaurant</b>Duitse keuken met uitzicht</div></div><div class="actions" style="margin-top:14px"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Berggasthof%20K%C3%B6nigstuhl%20Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Berggasthof%20K%C3%B6nigstuhl%20Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">📞</span> Adres &amp; telefoon</span><span class="go">Maps →</span></a><a class="action book" href="https://www.google.com/search?q=Berggasthof%20K%C3%B6nigstuhl%20Heidelberg%20offici%C3%ABle%20website" target="_blank" rel="noopener"><span class="lead"><span class="ic">🌐</span> Website</span><span class="go">Zoek →</span></a><a class="action book" href="https://www.booking.com/searchresults.nl.html?ss=Berggasthof%20K%C3%B6nigstuhl%20Heidelberg" target="_blank" rel="noopener"><span class="lead"><span class="ic">🛏️</span> Booking</span><span class="go">Open →</span></a></div></section></section>
+<input class="tabstate" type="radio" name="day" id="day-6" data-sub="Vrijdag 14 augustus · Dag 7">
+     <section class="panel" id="panel-6"><div class="day-hero"><div class="day-eyebrow">Vrijdag 14 augustus · Dag 7</div>
+    <h2>Heidelberg → Almere</h2><p class="subtitle">Rustig naar huis</p></div><div class="stat-strip">
+      <div class="stat accent"><span class="k">Afstand</span><span class="v">± 500 km</span></div>
+      <div class="stat"><span class="k">Rijtijd</span><span class="v">5 u (rijden)</span></div>
+      <div class="stat nav"><span class="k">Vertrek</span><span class="v">09:00</span></div>
+      <div class="stat"><span class="k">Aankomst</span><span class="v">± 15:00</span></div></div><div class="routes">
+      <a class="route-btn route-comfort" href="https://www.google.com/maps/dir/?api=1&origin=Heidelberg%2C%20Duitsland&destination=Almere%2C%20Nederland&travelmode=driving" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
+      <a class="route-btn route-epic" href="https://www.google.com/maps/dir/?api=1&origin=Heidelberg%2C%20Duitsland&destination=Almere%2C%20Nederland&travelmode=driving&waypoints=K%C3%B6ln%2C%20Duitsland|Almere%2C%20Nederland" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a></div><div class="banner banner-advice"><strong>Weer:</strong> Ontspannen slotdag. Eén frisse stop onderweg en dan naar huis.</div><div class="banner banner-weather"><strong>Bij slecht weer:</strong> Bij druk terugkeerverkeer (vrijdag!): vertrek liever wat vroeger of las de Köln-stop in om de spits te ontlopen.</div><div class="banner banner-advice"><strong>Mijn keuze:</strong> Geen haast. Eén koffiestop bij Köln om de rit te breken, daarna in één ruk naar Almere.</div><div class="cat-head cat-must"><span class="cat-dot"></span>🟥 Must do</div><details class="stop" data-key="d7-must-k-ln-dom-rijnboulevard">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d7-must-k-ln-dom-rijnboulevard"><label class="box" for="chk-d7-must-k-ln-dom-rijnboulevard" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">⛪</span>
+    <div class="stop-main"><div class="stop-title">Köln — Dom &amp; Rijnboulevard</div>
+      <div class="stop-sub"><span class="stars">★★★★☆</span><span>⏱ 60–75 min</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Late ochtend</span></div>
+    <p>De ideale beenstrek-stop op de weg naar huis: de imposante Dom, een espresso aan de Rijn en dan het laatste stuk naar Nederland.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Parkeer bij Am Dom/Groß St. Martin — je staat dan direct bij de Dom en de boulevard.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Parkhaus%20Am%20Dom%20K%C3%B6ln" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=K%C3%B6ln" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=K%C3%B6lner%20Dom" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-nice"><span class="cat-dot"></span>🟧 Leuk / nice to have</div><details class="stop" data-key="d7-nice-designer-outlet-roermond">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d7-nice-designer-outlet-roermond"><label class="box" for="chk-d7-nice-designer-outlet-roermond" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🛍️</span>
+    <div class="stop-main"><div class="stop-title">Designer Outlet Roermond</div>
+      <div class="stop-sub"><span class="stars">★★★☆☆</span><span>⏱ naar keuze</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Alleen als je zin hebt</span></div>
+    <p>Vlak over de grens: handig als je de reis met een laatste stop wil rekken. Alleen doen als iedereen er zin in heeft.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>Bij druk vrijdagverkeer eerder overslaan en doorrijden naar huis.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Designer%20Outlet%20Roermond%20parking" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Designer%20Outlet%20Roermond" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Designer%20Outlet%20Roermond" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="cat-head cat-bonus"><span class="cat-dot"></span>🟩 Bonus</div><details class="stop" data-key="d7-bonus-thuis-in-almere">
+  <summary class="stop-summary">
+    <span class="check"><input type="checkbox" class="stop-check" id="chk-d7-bonus-thuis-in-almere"><label class="box" for="chk-d7-bonus-thuis-in-almere" aria-label="Afvinken"></label></span>
+    <span class="stop-emoji">🏡</span>
+    <div class="stop-main"><div class="stop-title">Thuis in Almere</div>
+      <div class="stop-sub"><span class="stars">★★★★★</span><span>⏱ —</span></div></div>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="stop-body">
+    <div class="info-row"><span class="pill best">☀️ Middag</span></div>
+    <p>Einde van een onvergetelijke roadtrip. Auto uitladen, foto’s terugkijken en nagenieten.</p>
+    <div class="tip"><b>Tip &nbsp;</b><span>GoPro-kaarten meteen back-uppen — je wilt deze beelden niet kwijtraken.</span></div>
+    
+    <div class="actions"><a class="action " href="https://www.google.com/maps/search/?api=1&query=Almere" target="_blank" rel="noopener"><span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Almere" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Almere" target="_blank" rel="noopener"><span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a></div>
+  </div>
+</details><div class="mini-block"><h4>🍝 Restauranttips</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=caf%C3%A9%20Rheinboulevard%20K%C3%B6ln" target="_blank" rel="noopener"><span class="ic">📍</span>Koffie · Köln Rijnboulevard</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=restaurant%20A3%20Autohof" target="_blank" rel="noopener"><span class="ic">📍</span>Lunch onderweg</a></div></div><div class="mini-block"><h4>🎬 GoPro-momenten</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Hohenzollernbr%C3%BCcke%20K%C3%B6ln" target="_blank" rel="noopener"><span class="ic">📍</span>Rijnbrug bij Köln</a></div></div><div class="mini-block"><h4>📸 Fotospots</h4><div class="chiplist"><a class="chip" href="https://www.google.com/maps/search/?api=1&query=K%C3%B6lner%20Dom" target="_blank" rel="noopener"><span class="ic">📍</span>Kölner Dom</a><a class="chip" href="https://www.google.com/maps/search/?api=1&query=Rheinboulevard%20K%C3%B6ln" target="_blank" rel="noopener"><span class="ic">📍</span>Rijnboulevard</a></div></div><div class="mini-block"><h4>⛽ Tankadvies</h4><div class="fuel-note">Tank het laatst voordelig in Duitsland vóór de grens (of net in Nederland). Vermijd de dure snelweg-tankstations.</div></div><section class="hotel"><div class="hotel-head"><h3>🏨 Thuis · Almere</h3></div>
+    <p class="addr">Almere · Nederland</p>
+    <div class="feat"><div class="feat-item"><b>Parkeren</b>Eigen oprit</div><div class="feat-item"><b>EV laden</b>Thuislader</div><div class="feat-item"><b>Wellness</b>Eigen bank 🛋️</div></div><div class="actions" style="margin-top:14px"><a class="action nav" href="https://www.google.com/maps/search/?api=1&query=Almere" target="_blank" rel="noopener"><span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a><a class="action " href="https://www.google.com/maps/search/?api=1&query=Almere" target="_blank" rel="noopener"><span class="lead"><span class="ic">📞</span> Adres &amp; telefoon</span><span class="go">Maps →</span></a></div></section></section>
+<input class="tabstate" type="radio" name="day" id="day-7" data-sub="Checklist &amp; praktische info">
+     <section class="panel" id="panel-7"><div class="day-hero"><div class="day-eyebrow">Voor vertrek · onderweg</div>
+    <h2>Roadtrip Checklist</h2><p class="subtitle">Afvinken wat klaar is — opgeslagen op dit toestel</p></div><details class="checklist-group" open>
+      <summary class="cl-head"><h3><span>🪪</span> Documenten</h3><span class="cl-count">0/6</span></summary>
+      <div class="cl-body"><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-documenten-0"><span class="box"></span><span class="lbl">Paspoort</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-documenten-1"><span class="box"></span><span class="lbl">Rijbewijs</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-documenten-2"><span class="box"></span><span class="lbl">Kentekenbewijs</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-documenten-3"><span class="box"></span><span class="lbl">Groene kaart (verzekering)</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-documenten-4"><span class="box"></span><span class="lbl">Creditcard</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-documenten-5"><span class="box"></span><span class="lbl">Contant geld (euro)</span></label></div></details><details class="checklist-group">
+      <summary class="cl-head"><h3><span>🚗</span> Auto</h3><span class="cl-count">0/12</span></summary>
+      <div class="cl-body"><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-0"><span class="box"></span><span class="lbl">Bandenspanning gecontroleerd</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-1"><span class="box"></span><span class="lbl">Oliepeil</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-2"><span class="box"></span><span class="lbl">Koelvloeistof</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-3"><span class="box"></span><span class="lbl">Ruitensproeiervloeistof</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-4"><span class="box"></span><span class="lbl">GoPro</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-5"><span class="box"></span><span class="lbl">SD-kaarten (leeg &amp; extra)</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-6"><span class="box"></span><span class="lbl">USB-kabels</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-7"><span class="box"></span><span class="lbl">Powerbank</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-8"><span class="box"></span><span class="lbl">Laadkabels (auto &amp; telefoon)</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-9"><span class="box"></span><span class="lbl">EHBO-set</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-10"><span class="box"></span><span class="lbl">Gevarendriehoek</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-auto-11"><span class="box"></span><span class="lbl">Veiligheidshesje(s)</span></label></div></details><details class="checklist-group">
+      <summary class="cl-head"><h3><span>🛣️</span> Tol &amp; vignetten</h3><span class="cl-count">0/3</span></summary>
+      <div class="cl-body"><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-tol-vignetten-0"><span class="box"></span><span class="lbl">Zwitserse vignette</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-tol-vignetten-1"><span class="box"></span><span class="lbl">Oostenrijkse vignette</span></label><label class="cl-item"><input type="checkbox" class="cl-check" id="cl-tol-vignetten-2"><span class="box"></span><span class="lbl">Fulli / Telepass badge Italië</span></label></div></details><div class="foot">Roadtrip Companion 2026 · werkt volledig offline · alle voortgang staat lokaal op dit toestel.<br>Controleer bij vertrek altijd actuele weers- en verkeersinfo.</div></section>
+  </main>
 
-  <!-- ===== Floating quick-action dock ===== -->
   <div class="fab-dock" id="fabDock">
-    <button class="fab fab-toggle" id="fabToggle" type="button" aria-label="Snelacties">
-      <span class="fab-icon">⚡</span>
-    </button>
-    <div class="fab-menu" id="fabMenu" aria-hidden="true">
-      <button class="fab-item" data-quick="here"><span>📍</span> Ik ben hier</button>
-      <button class="fab-item" data-quick="food"><span>🍝</span> Restaurant</button>
-      <button class="fab-item" data-quick="coffee"><span>☕</span> Koffie</button>
-      <button class="fab-item" data-quick="fuel"><span>⛽</span> Tankstation</button>
-      <button class="fab-item" data-quick="photo"><span>📸</span> Fotospot</button>
-    </div>
+    <input type="checkbox" class="fab-state" id="fabState">
+    <label class="fab fab-toggle" for="fabState" aria-label="Snelacties"><span class="fab-icon">⚡</span></label>
+    <div class="fab-menu" id="fabMenu"><a class="fab-item" data-quick="here" href="https://www.google.com/maps/search/?api=1&query=mijn%20locatie" target="_blank" rel="noopener"><span>📍</span> Ik ben hier</a><a class="fab-item" data-quick="food" href="https://www.google.com/maps/search/?api=1&query=restaurant%20in%20de%20buurt" target="_blank" rel="noopener"><span>🍝</span> Restaurant</a><a class="fab-item" data-quick="coffee" href="https://www.google.com/maps/search/?api=1&query=koffie%20in%20de%20buurt" target="_blank" rel="noopener"><span>☕</span> Koffie</a><a class="fab-item" data-quick="fuel" href="https://www.google.com/maps/search/?api=1&query=tankstation%20in%20de%20buurt" target="_blank" rel="noopener"><span>⛽</span> Tankstation</a><a class="fab-item" data-quick="photo" href="https://www.google.com/maps/search/?api=1&query=scenic%20viewpoint%20in%20de%20buurt" target="_blank" rel="noopener"><span>📸</span> Fotospot</a></div>
   </div>
 
-  <!-- ===== Toast ===== -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
 /* =========================================================
-   Roadtrip Companion 2026
-   Vanilla JS · offline · LocalStorage · data-driven renderer
+   Roadtrip Companion 2026 — progressive enhancement
+   The page is fully pre-rendered and works with ZERO JavaScript
+   (CSS radio-tabs + native <details> + real Maps links).
+   This script only ADDS: saved progress, active-tab sync,
+   swipe navigation and GPS-based quick actions.
    ========================================================= */
 'use strict';
+(function(){
+  const $  = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
 
-/* ---------- Google Maps helpers (echte locaties, geen placeholders) ---------- */
-const enc = s => encodeURIComponent(s);
-const mapsSearch = q => `https://www.google.com/maps/search/?api=1&query=${enc(q)}`;
-const mapsDir = (origin, destination, waypoints) => {
-  let u = `https://www.google.com/maps/dir/?api=1&origin=${enc(origin)}&destination=${enc(destination)}&travelmode=driving`;
-  if (waypoints && waypoints.length) u += `&waypoints=${waypoints.map(enc).join('|')}`;
-  return u;
-};
-const gsearch = q => `https://www.google.com/search?q=${enc(q)}`;
-const booking = q => `https://www.booking.com/searchresults.nl.html?ss=${enc(q)}`;
+  /* ---------- LocalStorage persistence for every checkbox ---------- */
+  const KEY = 'roadtrip2026.v2';
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ saved = {}; }
+  const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} };
 
-/* ---------- Hotel factory ---------- */
-const hotel = o => o;
-
-/* =========================================================
-   DATA — de complete reis
-   ========================================================= */
-const DAYS = [
-
-/* ============ DAG 1 · 4 augustus ============ */
-{
-  tab:{n:'1', label:'4 aug'}, id:'d1',
-  eyebrow:'Dinsdag 4 augustus · Dag 1',
-  title:'Almere → Bernkastel-Kues',
-  subtitle:'Warmdraaien door de Eifel en de Moezel',
-  route:{origin:'Almere, Nederland', dest:'Burgblickhotel, Bernkastel-Kues, Duitsland',
-         epic:['Monschau, Duitsland','Nürburgring, Nürburg, Duitsland','Cochem, Duitsland']},
-  km:'± 415 km', drive:'4 u 20 (rijden)', depart:'08:30', arrive:'± 16:30',
-  weather:'Zomers en warm in het dal (25–30°). In de Eifel kan het rond de middag onweren — plan Monschau daarom vroeg.',
-  badWeather:'Bij regen: sla Geierlay over (glad op de brug) en maak van Cochem je overdekte koffie- en lunchstop.',
-  advice:'Monschau en de Nürburgring altijd meepakken. Cochem alleen als je energie over hebt — anders rechtstreeks naar de Moezel.',
-  cats:{
-    must:[
-      {emoji:'🏘️', title:'Monschau Altstadt', stars:5, time:'60–75 min', best:'Ochtend, vóór de bussen',
-       parking:'Parkhaus Au Monschau', photo:'Rotes Haus Monschau',
-       desc:'Perfecte eerste stop: vakwerkhuizen tegen de rotswand, de Rur die dwars door het stadje loopt en compact genoeg om niet je halve dag te kosten.',
-       tip:'Parkeer bij P Au en loop langs de rivier het centrum in — mooiste aanblik en je auto staat in de schaduw.'},
-      {emoji:'🏁', title:'Nürburgring — Boulevard', stars:5, time:'45–60 min', best:'Late ochtend',
-       parking:'Nürburgring Grand-Prix-Strecke Parkplatz', photo:'Nürburgring Boulevard',
-       desc:'Je rijdt een Range Rover Sport door de Eifel en komt er praktisch langs. Even de Boulevard op, de pitstraat ruiken en verder. Overslaan zou raar zijn.',
-       tip:'GoPro: monteer de suction mount op de motorkap vóór je de aanrijroute door het bos neemt — dat stuk is filmisch.'}
-    ],
-    nice:[
-      {emoji:'🏰', title:'Cochem aan de Moezel', stars:4, time:'60–90 min', best:'Namiddag',
-       parking:'Parkplatz Endertplatz Cochem', photo:'Reichsburg Cochem',
-       desc:'Reichsburg hoog boven de Moezel, een compact wijnstadje en de eerste echte vakantie-vibe. Fijne plek voor een late lunch.',
-       tip:'Rijd de Moezelroute (B49) langs het water i.p.v. de snelweg — het laatste half uur naar het hotel is dan al genieten.'}
-    ],
-    bonus:[
-      {emoji:'🌉', title:'Geierlay hangbrug', stars:4, time:'75–90 min', best:'Droog, helder weer',
-       parking:'Besucherzentrum Geierlay Mörsdorf', photo:'Geierlay Hängeseilbrücke',
-       weather:'Alleen bij droog weer',
-       desc:'360 meter hangbrug over een groen dal. Spectaculair, maar je bent relatief veel tijd kwijt aan parkeren en de wandeling er naartoe.',
-       tip:'Alleen doen als je vóór 15:00 bij Mörsdorf bent — anders schuift het diner te ver op.'}
-    ]
-  },
-  restaurants:[
-    {t:'Lunch · Monschau', q:'restaurant Altstadt Monschau'},
-    {t:'Moezel-diner · Bernkastel', q:'restaurant Altstadt Bernkastel-Kues'},
-    {t:'Wijnstube', q:'Weinstube Bernkastel-Kues'}
-  ],
-  gopro:[
-    {t:'Aanrijroute Nürburgring (bos)', q:'Nürburgring Nordschleife'},
-    {t:'Moezelroute B49 langs het water', q:'Moezelroute B49 Cochem'}
-  ],
-  fotospots:[
-    {t:'Rurbrücke Monschau', q:'Rurbrücke Monschau'},
-    {t:'Reichsburg viewpoint', q:'Reichsburg Cochem viewpoint'},
-    {t:'Wijngaarden bij Bernkastel', q:'Bernkasteler Doctor Weinberg'}
-  ],
-  fuel:'Tank vol in Nederland of vlak over de grens — brandstof in NL/DE is deze dag het voordeligst. Ligt de route langs Luxemburg, dan is dáár tanken het goedkoopst van de hele reis.',
-  hotel: hotel({
-    name:'Burgblickhotel', booked:true,
-    address:'Bernkastel-Kues, Moezel · Duitsland',
-    mapsQuery:'Burgblickhotel Bernkastel-Kues',
-    website:'Burgblickhotel Bernkastel-Kues', bookingQuery:'Burgblickhotel Bernkastel-Kues',
-    checkin:'vanaf 15:00', parking:'Eigen parkeerplaats', ev:'Laadpunten in Bernkastel-Kues centrum',
-    restaurant:'Regionale Moezelkeuken', wellness:'—'
-  })
-},
-
-/* ============ DAG 2 · 5 augustus ============ */
-{
-  tab:{n:'2', label:'5 aug'}, id:'d2',
-  eyebrow:'Woensdag 5 augustus · Dag 2',
-  title:'Bernkastel-Kues → Weggis',
-  subtitle:'Van de Moezel naar het Vierwoudstrekenmeer',
-  route:{origin:'Bernkastel-Kues, Duitsland', dest:'Hotel Alpenblick, Weggis, Zwitserland',
-         epic:['Baden-Baden, Duitsland','Rheinfall, Schaffhausen, Zwitserland','Luzern, Zwitserland']},
-  km:'± 490 km', drive:'5 u (rijden)', depart:'08:00', arrive:'± 17:30',
-  weather:'Kans op stapelwolken boven de Alpen in de namiddag. Rheinfall is ook bij bewolking indrukwekkend; Luzern het mooist met avondlicht.',
-  badWeather:'Bij aanhoudende regen: sla de Rheinfall-lus over, rijd door de tunnel richting Luzern en check vroeg in bij Alpenblick.',
-  advice:'Rheinfall is de hoofdstop. Luzern compact meepakken (Kapellbrücke + meer), anders wordt dit een lange dag.',
-  cats:{
-    must:[
-      {emoji:'🌊', title:'Rheinfall', stars:5, time:'45–60 min', best:'Rond het middaguur',
-       parking:'Rheinfall Parkplatz Schloss Laufen', photo:'Schloss Laufen am Rheinfall',
-       desc:'De grootste waterval van Europa, en precies het soort natuurgeweld waarvoor je zo’n reis maakt. Vanaf Schloss Laufen sta je er bovenop.',
-       tip:'Parkeer aan de Schloss-Laufen-kant (zuid) — rustiger, mooiste uitzichtplatforms en direct aan de A4.'},
-      {emoji:'🏙️', title:'Luzern — Kapellbrücke & meer', stars:5, time:'60–90 min', best:'Namiddag / avondlicht',
-       parking:'Parkhaus Altstadt Luzern', photo:'Kapellbrücke Luzern',
-       desc:'Houten Kapellbrücke, de oude stad en het meer met bergpanorama in één compacte stop. De ideale opmaat naar Weggis.',
-       tip:'Vignette-check: je hebt de Zwitserse autobahnvignette nodig vóór de grens (zie tab Praktisch).'}
-    ],
-    nice:[
-      {emoji:'♨️', title:'Baden-Baden', stars:3, time:'45–60 min', best:'Late ochtend',
-       parking:'Parkgarage Kurhaus Baden-Baden', photo:'Lichtentaler Allee Baden-Baden',
-       desc:'Een beschaafde koffiestop met een wandeling door de Lichtentaler Allee — veel prettiger dan een tankstation langs de A5.',
-       tip:'Kort houden: even benen strekken, koffie, en door richting de grens.'}
-    ],
-    bonus:[
-      {emoji:'🌅', title:'Weggis Seepromenade', stars:4, time:'30–45 min', best:'Bij aankomst / zonsondergang',
-       parking:'Weggis Seepromenade', photo:'Weggis Seepromenade Rigi',
-       desc:'Na het inchecken even uitwaaien aan het water met de Rigi op de achtergrond. Rustig landen na een lange rijdag.',
-       tip:'Reserveer een tafel met meerzicht — de zonsondergang over het meer is de beloning van deze dag.'}
-    ]
-  },
-  restaurants:[
-    {t:'Meerzicht-diner · Weggis', q:'restaurant Weggis lake view'},
-    {t:'Lunch · Luzern oude stad', q:'restaurant Altstadt Luzern'},
-    {t:'Koffie · Rheinfall', q:'café Schloss Laufen Rheinfall'}
-  ],
-  gopro:[
-    {t:'Afdaling richting Vierwoudstrekenmeer', q:'Küssnacht am Rigi'},
-    {t:'Seestrasse langs het meer naar Weggis', q:'Seestrasse Weggis'}
-  ],
-  fotospots:[
-    {t:'Schloss Laufen platform', q:'Schloss Laufen am Rheinfall'},
-    {t:'Kapellbrücke bij avond', q:'Kapellbrücke Luzern'},
-    {t:'Rigi-panorama Weggis', q:'Weggis Rigi viewpoint'}
-  ],
-  fuel:'Brandstof in Zwitserland is fors duurder. Tank vol in Duitsland vóór de grens (rond Freiburg / Basel). In Zwitserland alleen bijvullen als het echt nodig is.',
-  hotel: hotel({
-    name:'Hotel Alpenblick', booked:true,
-    address:'Weggis · Vierwoudstrekenmeer · Zwitserland',
-    mapsQuery:'Hotel Alpenblick Weggis',
-    website:'Hotel Alpenblick Weggis', bookingQuery:'Hotel Alpenblick Weggis',
-    checkin:'vanaf 15:00', parking:'Hotelparking', ev:'Laadpunt navragen bij receptie',
-    restaurant:'Terras met meerzicht', wellness:'Kleine spa / sauna'
-  })
-},
-
-/* ============ DAG 3 · 6–10 augustus · GARDAMEER (modulair) ============ */
-{
-  tab:{n:'3', label:'6–10 aug'}, id:'gardapool', isPool:true,
-  eyebrow:'6 t/m 10 augustus · Basiskamp',
-  title:'Gardameer — vijf vrije dagen',
-  subtitle:'Basis: Hotel Aquila d’Oro, Desenzano del Garda',
-  poolIntro:'Geen vaste planning. Dit zijn vijf dagen vanuit één basis — kies elke ochtend op gevoel en op het weer. Hieronder staan de beste bestemmingen; vink af wat je hebt gedaan. Alles is dagtrip-afstand vanaf Desenzano.',
-  km:'Vrij', drive:'Naar keuze', depart:'—', arrive:'—',
-  weather:'Hoogzomer aan het meer: 30°+ en broeierig in het dal. Combineer laag (dorpen, water) met hoog (Monte Baldo) op de heetste dagen.',
-  badWeather:'Bij regen of onweer: Sirmione en Malcesine hebben overdekte steegjes en terrassen; stel Monte Baldo uit tot een heldere dag.',
-  pool:[
-    {emoji:'🏰', title:'Sirmione', stars:5, time:'2–3 uur', best:'Vroege ochtend (vóór 10:30)',
-     parking:'Parcheggio Monte Baldo Sirmione', photo:'Castello Scaligero Sirmione',
-     weather:'Vroeg = druktevrij',
-     desc:'Scaliger-waterkasteel, smalle straatjes en water aan drie kanten. Het meest iconische dorp van het zuidelijke meer.',
-     tip:'Parkeer bij Monte Baldo (auto’s mogen het centrum niet in) en loop het schiereiland op naar Grotte di Catullo & Jamaica Beach.'},
-    {emoji:'🍋', title:'Limone sul Garda', stars:5, time:'2–3 uur', best:'Ochtend of late namiddag',
-     parking:'Parcheggio Limone sul Garda', photo:'Limone sul Garda porto',
-     desc:'Citroenhuizen tegen de rotswand, een fotogeniek haventje en bergen die recht uit het meer lijken te rijzen.',
-     tip:'De aanrijroute langs de westoever (SS45bis) met zijn tunnels is zelf al een belevenis — GoPro aan.'},
-    {emoji:'🏰', title:'Malcesine', stars:5, time:'2–3 uur', best:'Ochtend',
-     parking:'Parcheggio Malcesine centro', photo:'Castello Scaligero Malcesine',
-     desc:'Kasteel op een rots, een middeleeuwse haven en het startpunt van de kabelbaan naar Monte Baldo. Een van de mooiste dorpen aan het meer.',
-     tip:'Combineer met Monte Baldo: ’s ochtends dorp, daarna omhoog als het zicht helder is.'},
-    {emoji:'🚠', title:'Monte Baldo (kabelbaan)', stars:5, time:'2–3 uur', best:'Heldere ochtend',
-     parking:'Funivia Malcesine Monte Baldo', photo:'Monte Baldo vetta panorama',
-     weather:'Alleen bij helder zicht',
-     desc:'Draaiende gondel vanaf Malcesine naar 1.760 m: van meerniveau naar alpien panorama in tien minuten. Boven is het 10–15° koeler.',
-     tip:'Ga vroeg of reserveer online — bij mooi weer lopen de wachtrijen op. Neem een laag mee, boven waait het.'},
-    {emoji:'🌊', title:'Riva del Garda', stars:4, time:'halve dag', best:'Ochtend',
-     parking:'Parcheggio Riva del Garda centro', photo:'Riva del Garda porto',
-     desc:'De noordpunt van het meer, omringd door steile rotswanden. Levendige promenade, mooie haven en frisser dan het zuiden.',
-     tip:'Combineer met Lago di Tenno vlak erboven — samen een perfecte halve dag.'},
-    {emoji:'💎', title:'Lago di Tenno', stars:5, time:'1–2 uur', best:'Zon = turquoise water',
-     parking:'Parcheggio Lago di Tenno', photo:'Lago di Tenno',
-     weather:'Mooist bij zon',
-     desc:'Onwerkelijk turquoise bergmeertje boven Riva. Bij zonlicht lijkt het water te gloeien — een van de mooiste fotostops van de streek.',
-     tip:'Neem eventueel het middeleeuwse dorpje Canale di Tenno mee, op loopafstand.'},
-    {emoji:'🏔️', title:'Lago di Molveno', stars:5, time:'halve dag', best:'Heldere dag',
-     parking:'Parcheggio Lido Molveno', photo:'Lago di Molveno',
-     desc:'Kristalhelder meer aan de voet van de Brenta-Dolomieten. Verder rijden (± 1u15), maar een adembenemende dagtrip weg van de meerdrukte.',
-     tip:'Alleen op een heldere dag doen — de Brenta-toppen máken hier het plaatje.'}
-  ],
-  restaurants:[
-    {t:'Meerzicht · Desenzano haven', q:'restaurant Porto Vecchio Desenzano del Garda'},
-    {t:'Pizza · Sirmione', q:'pizzeria Sirmione lake view'},
-    {t:'Aperitivo · Desenzano', q:'wine bar Desenzano del Garda'},
-    {t:'Gelato', q:'gelateria Desenzano del Garda'}
-  ],
-  gopro:[
-    {t:'Westoever SS45bis (tunnels)', q:'Strada della Forra Tremosine'},
-    {t:'Draaigondel Monte Baldo', q:'Funivia Malcesine Monte Baldo'}
-  ],
-  fotospots:[
-    {t:'Jamaica Beach Sirmione', q:'Jamaica Beach Sirmione'},
-    {t:'Haventje Limone', q:'Porto Vecchio Limone sul Garda'},
-    {t:'Panorama Monte Baldo', q:'Monte Baldo vetta panorama'}
-  ],
-  fuel:'Tank in Italië buiten de dorpskernen (bij een “self” pomp langs de SS) — goedkoper dan de bemande pompen in de toeristendorpen.',
-  hotel: hotel({
-    name:'Hotel Aquila d’Oro', booked:true, bookedLabel:'betaald',
-    address:'Desenzano del Garda · Gardameer · Italië',
-    mapsQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
-    website:'Hotel Aquila d\'Oro Desenzano del Garda', bookingQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
-    checkin:'vanaf 14:00', parking:'Parkeren navragen — centrum Desenzano is beperkt',
-    ev:'Laadpalen in Desenzano centrum', restaurant:'Ontbijt inbegrepen', wellness:'—'
-  })
-},
-
-/* ============ DAG 4 · 11 augustus ============ */
-{
-  tab:{n:'4', label:'11 aug'}, id:'d4',
-  eyebrow:'Dinsdag 11 augustus · Dag 4',
-  title:'Desenzano → Canazei',
-  subtitle:'Van het meer de Dolomieten in',
-  route:{origin:'Desenzano del Garda, Italië', dest:'Chalet Vites, Canazei, Italië',
-         epic:['Riva del Garda, Italië','Lago di Carezza, Italië','Passo di Costalunga, Italië','Passo Sella, Italië']},
-  km:'± 240 km', drive:'4 u (met passen)', depart:'08:30', arrive:'± 16:30',
-  weather:'Beneden warm, boven fris. In de Dolomieten kan het na 15:00 onweren — plan de passen daarom vóór de middag/vroege middag.',
-  badWeather:'Bij laaghangende bewolking op de passen: neem de dalroute via Bolzano en bewaar Passo Sella voor morgen (dan rijd je ’m sowieso).',
-  advice:'Lange, mooie dag. Riva + Lago di Carezza + één pas is genoeg — probeer niet alles af te vinken, morgen is de grote passendag.',
-  cats:{
-    must:[
-      {emoji:'🌊', title:'Riva del Garda', stars:4, time:'45–60 min', best:'Ochtend',
-       parking:'Parcheggio Riva del Garda centro', photo:'Riva del Garda porto',
-       desc:'Laatste blik op het Gardameer met de dramatische rotswanden eromheen. Perfecte koffie- en benen-strekken-stop voor je klimt.',
-       tip:'Vanaf hier begint het echt te klimmen — controleer koelvloeistof niet, maar geniet wél van de haarspelden.'},
-      {emoji:'💠', title:'Lago di Carezza', stars:5, time:'45–60 min', best:'Ochtend, windstil water',
-       parking:'Parcheggio Lago di Carezza', photo:'Lago di Carezza Latemar',
-       desc:'Het “regenboogmeer” met de Latemar-toppen erin weerspiegeld. Klein, maar een van de meest gefotografeerde plekken van de Dolomieten.',
-       tip:'Windstil = spiegelbeeld. Ga vroeg; na de middag steekt vaak de wind op en verdwijnt de reflectie.'},
-      {emoji:'🏔️', title:'Passo di Costalunga', stars:4, time:'20–30 min', best:'Vóór de middag',
-       parking:'Passo di Costalunga', photo:'Passo Costalunga viewpoint',
-       desc:'De pas net boven Carezza — vloeiende bochten en je eerste echte Dolomieten-panorama. Mooie opwarmer voor Passo Sella.',
-       tip:'Even stoppen bij de passhöhe voor koffie en het uitzicht over het Latemar-massief.'},
-      {emoji:'🏔️', title:'Passo Sella', stars:5, time:'30–45 min', best:'Vroege middag',
-       parking:'Passo Sella', photo:'Passo Sella Sassolungo',
-       weather:'Alleen bij goed zicht',
-       desc:'Recht onder de Sassolungo-torens door. Een van de indrukwekkendste passen van de Alpen — en morgen rijd je ’m opnieuw als opener.',
-       tip:'GoPro op de motorkap richting de Sassolungo. De laatste klim naar de top is hét beeld van de dag.'}
-    ],
-    nice:[
-      {emoji:'🏞️', title:'Lago di Molveno', stars:5, time:'als tijd over', best:'Alleen bij ruime tijd',
-       parking:'Parcheggio Lido Molveno', photo:'Lago di Molveno',
-       desc:'Optioneel: het schitterende Molveno-meer ligt op de vroege route. Alleen meenemen als je ruim op schema ligt — anders bewaar je energie voor de passen.',
-       tip:'Kort houden bij twijfel; de passen van vandaag en morgen zijn de hoofdact.'}
-    ],
-    bonus:[
-      {emoji:'🌲', title:'Val di Fassa / Canazei dorp', stars:4, time:'30–45 min', best:'Bij aankomst',
-       parking:'Parcheggio Canazei centro', photo:'Canazei Dolomiti',
-       desc:'Gezellig bergdorp op 1.450 m, omringd door de Sella- en Marmolada-massieven. Fijn rondje voor het diner.',
-       tip:'Vroeg inchecken bij Chalet Vites en op een terras in het dorp de eerste bergavond vieren.'}
-    ]
-  },
-  restaurants:[
-    {t:'Berghut-diner · Canazei', q:'restaurant Canazei Val di Fassa'},
-    {t:'Lunch · Lago di Carezza', q:'restaurant Lago di Carezza'},
-    {t:'Koffie · Riva del Garda', q:'café Riva del Garda porto'}
-  ],
-  gopro:[
-    {t:'Haarspelden boven Riva', q:'Passo Ballino'},
-    {t:'Klim naar Passo Sella', q:'Passo Sella'}
-  ],
-  fotospots:[
-    {t:'Spiegeling Lago di Carezza', q:'Lago di Carezza Latemar'},
-    {t:'Sassolungo bij Passo Sella', q:'Passo Sella Sassolungo'},
-    {t:'Canazei bergpanorama', q:'Canazei Dolomiti'}
-  ],
-  fuel:'Tank vol in het dal (rond Bolzano/Bozen) vóór je de passen in gaat — boven zijn pompen schaars en duurder. Met een volle tank rij je zorgeloos twee passendagen.',
-  hotel: hotel({
-    name:'Chalet Vites', booked:true,
-    address:'Canazei · Val di Fassa · Dolomieten · Italië',
-    mapsQuery:'Chalet Vites Canazei',
-    website:'Chalet Vites Canazei', bookingQuery:'Chalet Vites Canazei',
-    checkin:'vanaf 15:00', parking:'Eigen parkeerplaats bij het chalet',
-    ev:'Laadpunten in Canazei centrum', restaurant:'Alpiene keuken', wellness:'Sauna / relaxruimte'
-  })
-},
-
-/* ============ DAG 5 · 12 augustus · DE MOOISTE DAG ============ */
-{
-  tab:{n:'5', label:'12 aug'}, id:'d5', isEpic:true,
-  eyebrow:'Woensdag 12 augustus · Dag 5 · Hoogtepunt',
-  title:'Canazei → San Candido',
-  subtitle:'De Grote Dolomieten-dag: vier passen en twee bergmeren',
-  route:{origin:'Canazei, Italië', dest:'Naturhotel Leitlhof, Innichen (San Candido), Italië',
-         epic:['Passo Sella, Italië','Passo Gardena, Italië','Passo Falzarego, Italië','Lago di Misurina, Italië','Lago di Braies, Italië']},
-  km:'± 185 km', drive:'5–6 u (met passen & stops)', depart:'08:30', arrive:'± 16:00',
-  weather:'Vroeg de passen op: helder ochtendlicht en nog geen wolken op de toppen. Onweer bouwt vaak na 15:00 op — dan wil je al richting Braies/hotel zijn.',
-  badWeather:'Bij dichte bewolking op de hoogste passen: Passo Falzarego kan in de wolken hangen. Val Gardena → Val Badia door het dal blijft dan de mooie backup naar Braies.',
-  departAdvice:{time:'08:30', text:'Vertrek uiterlijk 08:30. Met de vier passen en twee meren kom je dan rond 16:00 relaxed aan — ruim vóór het Wellbeing Ritual van 17:00.'},
-  timeline:[
-    {time:'08:30', title:'Vertrek Canazei', note:'Volle tank, GoPro geladen, koffie mee.', cls:''},
-    {time:'09:00', title:'Passo Sella', note:'Onder de Sassolungo door — ochtendlicht.', cls:''},
-    {time:'09:45', title:'Passo Gardena', note:'Groene weiden onder de Sella-torens.', cls:''},
-    {time:'11:30', title:'Passo Falzarego', note:'Hoogste punt; kabelbaan Lagazuoi optioneel.', cls:''},
-    {time:'13:00', title:'Lago di Misurina', note:'Lunch aan het meer met Dolomieten-decor.', cls:''},
-    {time:'14:30', title:'Lago di Braies — P2', note:'Geboekte parking. Rondje langs het water.', cls:'key'},
-    {time:'16:00', title:'Aankomst Naturhotel Leitlhof', note:'Inchecken, rustig aan.', cls:'end'},
-    {time:'17:00', title:'Wellbeing Ritual', note:'Vaste afspraak — geboekt.', cls:'end'}
-  ],
-  advice:'Rijd de passen in deze volgorde: Sella → Gardena → Falzarego → Misurina → Braies. Tre Cime en Santa Maddalena laten we bewust weg — die kosten te veel tijd voor vandaag.',
-  cats:{
-    must:[
-      {emoji:'🏔️', title:'Passo Sella', stars:5, time:'30 min', best:'09:00 — ochtendlicht',
-       parking:'Passo Sella', photo:'Passo Sella Sassolungo',
-       desc:'De opener. Recht onder de getande Sassolungo-torens door, met ochtendlicht op de rotsen. De mooiste start die je je kunt wensen.',
-       tip:'Stop bij de passhöhe voor het klassieke beeld van de weg die naar de torens kronkelt.'},
-      {emoji:'🏔️', title:'Passo Gardena (Grödner Joch)', stars:5, time:'30 min', best:'Late ochtend',
-       parking:'Passo Gardena', photo:'Passo Gardena Grödner Joch',
-       desc:'Glooiende alpenweiden onder de verticale wanden van het Sella-massief. Zachter en groener dan Sella, minstens zo fotogeniek.',
-       tip:'Ideale koffiestop bij de bergpost op de top voor je doorrijdt naar Falzarego.'},
-      {emoji:'⛰️', title:'Passo Falzarego', stars:5, time:'45 min', best:'± 11:30',
-       parking:'Passo Falzarego', photo:'Passo Falzarego Lagazuoi',
-       weather:'Kan in de wolken hangen',
-       desc:'Het hoogste punt van de dag (2.105 m), kaal en groots. Optioneel: kabelbaan Lagazuoi omhoog voor een 360°-panorama over de Dolomieten.',
-       tip:'Even uit de auto: op deze hoogte is de lucht scherp en het uitzicht eindeloos. Warme laag mee.'},
-      {emoji:'🏞️', title:'Lago di Misurina', stars:5, time:'lunch · 60–75 min', best:'13:00 — lunchstop',
-       parking:'Parcheggio Lago di Misurina', photo:'Lago di Misurina',
-       desc:'Rustig bergmeer op 1.750 m met de Dolomieten weerspiegeld in het water. De perfecte lunchstop op de route — zonder de drukte en de tijd van Tre Cime.',
-       tip:'Terras aan het water pakken; hiervandaan is het nog maar een dik half uur naar Braies.'},
-      {emoji:'💙', title:'Lago di Braies — P2 geboekt', stars:5, time:'75–90 min', best:'14:30 — vóór de middagdrukte wegtrekt',
-       parking:'Parcheggio P2 Lago di Braies Prags', photo:'Lago di Braies',
-       desc:'Het smaragdgroene kroonjuweel van de Dolomieten, met de houten roeibootjes en de Seekofel erachter. Je P2-parking is gereserveerd — geen zoekstress.',
-       tip:'Gebruik de aparte knop “Navigeer naar P2” hieronder. Loop het meer (deels) rond voor het beste licht op het water.',
-       special:'p2'}
-    ],
-    nice:[
-      {emoji:'🚡', title:'Lagazuoi kabelbaan', stars:4, time:'60–90 min', best:'Alleen bij helder weer',
-       parking:'Rifugio Lagazuoi funivia Passo Falzarego', photo:'Rifugio Lagazuoi panorama',
-       weather:'Alleen bij helder zicht',
-       desc:'Optioneel vanaf Falzarego: omhoog naar 2.750 m voor het meest weidse uitzicht van de dag. Alleen als je ruim op schema ligt.',
-       tip:'Houd de klok in de gaten — het Wellbeing Ritual om 17:00 staat vast.'}
-    ],
-    bonus:[
-      {emoji:'☕', title:'Rifugio-stop naar keuze', stars:4, time:'30 min', best:'Onderweg',
-       nav:'Passo Valparola', parking:'Passo Valparola', photo:'Passo Valparola',
-       desc:'Tussen de passen liggen tal van berghutten (rifugi) voor een espresso met uitzicht. Pak er eentje waar het je aanstaat.',
-       tip:'Kleine, on-toeristische rifugi net naast de pas zijn vaak het lekkerst én het rustigst.'}
-    ]
-  },
-  restaurants:[
-    {t:'Lunch aan het water · Misurina', q:'restaurant Lago di Misurina'},
-    {t:'Rifugio · Passo Gardena', q:'rifugio Passo Gardena'},
-    {t:'Diner · Naturhotel Leitlhof', q:'Naturhotel Leitlhof Innichen restaurant'}
-  ],
-  gopro:[
-    {t:'Sella → Gardena serpentines', q:'Passo Gardena'},
-    {t:'Afdaling Falzarego', q:'Passo Falzarego'},
-    {t:'Aankomst Lago di Braies', q:'Lago di Braies'}
-  ],
-  fotospots:[
-    {t:'Sassolungo vanaf Passo Sella', q:'Passo Sella Sassolungo'},
-    {t:'Sella-torens vanaf Gardena', q:'Passo Gardena Grödner Joch'},
-    {t:'Roeibootjes Lago di Braies', q:'Lago di Braies boats'},
-    {t:'Spiegeling Lago di Misurina', q:'Lago di Misurina'}
-  ],
-  fuel:'Cruciaal: vertrek met een vólle tank uit Canazei. Tussen de passen zijn pompen schaars. Zo rij je de hele dag zonder omweg of stress.',
-  wellness:{
-    ritualTime:'17:00',
-    spa:'Spa doorgaans 12:00–20:00 (check exact bij de receptie)',
-    pool:'Verwarmd binnen- en buitenzwembad met bergzicht',
-    sauna:'Finse sauna, biosauna en stoombad in het saunapark',
-    textileFree:'De saunaruimte is doorgaans textielvrij (bloot) — neem een grote handdoek mee; badkleding mag wél bij het zwembad.',
-    massage:'Boek een massage bij het inchecken (16:00) zodat je die ná het 17:00-ritual kunt plannen — populaire slots zijn ’s avonds snel vol.'
-  },
-  hotel: hotel({
-    name:'Naturhotel Leitlhof', booked:true,
-    address:'Innichen / San Candido · Zuid-Tirol · Italië',
-    mapsQuery:'Naturhotel Leitlhof Innichen',
-    website:'Naturhotel Leitlhof', bookingQuery:'Naturhotel Leitlhof San Candido',
-    checkin:'vanaf 15:00 · Wellbeing Ritual 17:00',
-    parking:'Eigen parkeerplaats / garage', ev:'EV-laadpunten aanwezig bij het hotel',
-    restaurant:'Duurzaam fine-dining (halfpension)', wellness:'Groot spa- & saunapark met bergzicht'
-  })
-},
-
-/* ============ DAG 6 · 13 augustus ============ */
-{
-  tab:{n:'6', label:'13 aug'}, id:'d6',
-  eyebrow:'Donderdag 13 augustus · Dag 6',
-  title:'San Candido → Heidelberg',
-  subtitle:'De lange terugrit — met een mooi slot',
-  route:{origin:'Innichen (San Candido), Italië', dest:'Berggasthof Königstuhl, Heidelberg, Duitsland',
-         epic:['Brennerpass, Italië/Oostenrijk','Innsbruck, Oostenrijk','Heidelberg Altstadt, Duitsland']},
-  km:'± 600 km', drive:'6 u (rijden)', depart:'08:00', arrive:'± 18:00',
-  weather:'Wisselend onderweg. Deze dag draait om kilometers maken; bewaar je energie voor de avond in Heidelberg.',
-  badWeather:'Regen op de A-wegen? Geen bezwaar — dit is een transitdag. Plan gewoon een langere, droge lunchstop in Innsbruck.',
-  advice:'Efficiënt doorrijden via Brenner en Innsbruck. Één goede lunchstop, en ’s avonds Heidelberg als beloning.',
-  cats:{
-    must:[
-      {emoji:'🏙️', title:'Innsbruck — lunchstop', stars:4, time:'75–90 min', best:'Middag',
-       parking:'Parkgarage Altstadt Innsbruck', photo:'Goldenes Dachl Innsbruck',
-       desc:'Perfect gelegen halverwege: bergstad met een compacte oude stad, het Goldene Dachl en bergen aan alle kanten. Ideaal om de benen te strekken.',
-       tip:'Kort en krachtig: parkeer in de Altstadt-garage, lunch, en weer door — nog een flinke rit te gaan.'},
-      {emoji:'🏰', title:'Heidelberg — Altstadt & Schloss', stars:5, time:'avond', best:'Avondlicht',
-       parking:'Parkhaus P12 Kornmarkt/Schloss Heidelberg', photo:'Heidelberger Schloss',
-       desc:'Aankomst met stijl: het beroemde kasteel boven de Neckar en de Alte Brücke in avondlicht. Mooie afsluiter van de reis.',
-       tip:'Berggasthof Königstuhl ligt bóven de stad — geniet eerst van het uitzicht en rijd daarna omhoog naar het hotel.'}
-    ],
-    nice:[
-      {emoji:'⛪', title:'Vipiteno / Sterzing', stars:3, time:'30–40 min', best:'Ochtend',
-       parking:'Parkplatz Sterzing Zentrum', photo:'Zwölferturm Sterzing',
-       desc:'Kleurrijk Zuid-Tirools stadje net vóór de Brenner. Fijne koffiestop om de laatste keer echt Italië te proeven.',
-       tip:'Laatste kans op een goede Italiaanse espresso en Speck voor onderweg.'}
-    ],
-    bonus:[
-      {emoji:'🌉', title:'Alte Brücke Heidelberg', stars:4, time:'30 min', best:'Zonsondergang',
-       parking:'Parkhaus P12 Kornmarkt/Schloss Heidelberg', photo:'Alte Brücke Heidelberg',
-       desc:'De klassieke wandeling over de oude brug met zicht op kasteel en rivier. Rustig uitwaaien na een dag rijden.',
-       tip:'Even naar de overkant (Philosophenweg-zijde) lopen voor het beroemde ansichtkaart-uitzicht.'}
-    ]
-  },
-  restaurants:[
-    {t:'Lunch · Innsbruck Altstadt', q:'restaurant Altstadt Innsbruck'},
-    {t:'Diner · Heidelberg Altstadt', q:'restaurant Altstadt Heidelberg'},
-    {t:'Uitzicht · Königstuhl', q:'Berggasthof Königstuhl Heidelberg restaurant'}
-  ],
-  gopro:[
-    {t:'Afdaling Brennerpas', q:'Brennerpass'},
-    {t:'Klim naar Königstuhl', q:'Königstuhl Heidelberg'}
-  ],
-  fotospots:[
-    {t:'Goldenes Dachl Innsbruck', q:'Goldenes Dachl Innsbruck'},
-    {t:'Heidelberger Schloss', q:'Heidelberger Schloss'},
-    {t:'Alte Brücke bij avond', q:'Alte Brücke Heidelberg'}
-  ],
-  fuel:'Let op de tol: Oostenrijk vereist een vignette (Brenner heeft daarnaast aparte Maut). Tank het voordeligst in Oostenrijk of net over de Duitse grens — goedkoper dan Italië en Zwitserland.',
-  hotel: hotel({
-    name:'Berggasthof Königstuhl', booked:true,
-    address:'Königstuhl · boven Heidelberg · Duitsland',
-    mapsQuery:'Berggasthof Königstuhl Heidelberg',
-    website:'Berggasthof Königstuhl Heidelberg', bookingQuery:'Berggasthof Königstuhl Heidelberg',
-    checkin:'vanaf 15:00', parking:'Eigen parkeerplaats bij de berggasthof',
-    ev:'Laadpunten in Heidelberg (dal)', restaurant:'Duitse keuken met uitzicht', wellness:'—'
-  })
-},
-
-/* ============ DAG 7 · 14 augustus ============ */
-{
-  tab:{n:'7', label:'14 aug'}, id:'d7',
-  eyebrow:'Vrijdag 14 augustus · Dag 7',
-  title:'Heidelberg → Almere',
-  subtitle:'Rustig naar huis',
-  route:{origin:'Heidelberg, Duitsland', dest:'Almere, Nederland',
-         epic:['Köln, Duitsland','Almere, Nederland']},
-  km:'± 500 km', drive:'5 u (rijden)', depart:'09:00', arrive:'± 15:00',
-  weather:'Ontspannen slotdag. Eén frisse stop onderweg en dan naar huis.',
-  badWeather:'Bij druk terugkeerverkeer (vrijdag!): vertrek liever wat vroeger of las de Köln-stop in om de spits te ontlopen.',
-  advice:'Geen haast. Eén koffiestop bij Köln om de rit te breken, daarna in één ruk naar Almere.',
-  cats:{
-    must:[
-      {emoji:'⛪', title:'Köln — Dom & Rijnboulevard', stars:4, time:'60–75 min', best:'Late ochtend',
-       parking:'Parkhaus Am Dom Köln', photo:'Kölner Dom',
-       desc:'De ideale beenstrek-stop op de weg naar huis: de imposante Dom, een espresso aan de Rijn en dan het laatste stuk naar Nederland.',
-       tip:'Parkeer bij Am Dom/Groß St. Martin — je staat dan direct bij de Dom en de boulevard.'}
-    ],
-    nice:[
-      {emoji:'🛍️', title:'Designer Outlet Roermond', stars:3, time:'naar keuze', best:'Alleen als je zin hebt',
-       parking:'Designer Outlet Roermond parking', photo:'Designer Outlet Roermond',
-       desc:'Vlak over de grens: handig als je de reis met een laatste stop wil rekken. Alleen doen als iedereen er zin in heeft.',
-       tip:'Bij druk vrijdagverkeer eerder overslaan en doorrijden naar huis.'}
-    ],
-    bonus:[
-      {emoji:'🏡', title:'Thuis in Almere', stars:5, time:'—', best:'Middag',
-       nav:'Almere', parking:'Almere', photo:'Almere',
-       desc:'Einde van een onvergetelijke roadtrip. Auto uitladen, foto’s terugkijken en nagenieten.',
-       tip:'GoPro-kaarten meteen back-uppen — je wilt deze beelden niet kwijtraken.'}
-    ]
-  },
-  restaurants:[
-    {t:'Koffie · Köln Rijnboulevard', q:'café Rheinboulevard Köln'},
-    {t:'Lunch onderweg', q:'restaurant A3 Autohof'}
-  ],
-  gopro:[
-    {t:'Rijnbrug bij Köln', q:'Hohenzollernbrücke Köln'}
-  ],
-  fotospots:[
-    {t:'Kölner Dom', q:'Kölner Dom'},
-    {t:'Rijnboulevard', q:'Rheinboulevard Köln'}
-  ],
-  fuel:'Tank het laatst voordelig in Duitsland vóór de grens (of net in Nederland). Vermijd de dure snelweg-tankstations.',
-  hotel: hotel({
-    name:'Thuis · Almere', booked:false, bookedLabel:'',
-    address:'Almere · Nederland',
-    mapsQuery:'Almere', website:'', bookingQuery:'',
-    checkin:'—', parking:'Eigen oprit', ev:'Thuislader', restaurant:'—', wellness:'Eigen bank 🛋️'
-  })
-}
-];
-
-/* =========================================================
-   PRAKTISCH — checklists
-   ========================================================= */
-const CHECKLISTS = [
-  {icon:'🪪', title:'Documenten', items:[
-    'Paspoort','Rijbewijs','Kentekenbewijs','Groene kaart (verzekering)','Creditcard','Contant geld (euro)'
-  ]},
-  {icon:'🚗', title:'Auto', items:[
-    'Bandenspanning gecontroleerd','Oliepeil','Koelvloeistof','Ruitensproeiervloeistof',
-    'GoPro','SD-kaarten (leeg & extra)','USB-kabels','Powerbank','Laadkabels (auto & telefoon)',
-    'EHBO-set','Gevarendriehoek','Veiligheidshesje(s)'
-  ]},
-  {icon:'🛣️', title:'Tol & vignetten', items:[
-    'Zwitserse vignette','Oostenrijkse vignette','Fulli / Telepass badge Italië'
-  ]}
-];
-
-/* =========================================================
-   STORE — LocalStorage
-   ========================================================= */
-const STORE_KEY = 'roadtrip2026.v1';
-const store = (() => {
-  let data = {};
-  try { data = JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e){ data = {}; }
-  return {
-    get: k => !!data[k],
-    set: (k, v) => { data[k] = v; try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){} },
-    all: () => data
-  };
-})();
-
-/* =========================================================
-   RENDER helpers
-   ========================================================= */
-const el = (tag, cls, html) => { const n = document.createElement(tag); if(cls) n.className = cls; if(html!=null) n.innerHTML = html; return n; };
-const stars = n => '★★★★★☆☆☆☆☆'.slice(5-n, 10-n);
-const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-
-function stopKey(dayId, cat, stop){ return `${dayId}-${cat}-${slug(stop.title)}`; }
-
-function renderStop(dayId, cat, stop){
-  const key = stopKey(dayId, cat, stop);
-  const done = store.get(key);
-  const card = el('article', 'stop' + (done ? ' done' : ''));
-  card.dataset.key = key;
-
-  // ---- summary (clickable to open, checkbox toggles done) ----
-  const sub = [];
-  sub.push(`<span class="stars">${stars(stop.stars)}</span>`);
-  sub.push(`<span>⏱ ${stop.time}</span>`);
-  const summary = el('div', 'stop-summary');
-  summary.innerHTML = `
-    <label class="check" aria-label="Afvinken">
-      <input type="checkbox" ${done?'checked':''}>
-      <span class="box"></span>
-    </label>
-    <span class="stop-emoji">${stop.emoji}</span>
-    <div class="stop-main">
-      <div class="stop-title">${stop.title}</div>
-      <div class="stop-sub">${sub.join('')}</div>
-    </div>
-    <span class="chev">▾</span>`;
-  card.appendChild(summary);
-
-  // ---- body ----
-  const body = el('div', 'stop-body');
-  const pills = [];
-  if (stop.best) pills.push(`<span class="pill best">☀️ ${stop.best}</span>`);
-  if (stop.weather) pills.push(`<span class="pill weather">🌦️ ${stop.weather}</span>`);
-  let bodyHtml = '';
-  if (pills.length) bodyHtml += `<div class="info-row">${pills.join('')}</div>`;
-  bodyHtml += `<p>${stop.desc}</p>`;
-  if (stop.tip) bodyHtml += `<div class="tip"><b>Tip &nbsp;</b><span>${stop.tip}</span></div>`;
-
-  // actions: parking, navigate, photo (+ optional special P2)
-  let acts = '<div class="actions">';
-  if (stop.special === 'p2'){
-    acts += `<a class="action nav" href="${mapsSearch('Parcheggio P2 Lago di Braies Prags')}" target="_blank" rel="noopener">
-      <span class="lead"><span class="ic">🅿️</span> Navigeer naar P2 <em style="color:var(--muted);font-style:normal">· geboekt</em></span><span class="go">Maps →</span></a>`;
-  }
-  if (stop.parking){
-    acts += `<a class="action" href="${mapsSearch(stop.parking)}" target="_blank" rel="noopener">
-      <span class="lead"><span class="ic">🚗</span> Parkeren</span><span class="go">Maps →</span></a>`;
-  }
-  const navQuery = stop.nav || stop.title.split(/ — | \/ | \(/)[0].trim();
-  acts += `<a class="action nav" href="${mapsSearch(navQuery)}" target="_blank" rel="noopener">
-      <span class="lead"><span class="ic">🧭</span> Navigeer hierheen</span><span class="go">Maps →</span></a>`;
-  if (stop.photo){
-    acts += `<a class="action" href="${mapsSearch(stop.photo)}" target="_blank" rel="noopener">
-      <span class="lead"><span class="ic">📸</span> Fotospot</span><span class="go">Maps →</span></a>`;
-  }
-  acts += '</div>';
-  bodyHtml += acts;
-  body.innerHTML = bodyHtml;
-  card.appendChild(body);
-
-  // ---- interactions ----
-  const input = summary.querySelector('input');
-  input.addEventListener('click', e => e.stopPropagation());
-  input.addEventListener('change', () => {
-    store.set(key, input.checked);
-    card.classList.toggle('done', input.checked);
-    updateProgress();
-    toast(input.checked ? '✓ Afgevinkt' : 'Vinkje weggehaald');
-  });
-  summary.addEventListener('click', e => {
-    if (e.target.closest('.check')) return;
-    card.classList.toggle('open');
-  });
-  return card;
-}
-
-function catBlock(dayId, cat, label, stops){
-  if (!stops || !stops.length) return null;
-  const frag = document.createDocumentFragment();
-  const head = el('div', `cat-head cat-${cat}`, `<span class="cat-dot"></span>${label}`);
-  frag.appendChild(head);
-  stops.forEach(s => frag.appendChild(renderStop(dayId, cat, s)));
-  return frag;
-}
-
-function miniBlock(title, items){
-  if (!items || !items.length) return null;
-  const b = el('div', 'mini-block');
-  b.appendChild(el('h4', null, title));
-  const list = el('div', 'chiplist');
-  items.forEach(it => {
-    const a = el('a', 'chip');
-    a.href = mapsSearch(it.q); a.target = '_blank'; a.rel = 'noopener';
-    a.innerHTML = `<span class="ic">📍</span>${it.t}`;
-    list.appendChild(a);
-  });
-  b.appendChild(list);
-  return b;
-}
-
-function renderHotel(h){
-  if (!h) return null;
-  const card = el('section', h.wellness && h.name.includes('Leitlhof') ? 'hotel' : 'hotel');
-  const bookedTag = h.booked ? `<span class="tag-booked">✓ ${h.bookedLabel || 'geboekt'}</span>` : '';
-  let feats = '';
-  const addFeat = (k,v)=>{ if(v && v!=='—') feats += `<div class="feat-item"><b>${k}</b>${v}</div>`; };
-  addFeat('Inchecken', h.checkin);
-  addFeat('Parkeren', h.parking);
-  addFeat('EV laden', h.ev);
-  addFeat('Restaurant', h.restaurant);
-  addFeat('Wellness', h.wellness);
-
-  let acts = '<div class="actions" style="margin-top:14px">';
-  acts += `<a class="action nav" href="${mapsSearch(h.mapsQuery)}" target="_blank" rel="noopener">
-    <span class="lead"><span class="ic">🧭</span> Navigeer naar hotel</span><span class="go">Maps →</span></a>`;
-  acts += `<a class="action" href="${mapsSearch(h.mapsQuery)}" target="_blank" rel="noopener">
-    <span class="lead"><span class="ic">📞</span> Adres & telefoon</span><span class="go">Maps →</span></a>`;
-  if (h.website) acts += `<a class="action book" href="${gsearch(h.website + ' officiële website')}" target="_blank" rel="noopener">
-    <span class="lead"><span class="ic">🌐</span> Website</span><span class="go">Zoek →</span></a>`;
-  if (h.bookingQuery) acts += `<a class="action book" href="${booking(h.bookingQuery)}" target="_blank" rel="noopener">
-    <span class="lead"><span class="ic">🛏️</span> Booking</span><span class="go">Open →</span></a>`;
-  acts += '</div>';
-
-  card.innerHTML = `
-    <div class="hotel-head"><h3>🏨 ${h.name}</h3>${bookedTag}</div>
-    <p class="addr">${h.address}</p>
-    ${feats ? `<div class="feat">${feats}</div>` : ''}
-    ${acts}`;
-  return card;
-}
-
-function renderWellness(w){
-  const card = el('section', 'wellness-card');
-  card.innerHTML = `
-    <h3>🧖 Leitlhof Spa & Wellbeing</h3>
-    <div class="ritual">
-      <div><div class="t">Wellbeing Ritual</div><div style="color:var(--muted);font-size:12.5px;margin-top:2px">Vaste afspraak</div></div>
-      <div style="text-align:right"><div class="time">${w.ritualTime}</div><span class="tag-booked">✓ geboekt</span></div>
-    </div>
-    <div class="feat">
-      <div class="feat-item"><b>Spa openingstijden</b>${w.spa}</div>
-      <div class="feat-item"><b>Zwembad</b>${w.pool}</div>
-      <div class="feat-item"><b>Sauna</b>${w.sauna}</div>
-      <div class="feat-item"><b>Textielvrij</b>${w.textileFree}</div>
-    </div>
-    <div class="tip" style="margin-top:12px"><b>Massage &nbsp;</b><span>${w.massage}</span></div>`;
-  return card;
-}
-
-function renderTimeline(items){
-  const wrap = el('div', 'mini-block');
-  wrap.appendChild(el('h4', null, '⏱ Tijdlijn van de dag'));
-  const tl = el('div', 'timeline');
-  items.forEach(it => {
-    const item = el('div', 'tl-item' + (it.cls ? ' ' + it.cls : ''));
-    item.innerHTML = `<div class="tl-time">${it.time}</div><div class="tl-title">${it.title}</div>${it.note?`<div class="tl-note">${it.note}</div>`:''}`;
-    tl.appendChild(item);
-  });
-  wrap.appendChild(tl);
-  return wrap;
-}
-
-/* ---------- Full day panel ---------- */
-function renderDay(day, index){
-  const panel = el('section', 'panel');
-  panel.dataset.index = index;
-  panel.id = 'panel-' + day.id;
-
-  // hero
-  const hero = el('div', 'day-hero');
-  hero.innerHTML = `<div class="day-eyebrow">${day.eyebrow}</div>
-    <h2>${day.title}</h2><p class="subtitle">${day.subtitle}</p>`;
-  panel.appendChild(hero);
-
-  // stat strip (skip for pool day)
-  if (!day.isPool){
-    const strip = el('div', 'stat-strip');
-    strip.innerHTML = `
-      <div class="stat accent"><span class="k">Afstand</span><span class="v">${day.km}</span></div>
-      <div class="stat"><span class="k">Rijtijd</span><span class="v">${day.drive}</span></div>
-      <div class="stat nav"><span class="k">Vertrek</span><span class="v">${day.depart}</span></div>
-      <div class="stat"><span class="k">Aankomst</span><span class="v">${day.arrive}</span></div>`;
-    panel.appendChild(strip);
-  }
-
-  // routes
-  if (day.route){
-    const routes = el('div', 'routes');
-    const comfort = mapsDir(day.route.origin, day.route.dest);
-    const epic = mapsDir(day.route.origin, day.route.dest, day.route.epic);
-    routes.innerHTML = `
-      <a class="route-btn route-comfort" href="${comfort}" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
-      <a class="route-btn route-epic" href="${epic}" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a>`;
-    panel.appendChild(routes);
-  }
-
-  // depart advice (day 12)
-  if (day.departAdvice){
-    const da = el('div', 'depart-advice');
-    da.innerHTML = `<div><div class="lbl">Aanbevolen vertrek</div><div class="big">${day.departAdvice.time}</div></div>
-      <div class="txt">${day.departAdvice.text}</div>`;
-    panel.appendChild(da);
-  }
-
-  // weather + advice banners
-  if (day.weather) panel.appendChild(el('div', 'banner banner-advice', `<strong>Weer:</strong> ${day.weather}`));
-  if (day.badWeather) panel.appendChild(el('div', 'banner banner-weather', `<strong>Bij slecht weer:</strong> ${day.badWeather}`));
-  if (day.advice) panel.appendChild(el('div', 'banner banner-advice', `<strong>Mijn keuze:</strong> ${day.advice}`));
-
-  // timeline (day 12)
-  if (day.timeline) panel.appendChild(renderTimeline(day.timeline));
-
-  // ----- POOL day (Garda) -----
-  if (day.isPool){
-    if (day.poolIntro) panel.appendChild(el('div', 'pool-intro', `<b>Zo werkt het:</b> ${day.poolIntro}`));
-    panel.appendChild(el('div', 'cat-head cat-nice', '<span class="cat-dot"></span>Kies je bestemmingen'));
-    day.pool.forEach(s => panel.appendChild(renderStop(day.id, 'pool', s)));
-  } else {
-    // ----- normal categories -----
-    const must = catBlock(day.id, 'must', '🟥 Must do', day.cats.must);
-    const nice = catBlock(day.id, 'nice', '🟧 Leuk / nice to have', day.cats.nice);
-    const bonus = catBlock(day.id, 'bonus', '🟩 Bonus', day.cats.bonus);
-    if (must) panel.appendChild(must);
-    if (nice) panel.appendChild(nice);
-    if (bonus) panel.appendChild(bonus);
-  }
-
-  // mini-blocks
-  const mb = miniBlock('🍝 Restauranttips', day.restaurants); if (mb) panel.appendChild(mb);
-  const gp = miniBlock('🎬 GoPro-momenten', day.gopro); if (gp) panel.appendChild(gp);
-  const fs = miniBlock('📸 Fotospots', day.fotospots); if (fs) panel.appendChild(fs);
-  if (day.fuel){
-    const f = el('div', 'mini-block');
-    f.appendChild(el('h4', null, '⛽ Tankadvies'));
-    f.appendChild(el('div', 'fuel-note', day.fuel));
-    panel.appendChild(f);
-  }
-
-  // wellness (Leitlhof)
-  if (day.wellness) panel.appendChild(renderWellness(day.wellness));
-
-  // hotel
-  const h = renderHotel(day.hotel); if (h) panel.appendChild(h);
-
-  return panel;
-}
-
-/* ---------- Practical tab ---------- */
-function renderPractical(){
-  const panel = el('section', 'panel');
-  panel.id = 'panel-practical';
-  panel.dataset.index = DAYS.length;
-  const hero = el('div', 'day-hero');
-  hero.innerHTML = `<div class="day-eyebrow">Voor vertrek · onderweg</div>
-    <h2>Roadtrip Checklist</h2><p class="subtitle">Afvinken wat klaar is — opgeslagen op dit toestel</p>`;
-  panel.appendChild(hero);
-
-  CHECKLISTS.forEach((g, gi) => {
-    const group = el('div', 'checklist-group' + (gi===0?' open':''));
-    const key = `cl-${slug(g.title)}`;
-    const doneCount = g.items.filter((_,i)=>store.get(`${key}-${i}`)).length;
-    const head = el('div', 'cl-head');
-    head.innerHTML = `<h3><span>${g.icon}</span> ${g.title}</h3><span class="cl-count">${doneCount}/${g.items.length}</span>`;
-    group.appendChild(head);
-    const bodyWrap = el('div', 'cl-body');
-    g.items.forEach((label, i) => {
-      const ik = `${key}-${i}`;
-      const done = store.get(ik);
-      const item = el('label', 'cl-item');
-      item.innerHTML = `<input type="checkbox" ${done?'checked':''}><span class="box"></span><span class="lbl">${label}</span>`;
-      const input = item.querySelector('input');
-      input.addEventListener('change', () => {
-        store.set(ik, input.checked);
-        const dc = g.items.filter((_,j)=>store.get(`${key}-${j}`)).length;
-        head.querySelector('.cl-count').textContent = `${dc}/${g.items.length}`;
-      });
-      bodyWrap.appendChild(item);
+  const checks = $$('.stop-check, .cl-check');
+  checks.forEach(cb => {
+    if (saved[cb.id] === true) cb.checked = true;
+    syncDone(cb);
+    cb.addEventListener('change', () => {
+      saved[cb.id] = cb.checked;
+      persist(); syncDone(cb); updateProgress(); updateClCount(cb);
+      toast(cb.checked ? '✓ Afgevinkt' : 'Vinkje weg');
     });
-    group.appendChild(bodyWrap);
-    head.addEventListener('click', () => group.classList.toggle('open'));
-    panel.appendChild(group);
   });
-
-  panel.appendChild(el('div', 'foot',
-    'Roadtrip Companion 2026 · werkt volledig offline · alle voortgang staat lokaal op dit toestel.<br>Controleer bij vertrek altijd actuele weers- en verkeersinfo.'));
-  return panel;
-}
-
-/* =========================================================
-   TABS + navigation
-   ========================================================= */
-let current = 0;
-const panels = [];
-const tabsEl = document.getElementById('dayTabs');
-const mainEl = document.getElementById('main');
-
-function buildTabs(){
-  DAYS.forEach((day, i) => {
-    const b = el('button', 'day-tab' + (i===0?' active':''), `${day.tab.n}<span>${day.tab.label}</span>`);
-    b.dataset.index = i;
-    b.addEventListener('click', () => go(i));
-    tabsEl.appendChild(b);
-  });
-  // practical tab
-  const p = el('button', 'day-tab practical', `⚙️<span>Praktisch</span>`);
-  p.dataset.index = DAYS.length;
-  p.addEventListener('click', () => go(DAYS.length));
-  tabsEl.appendChild(p);
-}
-
-function buildPanels(){
-  DAYS.forEach((day, i) => { const panel = renderDay(day, i); panels.push(panel); mainEl.appendChild(panel); });
-  const prac = renderPractical(); panels.push(prac); mainEl.appendChild(prac);
-}
-
-function go(i){
-  if (i < 0 || i >= panels.length || i === current) {
-    // still allow re-scroll to top on same tab
-    if (i === current) window.scrollTo({top:0, behavior:'smooth'});
-    return;
+  function syncDone(cb){
+    const stop = cb.closest('.stop');
+    if (stop) stop.classList.toggle('done', cb.checked);
   }
-  panels[current].classList.remove('active');
-  panels[i].classList.add('active');
-  current = i;
 
-  [...tabsEl.children].forEach((t, ti) => t.classList.toggle('active', ti === i));
-  // keep active tab visible in the scroller
-  const activeTab = tabsEl.children[i];
-  if (activeTab) activeTab.scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
-
-  // subtitle
-  const st = document.getElementById('headerSubtitle');
-  if (i < DAYS.length) st.textContent = DAYS[i].eyebrow;
-  else st.textContent = 'Checklist & praktische info';
-
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-/* ---------- Swipe between tabs ---------- */
-function initSwipe(){
-  let x0=null, y0=null, t0=0;
-  mainEl.addEventListener('touchstart', e => {
-    const t = e.changedTouches[0]; x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
-  }, {passive:true});
-  mainEl.addEventListener('touchend', e => {
-    if (x0===null) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - x0, dy = t.clientY - y0, dt = Date.now() - t0;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)*1.8 && dt < 600){
-      if (dx < 0) go(Math.min(current+1, panels.length-1));
-      else go(Math.max(current-1, 0));
-    }
-    x0 = y0 = null;
-  }, {passive:true});
-}
-
-/* =========================================================
-   PROGRESS ring (telt alle stops over alle dagen)
-   ========================================================= */
-function allStopKeys(){
-  const keys = [];
-  DAYS.forEach(day => {
-    if (day.isPool){ day.pool.forEach(s => keys.push(stopKey(day.id,'pool',s))); }
-    else if (day.cats){
-      ['must','nice','bonus'].forEach(cat => (day.cats[cat]||[]).forEach(s => keys.push(stopKey(day.id,cat,s))));
-    }
-  });
-  return keys;
-}
-function updateProgress(){
-  const keys = allStopKeys();
-  const done = keys.filter(k => store.get(k)).length;
-  const pct = keys.length ? Math.round(done/keys.length*100) : 0;
-  const ring = document.getElementById('progressRing');
-  ring.style.setProperty('--p', pct + '%');
-  document.getElementById('progressPct').textContent = pct + '%';
-}
-
-/* =========================================================
-   FLOATING quick actions (met geolocatie)
-   ========================================================= */
-function initFab(){
-  const dock = document.getElementById('fabDock');
-  const toggle = document.getElementById('fabToggle');
-  const menu = document.getElementById('fabMenu');
-  toggle.addEventListener('click', () => {
-    const open = dock.classList.toggle('open');
-    menu.setAttribute('aria-hidden', open ? 'false' : 'true');
-  });
-  document.addEventListener('click', e => {
-    if (!dock.contains(e.target)) { dock.classList.remove('open'); menu.setAttribute('aria-hidden','true'); }
-  });
-
-  const queries = {
-    here:  {label:'je locatie',    build: (c)=> c ? mapsSearch(`${c.lat},${c.lng}`) : mapsSearch('mijn locatie')},
-    food:  {label:'restaurants',   build: (c)=> c ? mapsSearch(`restaurants near ${c.lat},${c.lng}`) : mapsSearch('restaurant in de buurt')},
-    coffee:{label:'koffie',        build: (c)=> c ? mapsSearch(`coffee near ${c.lat},${c.lng}`) : mapsSearch('koffie in de buurt')},
-    fuel:  {label:'tankstations',  build: (c)=> c ? mapsSearch(`tankstation near ${c.lat},${c.lng}`) : mapsSearch('tankstation in de buurt')},
-    photo: {label:'fotospots',     build: (c)=> c ? mapsSearch(`viewpoint near ${c.lat},${c.lng}`) : mapsSearch('scenic viewpoint in de buurt')}
-  };
-
-  menu.querySelectorAll('.fab-item').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const q = queries[btn.dataset.quick];
-      dock.classList.remove('open'); menu.setAttribute('aria-hidden','true');
-      if (navigator.geolocation){
-        toast(`📍 Locatie ophalen…`);
-        navigator.geolocation.getCurrentPosition(
-          pos => openMaps(q.build({lat:pos.coords.latitude, lng:pos.coords.longitude})),
-          ()  => { toast('Zonder GPS — algemene zoekopdracht'); openMaps(q.build(null)); },
-          {enableHighAccuracy:true, timeout:8000, maximumAge:60000}
-        );
-      } else {
-        openMaps(q.build(null));
+  /* Tapping the checkbox inside a <summary> should NOT open/close the card */
+  $$('.stop-summary').forEach(sum => {
+    sum.addEventListener('click', e => {
+      if (e.target.closest('.check')) {
+        e.preventDefault();
+        const cb = sum.querySelector('.stop-check');
+        if (cb){ cb.checked = !cb.checked; cb.dispatchEvent(new Event('change', {bubbles:true})); }
       }
     });
   });
-}
-function openMaps(url){ window.open(url, '_blank', 'noopener'); }
 
-/* =========================================================
-   TOAST
-   ========================================================= */
-let toastTimer;
-function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 1900);
-}
+  /* Checklist group counters */
+  function updateClCount(cb){
+    const group = cb.closest('.checklist-group');
+    if (!group) return;
+    const all = $$('.cl-check', group);
+    const done = all.filter(c => c.checked).length;
+    const el = $('.cl-count', group);
+    if (el) el.textContent = `${done}/${all.length}`;
+  }
 
-/* =========================================================
-   BOOT
-   ========================================================= */
-function boot(){
-  buildTabs();
-  buildPanels();
-  panels[0].classList.add('active');
-  document.getElementById('headerSubtitle').textContent = DAYS[0].eyebrow;
-  initSwipe();
-  initFab();
+  /* ---------- Progress ring (day-stops only) ---------- */
+  function updateProgress(){
+    const stopChecks = $$('.stop-check');
+    const done = stopChecks.filter(c => c.checked).length;
+    const pct = stopChecks.length ? Math.round(done / stopChecks.length * 100) : 0;
+    const ring = $('#progressRing');
+    if (ring) ring.style.setProperty('--p', pct + '%');
+    const t = $('#progressPct'); if (t) t.textContent = pct + '%';
+  }
+
+  /* ---------- Tabs: sync active label + subtitle + scroll ---------- */
+  const radios = $$('.tabstate');
+  const tabs = $$('.day-tab');
+  const tabsWrap = $('#dayTabs');
+
+  function currentIndex(){ return Math.max(0, radios.findIndex(r => r.checked)); }
+
+  function syncTab(scroll){
+    const i = currentIndex();
+    tabs.forEach((t, ti) => t.classList.toggle('active', ti === i));
+    const sub = radios[i] && radios[i].dataset.sub;
+    const st = $('#headerSubtitle'); if (st && sub) st.textContent = sub;
+    if (tabs[i]) tabs[i].scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
+    if (scroll) window.scrollTo({top:0, behavior:'smooth'});
+  }
+  radios.forEach(r => r.addEventListener('change', () => syncTab(true)));
+
+  function goTo(i){
+    if (i < 0 || i >= radios.length) return;
+    radios[i].checked = true;
+    radios[i].dispatchEvent(new Event('change', {bubbles:true}));
+  }
+
+  /* Progress ring jumps to the Practical/overview tab */
+  const ring = $('#progressRing');
+  if (ring) ring.addEventListener('click', () => goTo(radios.length - 1));
+
+  /* ---------- Swipe between days ---------- */
+  const main = $('#main') || $('main');
+  if (main){
+    let x0=null, y0=null, t0=0;
+    main.addEventListener('touchstart', e => { const t=e.changedTouches[0]; x0=t.clientX; y0=t.clientY; t0=Date.now(); }, {passive:true});
+    main.addEventListener('touchend', e => {
+      if (x0===null) return;
+      const t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0, dt=Date.now()-t0;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)*1.8 && dt < 600){
+        goTo(currentIndex() + (dx < 0 ? 1 : -1));
+      }
+      x0=y0=null;
+    }, {passive:true});
+  }
+
+  /* ---------- FAB quick actions with geolocation ---------- */
+  const fabState = $('#fabState');
+  const enc = s => encodeURIComponent(s);
+  const nearURL = (kind, c) => {
+    const q = {here:'', food:'restaurants', coffee:'coffee', fuel:'tankstation', photo:'viewpoint'}[kind];
+    if (c) return `https://www.google.com/maps/search/?api=1&query=${enc((q?q+' near ':'') + c.lat+','+c.lng)}`;
+    return null; // fall back to the anchor's own generic href
+  };
+  $$('.fab-item').forEach(btn => {
+    btn.addEventListener('click', e => {
+      if (fabState) fabState.checked = false;              // close menu
+      if (!navigator.geolocation) return;                  // let anchor href proceed
+      e.preventDefault();
+      toast('📍 Locatie ophalen…');
+      navigator.geolocation.getCurrentPosition(
+        pos => window.open(nearURL(btn.dataset.quick, {lat:pos.coords.latitude, lng:pos.coords.longitude}), '_blank', 'noopener'),
+        ()  => { toast('Zonder GPS — algemene zoekopdracht'); window.open(btn.href, '_blank', 'noopener'); },
+        {enableHighAccuracy:true, timeout:8000, maximumAge:60000}
+      );
+    });
+  });
+
+  /* ---------- Toast ---------- */
+  let toastTimer;
+  function toast(msg){
+    const t = $('#toast'); if (!t) return;
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 1900);
+  }
+
+  /* ---------- init ---------- */
   updateProgress();
-
-  // progress ring jumps to first unfinished-ish day: go to today if within range? keep day 1.
-  document.getElementById('progressRing').addEventListener('click', () => go(DAYS.length)); // -> praktisch/overzicht
-}
-document.addEventListener('DOMContentLoaded', boot);
+  syncTab(false);
+})();
 
   </script>
 </body>

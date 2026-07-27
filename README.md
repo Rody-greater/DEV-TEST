@@ -15,14 +15,23 @@ en Google Maps — mobile-first, grote knoppen, perfect leesbaar in fel zonlicht
 
 | Bestand | Inhoud |
 |---|---|
-| **`Roadtrip-Companion-2026.html`** | **👉 Dit openen op je telefoon.** Één zelfstandig bestand — alle CSS + JS + icoon zitten erin. |
-| `index.html` | Dev-versie van de shell (verwijst naar de losse `styles.css` / `script.js`) |
-| `styles.css` | Volledige premium dark-theme styling (bron) |
-| `script.js` | Data-model van de hele reis + rendering-engine + logica (bron) |
+| **`Roadtrip-Companion-2026.html`** | **👉 Dit openen op je telefoon.** Één zelfstandig bestand — alle inhoud, CSS, JS en icoon zitten erin. |
+| `index.html` | Zelfde inhoud, maar verwijst naar de losse `styles.css` / `script.js` (voor ontwikkelen) |
+| `styles.css` | Volledige premium dark-theme styling |
+| `script.js` | Progressive-enhancement laag (voortgang opslaan, swipe, GPS-knoppen) |
+| `data.js` | Alle reisdata (dagen, stops, hotels, checklists) — de enige bron |
+| `build.mjs` | Bouwt `index.html` + het standalone bestand vanuit `data.js` |
 | `assets/icon.svg` | App-icoon (favicon / touch-icon) |
 | `README.md` | Deze uitleg |
 
-Geen backend, geen frameworks, geen build-stap. Puur **HTML5 + CSS + vanilla JavaScript**.
+Geen backend, geen frameworks. Puur **HTML5 + CSS + vanilla JavaScript**.
+
+### Werkt óók zonder JavaScript
+
+De hele inhoud staat vooraf in de HTML (pre-rendered). De dagtabs (CSS-radio's), de
+uitklap-kaarten (native `<details>`), de checkboxes en alle Google Maps-links werken **zonder
+JavaScript** — dus ook in een in-app bestandsviewer die geen scripts uitvoert. JavaScript voegt
+alleen extra's toe: voortgang bewaren, swipe-navigatie, actieve-tab-sync en de GPS-snelacties.
 
 ## Gebruiken — belangrijk
 
@@ -37,9 +46,17 @@ openen zonder de andere bestanden ernaast.
 > tekst (bijv. de GitHub-bronweergave of een tekst-/preview-viewer). Download het bestand en
 > open het in een **webbrowser** — dan rendert de pagina.
 
-De losse `index.html` + `styles.css` + `script.js` zijn de bron om in te ontwikkelen. Wijzig je
-die, bouw dan `Roadtrip-Companion-2026.html` opnieuw door de CSS in een `<style>` en de JS in
-een `<script>` te plakken (het icoon staat als data-URI in het bestand).
+## Aanpassen & opnieuw bouwen
+
+Alle inhoud staat in **`data.js`** (de `DAYS`-array en `CHECKLISTS`). Wijzig daar een dag,
+stop, hotel of tijd, en bouw daarna opnieuw:
+
+```
+node build.mjs
+```
+
+Dat genereert `index.html` én `Roadtrip-Companion-2026.html` opnieuw. Google Maps-links komen uit
+echte plaatsnamen via `mapsSearch()` / `mapsDir()` — geen placeholders.
 
 ## Functies
 
