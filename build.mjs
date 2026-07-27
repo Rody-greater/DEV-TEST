@@ -122,9 +122,11 @@ function panelHTML(day){
   if (day.route){
     const comfort = mapsDir(day.route.origin, day.route.dest);
     const epic = mapsDir(day.route.origin, day.route.dest, day.route.epic);
+    const cSub = day.driveComfort ? `${esc(day.driveComfort)} · snelste weg` : 'Snelste weg';
+    const eSub = day.driveEpic ? `${esc(day.driveEpic)} · langs highlights` : 'Langs de highlights';
     h += `<div class="routes">
-      <a class="route-btn route-comfort" href="${comfort}" target="_blank" rel="noopener">🟢 Comfort route<small>Snelste weg</small></a>
-      <a class="route-btn route-epic" href="${epic}" target="_blank" rel="noopener">🔥 Epic route<small>Langs de highlights</small></a></div>`;
+      <a class="route-btn route-comfort" href="${comfort}" target="_blank" rel="noopener">🟢 Comfort route<small>${cSub}</small></a>
+      <a class="route-btn route-epic" href="${epic}" target="_blank" rel="noopener">🔥 Epic route<small>${eSub}</small></a></div>`;
   }
 
   if (day.departAdvice)
