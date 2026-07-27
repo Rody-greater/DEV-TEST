@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { toRef, computed, ref, watch } from 'vue'
+import { toRef, computed, ref, watch, onMounted } from 'vue'
 import type { Day, LatLng } from '@/types/trip'
 import { useRoadCaptain } from '@/composables/useRoadCaptain'
 import { useGeo, distanceM } from '@/composables/useGeo'
+import { useUserStore } from '@/stores/user'
 import { humanDuration } from '@/utils/time'
 import StatusBadge from '@/components/ui/StatusBadge.vue'
 import { ArrowPathIcon, SignalIcon, SignalSlashIcon } from '@heroicons/vue/24/solid'
@@ -31,10 +32,21 @@ const doneStops = computed(() => result.value.stops.filter(s => s.status === 'de
 
 /* ---- GPS proximity suggestions (optional, offline-capable) ---- */
 const geo = useGeo()
+const user = useUserStore()
 const suggestion = ref<{ type: 'arrive' | 'depart'; id: string; title: string } | null>(null)
 const dismissed = ref<Set<string>>(new Set())
 
-function toggleGeo() { geo.enabled.value ? geo.disable() : geo.enable() }
+function toggleGeo() {
+  if (geo.enabled.value) { geo.disable(); user.setGeoEnabled(false) }
+  else { geo.enable(); user.setGeoEnabled(true) }
+}
+
+// Restore the remembered GPS opt-in on mount. The browser keeps the permission
+// grant, so re-enabling does not trigger a new prompt — this only stops the toggle
+// resetting to "off" every time the user navigates back to Home.
+onMounted(() => {
+  if (user.geoEnabled && geo.supported && !geo.enabled.value) geo.enable()
+})
 
 watch(
   () => geo.position.value,

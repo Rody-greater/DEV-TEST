@@ -13,6 +13,7 @@ interface UserState {
   stopStatus: Record<string, StopStatus> // stop id -> status
   stopArrived: Record<string, number>    // stop id -> arrival timestamp (ms)
   stopDeparted: Record<string, number>   // stop id -> departure timestamp (ms)
+  geoEnabled: boolean                    // remembered GPS opt-in (permission stays granted by the browser)
 }
 
 export const useUserStore = defineStore('user', {
@@ -26,7 +27,8 @@ export const useUserStore = defineStore('user', {
     skips: {},
     stopStatus: {},
     stopArrived: {},
-    stopDeparted: {}
+    stopDeparted: {},
+    geoEnabled: false
   }),
   getters: {
     isChecked: (s) => (id: string) => !!s.checks[id],
@@ -48,6 +50,7 @@ export const useUserStore = defineStore('user', {
     setNote(id: string, text: string) { this.notes[id] = text },
     setDeparture(dayId: string, time: string) { this.departures[dayId] = time },
     toggleSkip(id: string) { this.skips[id] = !this.skips[id] },
+    setGeoEnabled(v: boolean) { this.geoEnabled = v },
 
     /* ---- Road Captain 2.0 status transitions ---- */
     setStatus(id: string, status: StopStatus, at: number) {
