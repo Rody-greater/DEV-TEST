@@ -17,15 +17,22 @@ const actions: QA[] = [
 
 function run(a: QA) {
   open.value = false
-  if (!navigator.geolocation) { openExternal(mapsSearch(a.fallback)); return }
+  // iOS Safari blocks window.open() unless it runs synchronously inside the tap
+  // gesture. getCurrentPosition is async, so open a blank tab NOW and redirect it
+  // once the coordinates resolve. Fall back to same-tab navigation if it was blocked.
+  const tab = window.open('about:blank', '_blank')
+  try { if (tab) tab.opener = null } catch { /* cross-origin after redirect */ }
+  const go = (url: string) => { if (tab) tab.location.href = url; else openExternal(url) }
+
+  if (!navigator.geolocation) { go(mapsSearch(a.fallback)); return }
   busy.value = true
   navigator.geolocation.getCurrentPosition(
     pos => {
       busy.value = false
       const c = `${pos.coords.latitude},${pos.coords.longitude}`
-      openExternal(mapsSearch(a.term ? `${a.term} near ${c}` : c))
+      go(mapsSearch(a.term ? `${a.term} near ${c}` : c))
     },
-    () => { busy.value = false; openExternal(mapsSearch(a.fallback)) },
+    () => { busy.value = false; go(mapsSearch(a.fallback)) },
     { enableHighAccuracy: true, timeout: 8000, maximumAge: 60_000 }
   )
 }
