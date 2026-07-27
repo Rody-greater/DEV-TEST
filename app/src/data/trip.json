@@ -1,0 +1,2048 @@
+{
+  "meta": {
+    "title": "Roadtrip Companion 2026",
+    "subtitle": "Duitsland · Zwitserland · Noord-Italië",
+    "startDate": "2026-08-04",
+    "endDate": "2026-08-14",
+    "car": "Range Rover Sport"
+  },
+  "days": [
+    {
+      "id": "d1",
+      "index": 0,
+      "tabNumber": "1",
+      "tabLabel": "4 aug",
+      "date": "2026-08-04",
+      "endDate": "2026-08-04",
+      "isPool": false,
+      "isEpic": false,
+      "eyebrow": "Dinsdag 4 augustus · Dag 1",
+      "title": "Almere → Bernkastel-Kues",
+      "subtitle": "Warmdraaien door de Eifel en de Moezel",
+      "poolIntro": null,
+      "km": "± 415 km",
+      "drive": "4 u 20 (rijden)",
+      "driveComfort": "≈ 4 u 20",
+      "driveEpic": "≈ 5 u 30 rijden",
+      "depart": "08:30",
+      "arrive": "± 16:30",
+      "weather": "Zomers en warm in het dal (25–30°). In de Eifel kan het rond de middag onweren — plan Monschau daarom vroeg.",
+      "badWeather": "Bij regen: sla Geierlay over (glad op de brug) en maak van Cochem je overdekte koffie- en lunchstop.",
+      "advice": "Monschau en de Nürburgring altijd meepakken. Cochem alleen als je energie over hebt — anders rechtstreeks naar de Moezel.",
+      "departAdvice": null,
+      "route": {
+        "origin": "Almere, Nederland",
+        "dest": "Burgblickhotel, Bernkastel-Kues, Duitsland",
+        "epic": [
+          "Monschau, Duitsland",
+          "Nürburgring, Nürburg, Duitsland",
+          "Cochem, Duitsland"
+        ]
+      },
+      "timeline": null,
+      "wellness": null,
+      "stops": [
+        {
+          "id": "d1:monschau-altstadt",
+          "title": "Monschau Altstadt",
+          "emoji": "🏘️",
+          "category": "must",
+          "stars": 5,
+          "time": "60–75 min",
+          "dwellMin": 68,
+          "best": "Ochtend, vóór de bussen",
+          "weather": null,
+          "warning": null,
+          "desc": "Perfecte eerste stop: vakwerkhuizen tegen de rotswand, de Rur die dwars door het stadje loopt en compact genoeg om niet je halve dag te kosten.",
+          "tip": "Parkeer bij P Au en loop langs de rivier het centrum in — mooiste aanblik en je auto staat in de schaduw.",
+          "nav": "Monschau Altstadt",
+          "parking": "Parkhaus Au Monschau",
+          "photo": "Rotes Haus Monschau",
+          "special": null,
+          "coord": [
+            50.5528,
+            6.2447
+          ]
+        },
+        {
+          "id": "d1:n-rburgring-boulevard",
+          "title": "Nürburgring — Boulevard",
+          "emoji": "🏁",
+          "category": "must",
+          "stars": 5,
+          "time": "45–60 min",
+          "dwellMin": 53,
+          "best": "Late ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "Je rijdt een Range Rover Sport door de Eifel en komt er praktisch langs. Even de Boulevard op, de pitstraat ruiken en verder. Overslaan zou raar zijn.",
+          "tip": "GoPro: monteer de suction mount op de motorkap vóór je de aanrijroute door het bos neemt — dat stuk is filmisch.",
+          "nav": "Nürburgring",
+          "parking": "Nürburgring Grand-Prix-Strecke Parkplatz",
+          "photo": "Nürburgring Boulevard",
+          "special": null,
+          "coord": [
+            50.335,
+            6.947
+          ]
+        },
+        {
+          "id": "d1:cochem-aan-de-moezel",
+          "title": "Cochem aan de Moezel",
+          "emoji": "🏰",
+          "category": "nice",
+          "stars": 4,
+          "time": "60–90 min",
+          "dwellMin": 75,
+          "best": "Namiddag",
+          "weather": null,
+          "warning": null,
+          "desc": "Reichsburg hoog boven de Moezel, een compact wijnstadje en de eerste echte vakantie-vibe. Fijne plek voor een late lunch.",
+          "tip": "Rijd de Moezelroute (B49) langs het water i.p.v. de snelweg — het laatste half uur naar het hotel is dan al genieten.",
+          "nav": "Cochem aan de Moezel",
+          "parking": "Parkplatz Endertplatz Cochem",
+          "photo": "Reichsburg Cochem",
+          "special": null,
+          "coord": [
+            50.1461,
+            7.1673
+          ]
+        },
+        {
+          "id": "d1:geierlay-hangbrug",
+          "title": "Geierlay hangbrug",
+          "emoji": "🌉",
+          "category": "bonus",
+          "stars": 4,
+          "time": "75–90 min",
+          "dwellMin": 83,
+          "best": "Droog, helder weer",
+          "weather": "Alleen bij droog weer",
+          "warning": null,
+          "desc": "360 meter hangbrug over een groen dal. Spectaculair, maar je bent relatief veel tijd kwijt aan parkeren en de wandeling er naartoe.",
+          "tip": "Alleen doen als je vóór 15:00 bij Mörsdorf bent — anders schuift het diner te ver op.",
+          "nav": "Geierlay hangbrug",
+          "parking": "Besucherzentrum Geierlay Mörsdorf",
+          "photo": "Geierlay Hängeseilbrücke",
+          "special": null,
+          "coord": [
+            50.0161,
+            7.4136
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Lunch · Monschau",
+          "q": "restaurant Altstadt Monschau"
+        },
+        {
+          "t": "Moezel-diner · Bernkastel",
+          "q": "restaurant Altstadt Bernkastel-Kues"
+        },
+        {
+          "t": "Wijnstube",
+          "q": "Weinstube Bernkastel-Kues"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Aanrijroute Nürburgring (bos)",
+          "q": "Nürburgring Nordschleife"
+        },
+        {
+          "t": "Moezelroute B49 langs het water",
+          "q": "Moezelroute B49 Cochem"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Rurbrücke Monschau",
+          "q": "Rurbrücke Monschau"
+        },
+        {
+          "t": "Reichsburg viewpoint",
+          "q": "Reichsburg Cochem viewpoint"
+        },
+        {
+          "t": "Wijngaarden bij Bernkastel",
+          "q": "Bernkasteler Doctor Weinberg"
+        }
+      ],
+      "fuel": "Tank vol in Nederland of vlak over de grens — brandstof in NL/DE is deze dag het voordeligst. Ligt de route langs Luxemburg, dan is dáár tanken het goedkoopst van de hele reis.",
+      "hotel": {
+        "id": "burgblickhotel",
+        "name": "Burgblickhotel",
+        "booked": true,
+        "bookedLabel": "geboekt",
+        "address": "Bernkastel-Kues, Moezel · Duitsland",
+        "mapsQuery": "Burgblickhotel Bernkastel-Kues",
+        "website": "Burgblickhotel Bernkastel-Kues",
+        "bookingQuery": "Burgblickhotel Bernkastel-Kues",
+        "checkin": "vanaf 15:00",
+        "parking": "Eigen parkeerplaats",
+        "ev": "Laadpunten in Bernkastel-Kues centrum",
+        "restaurant": "Regionale Moezelkeuken",
+        "wellness": "—",
+        "coord": [
+          49.913,
+          7.0706
+        ]
+      },
+      "planning": {
+        "departDefault": "08:30",
+        "targetArrival": "16:30",
+        "driveMin": 330,
+        "buffer": 30,
+        "appointment": null,
+        "stops": [
+          {
+            "id": "d1:monschau-altstadt",
+            "title": "Monschau Altstadt",
+            "category": "must",
+            "dwellMin": 68,
+            "optional": false
+          },
+          {
+            "id": "d1:n-rburgring-boulevard",
+            "title": "Nürburgring — Boulevard",
+            "category": "must",
+            "dwellMin": 53,
+            "optional": false
+          },
+          {
+            "id": "d1:cochem-aan-de-moezel",
+            "title": "Cochem aan de Moezel",
+            "category": "nice",
+            "dwellMin": 75,
+            "optional": true
+          },
+          {
+            "id": "d1:geierlay-hangbrug",
+            "title": "Geierlay hangbrug",
+            "category": "bonus",
+            "dwellMin": 83,
+            "optional": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "d2",
+      "index": 1,
+      "tabNumber": "2",
+      "tabLabel": "5 aug",
+      "date": "2026-08-05",
+      "endDate": "2026-08-05",
+      "isPool": false,
+      "isEpic": false,
+      "eyebrow": "Woensdag 5 augustus · Dag 2",
+      "title": "Bernkastel-Kues → Weggis",
+      "subtitle": "Van de Moezel naar het Vierwoudstrekenmeer",
+      "poolIntro": null,
+      "km": "± 490 km",
+      "drive": "5 u (rijden)",
+      "driveComfort": "≈ 5 u",
+      "driveEpic": "≈ 5 u 40 rijden",
+      "depart": "08:00",
+      "arrive": "± 17:30",
+      "weather": "Kans op stapelwolken boven de Alpen in de namiddag. Rheinfall is ook bij bewolking indrukwekkend; Luzern het mooist met avondlicht.",
+      "badWeather": "Bij aanhoudende regen: sla de Rheinfall-lus over, rijd door de tunnel richting Luzern en check vroeg in bij Alpenblick.",
+      "advice": "Rheinfall is de hoofdstop. Luzern compact meepakken (Kapellbrücke + meer), anders wordt dit een lange dag.",
+      "departAdvice": null,
+      "route": {
+        "origin": "Bernkastel-Kues, Duitsland",
+        "dest": "Hotel Alpenblick, Weggis, Zwitserland",
+        "epic": [
+          "Baden-Baden, Duitsland",
+          "Rheinfall, Schaffhausen, Zwitserland",
+          "Luzern, Zwitserland"
+        ]
+      },
+      "timeline": null,
+      "wellness": null,
+      "stops": [
+        {
+          "id": "d2:rheinfall",
+          "title": "Rheinfall",
+          "emoji": "🌊",
+          "category": "must",
+          "stars": 5,
+          "time": "45–60 min",
+          "dwellMin": 53,
+          "best": "Rond het middaguur",
+          "weather": null,
+          "warning": null,
+          "desc": "De grootste waterval van Europa, en precies het soort natuurgeweld waarvoor je zo’n reis maakt. Vanaf Schloss Laufen sta je er bovenop.",
+          "tip": "Parkeer aan de Schloss-Laufen-kant (zuid) — rustiger, mooiste uitzichtplatforms en direct aan de A4.",
+          "nav": "Rheinfall",
+          "parking": "Rheinfall Parkplatz Schloss Laufen",
+          "photo": "Schloss Laufen am Rheinfall",
+          "special": null,
+          "coord": [
+            47.6779,
+            8.6151
+          ]
+        },
+        {
+          "id": "d2:luzern-kapellbr-cke-meer",
+          "title": "Luzern — Kapellbrücke & meer",
+          "emoji": "🏙️",
+          "category": "must",
+          "stars": 5,
+          "time": "60–90 min",
+          "dwellMin": 75,
+          "best": "Namiddag / avondlicht",
+          "weather": null,
+          "warning": null,
+          "desc": "Houten Kapellbrücke, de oude stad en het meer met bergpanorama in één compacte stop. De ideale opmaat naar Weggis.",
+          "tip": "Vignette-check: je hebt de Zwitserse autobahnvignette nodig vóór de grens (zie tab Praktisch).",
+          "nav": "Luzern",
+          "parking": "Parkhaus Altstadt Luzern",
+          "photo": "Kapellbrücke Luzern",
+          "special": null,
+          "coord": [
+            47.0516,
+            8.3076
+          ]
+        },
+        {
+          "id": "d2:baden-baden",
+          "title": "Baden-Baden",
+          "emoji": "♨️",
+          "category": "nice",
+          "stars": 3,
+          "time": "45–60 min",
+          "dwellMin": 53,
+          "best": "Late ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "Een beschaafde koffiestop met een wandeling door de Lichtentaler Allee — veel prettiger dan een tankstation langs de A5.",
+          "tip": "Kort houden: even benen strekken, koffie, en door richting de grens.",
+          "nav": "Baden-Baden",
+          "parking": "Parkgarage Kurhaus Baden-Baden",
+          "photo": "Lichtentaler Allee Baden-Baden",
+          "special": null,
+          "coord": [
+            48.7606,
+            8.2396
+          ]
+        },
+        {
+          "id": "d2:weggis-seepromenade",
+          "title": "Weggis Seepromenade",
+          "emoji": "🌅",
+          "category": "bonus",
+          "stars": 4,
+          "time": "30–45 min",
+          "dwellMin": 38,
+          "best": "Bij aankomst / zonsondergang",
+          "weather": null,
+          "warning": null,
+          "desc": "Na het inchecken even uitwaaien aan het water met de Rigi op de achtergrond. Rustig landen na een lange rijdag.",
+          "tip": "Reserveer een tafel met meerzicht — de zonsondergang over het meer is de beloning van deze dag.",
+          "nav": "Weggis Seepromenade",
+          "parking": "Weggis Seepromenade",
+          "photo": "Weggis Seepromenade Rigi",
+          "special": null,
+          "coord": [
+            47.0336,
+            8.4333
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Meerzicht-diner · Weggis",
+          "q": "restaurant Weggis lake view"
+        },
+        {
+          "t": "Lunch · Luzern oude stad",
+          "q": "restaurant Altstadt Luzern"
+        },
+        {
+          "t": "Koffie · Rheinfall",
+          "q": "café Schloss Laufen Rheinfall"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Afdaling richting Vierwoudstrekenmeer",
+          "q": "Küssnacht am Rigi"
+        },
+        {
+          "t": "Seestrasse langs het meer naar Weggis",
+          "q": "Seestrasse Weggis"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Schloss Laufen platform",
+          "q": "Schloss Laufen am Rheinfall"
+        },
+        {
+          "t": "Kapellbrücke bij avond",
+          "q": "Kapellbrücke Luzern"
+        },
+        {
+          "t": "Rigi-panorama Weggis",
+          "q": "Weggis Rigi viewpoint"
+        }
+      ],
+      "fuel": "Brandstof in Zwitserland is fors duurder. Tank vol in Duitsland vóór de grens (rond Freiburg / Basel). In Zwitserland alleen bijvullen als het echt nodig is.",
+      "hotel": {
+        "id": "hotel-alpenblick",
+        "name": "Hotel Alpenblick",
+        "booked": true,
+        "bookedLabel": "geboekt",
+        "address": "Weggis · Vierwoudstrekenmeer · Zwitserland",
+        "mapsQuery": "Hotel Alpenblick Weggis",
+        "website": "Hotel Alpenblick Weggis",
+        "bookingQuery": "Hotel Alpenblick Weggis",
+        "checkin": "vanaf 15:00",
+        "parking": "Hotelparking",
+        "ev": "Laadpunt navragen bij receptie",
+        "restaurant": "Terras met meerzicht",
+        "wellness": "Kleine spa / sauna",
+        "coord": [
+          47.0338,
+          8.431
+        ]
+      },
+      "planning": {
+        "departDefault": "08:00",
+        "targetArrival": "17:30",
+        "driveMin": 340,
+        "buffer": 30,
+        "appointment": null,
+        "stops": [
+          {
+            "id": "d2:rheinfall",
+            "title": "Rheinfall",
+            "category": "must",
+            "dwellMin": 53,
+            "optional": false
+          },
+          {
+            "id": "d2:luzern-kapellbr-cke-meer",
+            "title": "Luzern — Kapellbrücke & meer",
+            "category": "must",
+            "dwellMin": 75,
+            "optional": false
+          },
+          {
+            "id": "d2:baden-baden",
+            "title": "Baden-Baden",
+            "category": "nice",
+            "dwellMin": 53,
+            "optional": true
+          },
+          {
+            "id": "d2:weggis-seepromenade",
+            "title": "Weggis Seepromenade",
+            "category": "bonus",
+            "dwellMin": 38,
+            "optional": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "d3",
+      "index": 2,
+      "tabNumber": "3",
+      "tabLabel": "6 aug",
+      "date": "2026-08-06",
+      "endDate": "2026-08-06",
+      "isPool": false,
+      "isEpic": false,
+      "eyebrow": "Donderdag 6 augustus · Dag 3",
+      "title": "Weggis → Desenzano",
+      "subtitle": "Over de Gotthard van Zwitserland naar het Gardameer",
+      "poolIntro": null,
+      "km": "± 350 km",
+      "drive": "4 u (rijden)",
+      "driveComfort": "≈ 4 u",
+      "driveEpic": "≈ 5 u 45 rijden",
+      "depart": "08:30",
+      "arrive": "± 17:00",
+      "weather": "Bergweer telt: de Gotthard is alleen mooi bij goed zicht. Beneden aan het Como- en Gardameer is het zomers warm.",
+      "badWeather": "Bij regen of laaghangende bewolking op de Gotthard: neem de tunnel (A2) en rijd rechtstreeks via Como naar Desenzano.",
+      "advice": "Bij goed weer: Gotthardpas + de oude Tremola-kasseienweg — hét rij-hoogtepunt van de heenweg. Anders tunnel en een lunchstop aan het Comomeer.",
+      "departAdvice": null,
+      "route": {
+        "origin": "Hotel Alpenblick, Weggis, Zwitserland",
+        "dest": "Hotel Aquila d'Oro, Desenzano del Garda, Italië",
+        "epic": [
+          "Flüelen, Zwitserland",
+          "Gotthard Pass, Zwitserland",
+          "Tremola San Gottardo, Airolo, Zwitserland",
+          "Menaggio, Italië",
+          "Lecco, Italië"
+        ]
+      },
+      "timeline": null,
+      "wellness": null,
+      "stops": [
+        {
+          "id": "d3:gotthardpas",
+          "title": "Gotthardpas",
+          "emoji": "🏔️",
+          "category": "must",
+          "stars": 5,
+          "time": "30–45 min",
+          "dwellMin": 38,
+          "best": "Ochtend, helder zicht",
+          "weather": "Alleen bij goed zicht",
+          "warning": "Google stuurt je vaak de tunnel in — kies expliciet de pasroute (Passo del San Gottardo).",
+          "desc": "De klassieke bergpas op 2.106 m, veel mooier dan door de tunnel verdwijnen. Klein museum en bergmeertjes op de top.",
+          "tip": "Boven is het koud en winderig — warme laag mee. Perfecte plek voor de eerste bergkoffie.",
+          "nav": "Gotthard Pass",
+          "parking": "Gotthard Pass Passhöhe parking",
+          "photo": "Gotthard Pass viewpoint",
+          "special": null,
+          "coord": [
+            46.5556,
+            8.5656
+          ]
+        },
+        {
+          "id": "d3:oude-tremola",
+          "title": "Oude Tremola",
+          "emoji": "🔥",
+          "category": "must",
+          "stars": 5,
+          "time": "30–45 min",
+          "dwellMin": 38,
+          "best": "Aansluitend op de pas",
+          "weather": "Niet bij stortregen",
+          "warning": "Niet de moderne hoofdweg nemen; zoek op 'Tremola San Gottardo' voor de historische kasseienweg.",
+          "desc": "Historische kasseienweg met eindeloze haarspelden aan de zuidkant van de Gotthard — hét Range Rover-fotomoment van de heenreis.",
+          "tip": "GoPro op de motorkap richting de haarspelden; rustig sturen op de kasseien.",
+          "nav": "Tremola San Gottardo",
+          "parking": "Tremola San Gottardo Airolo",
+          "photo": "Tremola San Gottardo",
+          "special": null,
+          "coord": [
+            46.535,
+            8.565
+          ]
+        },
+        {
+          "id": "d3:axenstrasse-fl-elen",
+          "title": "Axenstrasse / Flüelen",
+          "emoji": "📸",
+          "category": "nice",
+          "stars": 4,
+          "time": "15–25 min",
+          "dwellMin": 20,
+          "best": "Vroege ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "Korte fotostop aan het Urnersee met bergen en water — meteen Zwitserse roadtrip-sfeer voordat je gaat klimmen.",
+          "tip": "Even benen strekken aan het water voor de klim naar de pas.",
+          "nav": "Flüelen",
+          "parking": "Flüelen waterfront parking",
+          "photo": "Axenstrasse viewpoint",
+          "special": null,
+          "coord": [
+            46.9019,
+            8.6247
+          ]
+        },
+        {
+          "id": "d3:menaggio-comomeer",
+          "title": "Menaggio (Comomeer)",
+          "emoji": "🍝",
+          "category": "nice",
+          "stars": 4,
+          "time": "60–75 min",
+          "dwellMin": 68,
+          "best": "Lunch",
+          "weather": null,
+          "warning": null,
+          "desc": "Lunch aan het Comomeer zonder Como-stad in te hoeven. Mooie promenade en de eerste echte Italiaanse vibe.",
+          "tip": "Terras aan het water pakken; daarna is het nog ± 2 uur naar Desenzano.",
+          "nav": "Menaggio",
+          "parking": "Parcheggio Menaggio centro",
+          "photo": "Menaggio lungolago",
+          "special": null,
+          "coord": [
+            46.0206,
+            9.238
+          ]
+        },
+        {
+          "id": "d3:lecco-waterfront",
+          "title": "Lecco waterfront",
+          "emoji": "🌊",
+          "category": "bonus",
+          "stars": 3,
+          "time": "30–45 min",
+          "dwellMin": 38,
+          "best": "Als de dag soepel loopt",
+          "weather": null,
+          "warning": null,
+          "desc": "Zuidpunt van het oostelijke Comomeer, minder toeristisch. Korte koffiestop als je op schema ligt.",
+          "tip": "Bij tijdsdruk overslaan en doorrijden naar het Gardameer.",
+          "nav": "Lecco",
+          "parking": "Parcheggio Lecco lungolago",
+          "photo": "Lecco lungolago",
+          "special": null,
+          "coord": [
+            45.8566,
+            9.3977
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Lunch · Menaggio (Comomeer)",
+          "q": "restaurant Menaggio lungolago"
+        },
+        {
+          "t": "Diner · Desenzano haven",
+          "q": "restaurant Porto Vecchio Desenzano del Garda"
+        },
+        {
+          "t": "Koffie · Gotthard top",
+          "q": "café Gotthard Passhöhe"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Haarspelden oude Tremola",
+          "q": "Tremola San Gottardo"
+        },
+        {
+          "t": "Axenstrasse langs het meer",
+          "q": "Axenstrasse Switzerland"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Gotthard passhöhe",
+          "q": "Gotthard Pass viewpoint"
+        },
+        {
+          "t": "Tremola-serpentines",
+          "q": "Tremola San Gottardo"
+        },
+        {
+          "t": "Menaggio promenade",
+          "q": "Menaggio lungolago"
+        }
+      ],
+      "fuel": "Tank vóór de Gotthard nog een keer bij (Zwitserse pompen zijn duur maar boven schaars). De grote tankbeurt pas ná de Italiaanse grens — daar is het goedkoper.",
+      "hotel": {
+        "id": "hotel-aquila-d-oro",
+        "name": "Hotel Aquila d’Oro",
+        "booked": true,
+        "bookedLabel": "betaald",
+        "address": "Desenzano del Garda · Gardameer · Italië",
+        "mapsQuery": "Hotel Aquila d'Oro Desenzano del Garda",
+        "website": "Hotel Aquila d'Oro Desenzano del Garda",
+        "bookingQuery": "Hotel Aquila d'Oro Desenzano del Garda",
+        "checkin": "vanaf 14:00",
+        "parking": "Parkeren navragen — centrum Desenzano is beperkt",
+        "ev": "Laadpalen in Desenzano centrum",
+        "restaurant": "Ontbijt inbegrepen",
+        "wellness": "—",
+        "coord": [
+          45.4692,
+          10.5357
+        ]
+      },
+      "planning": {
+        "departDefault": "08:30",
+        "targetArrival": "17:00",
+        "driveMin": 345,
+        "buffer": 30,
+        "appointment": null,
+        "stops": [
+          {
+            "id": "d3:gotthardpas",
+            "title": "Gotthardpas",
+            "category": "must",
+            "dwellMin": 38,
+            "optional": false
+          },
+          {
+            "id": "d3:oude-tremola",
+            "title": "Oude Tremola",
+            "category": "must",
+            "dwellMin": 38,
+            "optional": false
+          },
+          {
+            "id": "d3:axenstrasse-fl-elen",
+            "title": "Axenstrasse / Flüelen",
+            "category": "nice",
+            "dwellMin": 20,
+            "optional": true
+          },
+          {
+            "id": "d3:menaggio-comomeer",
+            "title": "Menaggio (Comomeer)",
+            "category": "nice",
+            "dwellMin": 68,
+            "optional": true
+          },
+          {
+            "id": "d3:lecco-waterfront",
+            "title": "Lecco waterfront",
+            "category": "bonus",
+            "dwellMin": 38,
+            "optional": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "gardapool",
+      "index": 3,
+      "tabNumber": "4",
+      "tabLabel": "7–10 aug",
+      "date": "2026-08-07",
+      "endDate": "2026-08-10",
+      "isPool": true,
+      "isEpic": false,
+      "eyebrow": "7 t/m 10 augustus · Basiskamp",
+      "title": "Gardameer — vier vrije dagen",
+      "subtitle": "Basis: Hotel Aquila d’Oro, Desenzano del Garda",
+      "poolIntro": "Geen vaste planning. Vier vrije dagen vanuit één basis — kies elke ochtend op gevoel en op het weer. Hieronder staan de beste bestemmingen; vink af wat je hebt gedaan. Alles is dagtrip-afstand vanaf Desenzano.",
+      "km": "Vrij",
+      "drive": "Naar keuze",
+      "driveComfort": null,
+      "driveEpic": null,
+      "depart": "—",
+      "arrive": "—",
+      "weather": "Hoogzomer aan het meer: 30°+ en broeierig in het dal. Combineer laag (dorpen, water) met hoog (Monte Baldo) op de heetste dagen.",
+      "badWeather": "Bij regen of onweer: Sirmione en Malcesine hebben overdekte steegjes en terrassen; stel Monte Baldo uit tot een heldere dag.",
+      "advice": null,
+      "departAdvice": null,
+      "route": null,
+      "timeline": null,
+      "wellness": null,
+      "stops": [
+        {
+          "id": "gardapool:sirmione",
+          "title": "Sirmione",
+          "emoji": "🏰",
+          "category": "pool",
+          "stars": 5,
+          "time": "2–3 uur",
+          "dwellMin": 150,
+          "best": "Vroege ochtend (vóór 10:30)",
+          "weather": "Vroeg = druktevrij",
+          "warning": null,
+          "desc": "Scaliger-waterkasteel, smalle straatjes en water aan drie kanten. Het meest iconische dorp van het zuidelijke meer.",
+          "tip": "Parkeer bij Monte Baldo (auto’s mogen het centrum niet in) en loop het schiereiland op naar Grotte di Catullo & Jamaica Beach.",
+          "nav": "Sirmione",
+          "parking": "Parcheggio Monte Baldo Sirmione",
+          "photo": "Castello Scaligero Sirmione",
+          "special": null,
+          "coord": [
+            45.4959,
+            10.6068
+          ]
+        },
+        {
+          "id": "gardapool:limone-sul-garda",
+          "title": "Limone sul Garda",
+          "emoji": "🍋",
+          "category": "pool",
+          "stars": 5,
+          "time": "2–3 uur",
+          "dwellMin": 150,
+          "best": "Ochtend of late namiddag",
+          "weather": null,
+          "warning": null,
+          "desc": "Citroenhuizen tegen de rotswand, een fotogeniek haventje en bergen die recht uit het meer lijken te rijzen.",
+          "tip": "De aanrijroute langs de westoever (SS45bis) met zijn tunnels is zelf al een belevenis — GoPro aan.",
+          "nav": "Limone sul Garda",
+          "parking": "Parcheggio Limone sul Garda",
+          "photo": "Limone sul Garda porto",
+          "special": null,
+          "coord": [
+            45.813,
+            10.792
+          ]
+        },
+        {
+          "id": "gardapool:malcesine",
+          "title": "Malcesine",
+          "emoji": "🏰",
+          "category": "pool",
+          "stars": 5,
+          "time": "2–3 uur",
+          "dwellMin": 150,
+          "best": "Ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "Kasteel op een rots, een middeleeuwse haven en het startpunt van de kabelbaan naar Monte Baldo. Een van de mooiste dorpen aan het meer.",
+          "tip": "Combineer met Monte Baldo: ’s ochtends dorp, daarna omhoog als het zicht helder is.",
+          "nav": "Malcesine",
+          "parking": "Parcheggio Malcesine centro",
+          "photo": "Castello Scaligero Malcesine",
+          "special": null,
+          "coord": [
+            45.7658,
+            10.8078
+          ]
+        },
+        {
+          "id": "gardapool:monte-baldo-kabelbaan",
+          "title": "Monte Baldo (kabelbaan)",
+          "emoji": "🚠",
+          "category": "pool",
+          "stars": 5,
+          "time": "2–3 uur",
+          "dwellMin": 150,
+          "best": "Heldere ochtend",
+          "weather": "Alleen bij helder zicht",
+          "warning": null,
+          "desc": "Draaiende gondel vanaf Malcesine naar 1.760 m: van meerniveau naar alpien panorama in tien minuten. Boven is het 10–15° koeler.",
+          "tip": "Ga vroeg of reserveer online — bij mooi weer lopen de wachtrijen op. Neem een laag mee, boven waait het.",
+          "nav": "Monte Baldo",
+          "parking": "Funivia Malcesine Monte Baldo",
+          "photo": "Monte Baldo vetta panorama",
+          "special": null,
+          "coord": [
+            45.7647,
+            10.809
+          ]
+        },
+        {
+          "id": "gardapool:riva-del-garda",
+          "title": "Riva del Garda",
+          "emoji": "🌊",
+          "category": "pool",
+          "stars": 4,
+          "time": "halve dag",
+          "dwellMin": 240,
+          "best": "Ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "De noordpunt van het meer, omringd door steile rotswanden. Levendige promenade, mooie haven en frisser dan het zuiden.",
+          "tip": "Combineer met Lago di Tenno vlak erboven — samen een perfecte halve dag.",
+          "nav": "Riva del Garda",
+          "parking": "Parcheggio Riva del Garda centro",
+          "photo": "Riva del Garda porto",
+          "special": null,
+          "coord": [
+            45.8856,
+            10.8407
+          ]
+        },
+        {
+          "id": "gardapool:lago-di-tenno",
+          "title": "Lago di Tenno",
+          "emoji": "💎",
+          "category": "pool",
+          "stars": 5,
+          "time": "1–2 uur",
+          "dwellMin": 90,
+          "best": "Zon = turquoise water",
+          "weather": "Mooist bij zon",
+          "warning": null,
+          "desc": "Onwerkelijk turquoise bergmeertje boven Riva. Bij zonlicht lijkt het water te gloeien — een van de mooiste fotostops van de streek.",
+          "tip": "Neem eventueel het middeleeuwse dorpje Canale di Tenno mee, op loopafstand.",
+          "nav": "Lago di Tenno",
+          "parking": "Parcheggio Lago di Tenno",
+          "photo": "Lago di Tenno",
+          "special": null,
+          "coord": [
+            45.9182,
+            10.828
+          ]
+        },
+        {
+          "id": "gardapool:lago-di-molveno",
+          "title": "Lago di Molveno",
+          "emoji": "🏔️",
+          "category": "pool",
+          "stars": 5,
+          "time": "halve dag",
+          "dwellMin": 240,
+          "best": "Heldere dag",
+          "weather": null,
+          "warning": null,
+          "desc": "Kristalhelder meer aan de voet van de Brenta-Dolomieten. Verder rijden (± 1u15), maar een adembenemende dagtrip weg van de meerdrukte.",
+          "tip": "Alleen op een heldere dag doen — de Brenta-toppen máken hier het plaatje.",
+          "nav": "Lago di Molveno",
+          "parking": "Parcheggio Lido Molveno",
+          "photo": "Lago di Molveno",
+          "special": null,
+          "coord": [
+            46.1408,
+            10.964
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Meerzicht · Desenzano haven",
+          "q": "restaurant Porto Vecchio Desenzano del Garda"
+        },
+        {
+          "t": "Pizza · Sirmione",
+          "q": "pizzeria Sirmione lake view"
+        },
+        {
+          "t": "Aperitivo · Desenzano",
+          "q": "wine bar Desenzano del Garda"
+        },
+        {
+          "t": "Gelato",
+          "q": "gelateria Desenzano del Garda"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Westoever SS45bis (tunnels)",
+          "q": "Strada della Forra Tremosine"
+        },
+        {
+          "t": "Draaigondel Monte Baldo",
+          "q": "Funivia Malcesine Monte Baldo"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Jamaica Beach Sirmione",
+          "q": "Jamaica Beach Sirmione"
+        },
+        {
+          "t": "Haventje Limone",
+          "q": "Porto Vecchio Limone sul Garda"
+        },
+        {
+          "t": "Panorama Monte Baldo",
+          "q": "Monte Baldo vetta panorama"
+        }
+      ],
+      "fuel": "Tank in Italië buiten de dorpskernen (bij een “self” pomp langs de SS) — goedkoper dan de bemande pompen in de toeristendorpen.",
+      "hotel": {
+        "id": "hotel-aquila-d-oro",
+        "name": "Hotel Aquila d’Oro",
+        "booked": true,
+        "bookedLabel": "betaald",
+        "address": "Desenzano del Garda · Gardameer · Italië",
+        "mapsQuery": "Hotel Aquila d'Oro Desenzano del Garda",
+        "website": "Hotel Aquila d'Oro Desenzano del Garda",
+        "bookingQuery": "Hotel Aquila d'Oro Desenzano del Garda",
+        "checkin": "vanaf 14:00",
+        "parking": "Parkeren navragen — centrum Desenzano is beperkt",
+        "ev": "Laadpalen in Desenzano centrum",
+        "restaurant": "Ontbijt inbegrepen",
+        "wellness": "—",
+        "coord": [
+          45.4692,
+          10.5357
+        ]
+      },
+      "planning": null
+    },
+    {
+      "id": "d4",
+      "index": 4,
+      "tabNumber": "5",
+      "tabLabel": "11 aug",
+      "date": "2026-08-11",
+      "endDate": "2026-08-11",
+      "isPool": false,
+      "isEpic": false,
+      "eyebrow": "Dinsdag 11 augustus · Dag 4",
+      "title": "Desenzano → Canazei",
+      "subtitle": "Van het meer de Dolomieten in",
+      "poolIntro": null,
+      "km": "± 240 km",
+      "drive": "4 u (met passen)",
+      "driveComfort": "≈ 2 u 45",
+      "driveEpic": "≈ 4 u 15 rijden",
+      "depart": "08:30",
+      "arrive": "± 16:30",
+      "weather": "Beneden warm, boven fris. In de Dolomieten kan het na 15:00 onweren — plan de passen daarom vóór de middag/vroege middag.",
+      "badWeather": "Bij laaghangende bewolking op de passen: neem de dalroute via Bolzano en bewaar Passo Sella voor morgen (dan rijd je ’m sowieso).",
+      "advice": "Lange, mooie dag. Riva + Lago di Carezza + één pas is genoeg — probeer niet alles af te vinken, morgen is de grote passendag.",
+      "departAdvice": null,
+      "route": {
+        "origin": "Desenzano del Garda, Italië",
+        "dest": "Chalet Vites, Canazei, Italië",
+        "epic": [
+          "Riva del Garda, Italië",
+          "Lago di Carezza, Italië",
+          "Passo di Costalunga, Italië",
+          "Passo Sella, Italië"
+        ]
+      },
+      "timeline": null,
+      "wellness": null,
+      "stops": [
+        {
+          "id": "d4:riva-del-garda",
+          "title": "Riva del Garda",
+          "emoji": "🌊",
+          "category": "must",
+          "stars": 4,
+          "time": "45–60 min",
+          "dwellMin": 53,
+          "best": "Ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "Laatste blik op het Gardameer met de dramatische rotswanden eromheen. Perfecte koffie- en benen-strekken-stop voor je klimt.",
+          "tip": "Vanaf hier begint het echt te klimmen — controleer koelvloeistof niet, maar geniet wél van de haarspelden.",
+          "nav": "Riva del Garda",
+          "parking": "Parcheggio Riva del Garda centro",
+          "photo": "Riva del Garda porto",
+          "special": null,
+          "coord": [
+            45.8856,
+            10.8407
+          ]
+        },
+        {
+          "id": "d4:lago-di-carezza",
+          "title": "Lago di Carezza",
+          "emoji": "💠",
+          "category": "must",
+          "stars": 5,
+          "time": "45–60 min",
+          "dwellMin": 53,
+          "best": "Ochtend, windstil water",
+          "weather": null,
+          "warning": null,
+          "desc": "Het “regenboogmeer” met de Latemar-toppen erin weerspiegeld. Klein, maar een van de meest gefotografeerde plekken van de Dolomieten.",
+          "tip": "Windstil = spiegelbeeld. Ga vroeg; na de middag steekt vaak de wind op en verdwijnt de reflectie.",
+          "nav": "Lago di Carezza",
+          "parking": "Parcheggio Lago di Carezza",
+          "photo": "Lago di Carezza Latemar",
+          "special": null,
+          "coord": [
+            46.409,
+            11.577
+          ]
+        },
+        {
+          "id": "d4:passo-di-costalunga",
+          "title": "Passo di Costalunga",
+          "emoji": "🏔️",
+          "category": "must",
+          "stars": 4,
+          "time": "20–30 min",
+          "dwellMin": 25,
+          "best": "Vóór de middag",
+          "weather": null,
+          "warning": null,
+          "desc": "De pas net boven Carezza — vloeiende bochten en je eerste echte Dolomieten-panorama. Mooie opwarmer voor Passo Sella.",
+          "tip": "Even stoppen bij de passhöhe voor koffie en het uitzicht over het Latemar-massief.",
+          "nav": "Passo di Costalunga",
+          "parking": "Passo di Costalunga",
+          "photo": "Passo Costalunga viewpoint",
+          "special": null,
+          "coord": [
+            46.4083,
+            11.611
+          ]
+        },
+        {
+          "id": "d4:passo-sella",
+          "title": "Passo Sella",
+          "emoji": "🏔️",
+          "category": "must",
+          "stars": 5,
+          "time": "30–45 min",
+          "dwellMin": 38,
+          "best": "Vroege middag",
+          "weather": "Alleen bij goed zicht",
+          "warning": null,
+          "desc": "Recht onder de Sassolungo-torens door. Een van de indrukwekkendste passen van de Alpen — en morgen rijd je ’m opnieuw als opener.",
+          "tip": "GoPro op de motorkap richting de Sassolungo. De laatste klim naar de top is hét beeld van de dag.",
+          "nav": "Passo Sella",
+          "parking": "Passo Sella",
+          "photo": "Passo Sella Sassolungo",
+          "special": null,
+          "coord": [
+            46.5107,
+            11.758
+          ]
+        },
+        {
+          "id": "d4:lago-di-molveno",
+          "title": "Lago di Molveno",
+          "emoji": "🏞️",
+          "category": "nice",
+          "stars": 5,
+          "time": "als tijd over",
+          "dwellMin": 45,
+          "best": "Alleen bij ruime tijd",
+          "weather": null,
+          "warning": null,
+          "desc": "Optioneel: het schitterende Molveno-meer ligt op de vroege route. Alleen meenemen als je ruim op schema ligt — anders bewaar je energie voor de passen.",
+          "tip": "Kort houden bij twijfel; de passen van vandaag en morgen zijn de hoofdact.",
+          "nav": "Lago di Molveno",
+          "parking": "Parcheggio Lido Molveno",
+          "photo": "Lago di Molveno",
+          "special": null,
+          "coord": [
+            46.1408,
+            10.964
+          ]
+        },
+        {
+          "id": "d4:val-di-fassa-canazei-dorp",
+          "title": "Val di Fassa / Canazei dorp",
+          "emoji": "🌲",
+          "category": "bonus",
+          "stars": 4,
+          "time": "30–45 min",
+          "dwellMin": 38,
+          "best": "Bij aankomst",
+          "weather": null,
+          "warning": null,
+          "desc": "Gezellig bergdorp op 1.450 m, omringd door de Sella- en Marmolada-massieven. Fijn rondje voor het diner.",
+          "tip": "Vroeg inchecken bij Chalet Vites en op een terras in het dorp de eerste bergavond vieren.",
+          "nav": "Val di Fassa",
+          "parking": "Parcheggio Canazei centro",
+          "photo": "Canazei Dolomiti",
+          "special": null,
+          "coord": [
+            46.4767,
+            11.77
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Berghut-diner · Canazei",
+          "q": "restaurant Canazei Val di Fassa"
+        },
+        {
+          "t": "Lunch · Lago di Carezza",
+          "q": "restaurant Lago di Carezza"
+        },
+        {
+          "t": "Koffie · Riva del Garda",
+          "q": "café Riva del Garda porto"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Haarspelden boven Riva",
+          "q": "Passo Ballino"
+        },
+        {
+          "t": "Klim naar Passo Sella",
+          "q": "Passo Sella"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Spiegeling Lago di Carezza",
+          "q": "Lago di Carezza Latemar"
+        },
+        {
+          "t": "Sassolungo bij Passo Sella",
+          "q": "Passo Sella Sassolungo"
+        },
+        {
+          "t": "Canazei bergpanorama",
+          "q": "Canazei Dolomiti"
+        }
+      ],
+      "fuel": "Tank vol in het dal (rond Bolzano/Bozen) vóór je de passen in gaat — boven zijn pompen schaars en duurder. Met een volle tank rij je zorgeloos twee passendagen.",
+      "hotel": {
+        "id": "chalet-vites",
+        "name": "Chalet Vites",
+        "booked": true,
+        "bookedLabel": "geboekt",
+        "address": "Canazei · Val di Fassa · Dolomieten · Italië",
+        "mapsQuery": "Chalet Vites Canazei",
+        "website": "Chalet Vites Canazei",
+        "bookingQuery": "Chalet Vites Canazei",
+        "checkin": "vanaf 15:00",
+        "parking": "Eigen parkeerplaats bij het chalet",
+        "ev": "Laadpunten in Canazei centrum",
+        "restaurant": "Alpiene keuken",
+        "wellness": "Sauna / relaxruimte",
+        "coord": [
+          46.4767,
+          11.77
+        ]
+      },
+      "planning": {
+        "departDefault": "08:30",
+        "targetArrival": "16:30",
+        "driveMin": 255,
+        "buffer": 30,
+        "appointment": null,
+        "stops": [
+          {
+            "id": "d4:riva-del-garda",
+            "title": "Riva del Garda",
+            "category": "must",
+            "dwellMin": 53,
+            "optional": false
+          },
+          {
+            "id": "d4:lago-di-carezza",
+            "title": "Lago di Carezza",
+            "category": "must",
+            "dwellMin": 53,
+            "optional": false
+          },
+          {
+            "id": "d4:passo-di-costalunga",
+            "title": "Passo di Costalunga",
+            "category": "must",
+            "dwellMin": 25,
+            "optional": false
+          },
+          {
+            "id": "d4:passo-sella",
+            "title": "Passo Sella",
+            "category": "must",
+            "dwellMin": 38,
+            "optional": false
+          },
+          {
+            "id": "d4:lago-di-molveno",
+            "title": "Lago di Molveno",
+            "category": "nice",
+            "dwellMin": 45,
+            "optional": true
+          },
+          {
+            "id": "d4:val-di-fassa-canazei-dorp",
+            "title": "Val di Fassa / Canazei dorp",
+            "category": "bonus",
+            "dwellMin": 38,
+            "optional": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "d5",
+      "index": 5,
+      "tabNumber": "6",
+      "tabLabel": "12 aug",
+      "date": "2026-08-12",
+      "endDate": "2026-08-12",
+      "isPool": false,
+      "isEpic": true,
+      "eyebrow": "Woensdag 12 augustus · Dag 5 · Hoogtepunt",
+      "title": "Canazei → San Candido",
+      "subtitle": "De Grote Dolomieten-dag: vier passen en twee bergmeren",
+      "poolIntro": null,
+      "km": "± 185 km",
+      "drive": "5–6 u (met passen & stops)",
+      "driveComfort": "≈ 2 u 15",
+      "driveEpic": "≈ 5 u rijden",
+      "depart": "07:30",
+      "arrive": "± 16:00",
+      "weather": "Vroeg de passen op: helder ochtendlicht en nog geen wolken op de toppen. Onweer bouwt vaak na 15:00 op — dan wil je al richting Braies/hotel zijn.",
+      "badWeather": "Bij dichte bewolking op de hoogste passen: Passo Falzarego kan in de wolken hangen. Val Gardena → Val Badia door het dal blijft dan de mooie backup naar Braies.",
+      "advice": "Rijd de passen in deze volgorde: Sella → Gardena → Falzarego → Misurina → Braies. Tre Cime en Santa Maddalena laten we bewust weg — die kosten te veel tijd voor vandaag.",
+      "departAdvice": {
+        "time": "07:30",
+        "text": "Vertrek uiterlijk 07:30. Met de vier passen en twee meren kom je dan rond 16:00 ontspannen aan — ruim vóór het Wellbeing Ritual van 17:00."
+      },
+      "route": {
+        "origin": "Canazei, Italië",
+        "dest": "Naturhotel Leitlhof, Innichen (San Candido), Italië",
+        "epic": [
+          "Passo Sella, Italië",
+          "Passo Gardena, Italië",
+          "Passo Falzarego, Italië",
+          "Lago di Misurina, Italië",
+          "Lago di Braies, Italië"
+        ]
+      },
+      "timeline": [
+        {
+          "time": "07:30",
+          "title": "Vertrek Canazei",
+          "note": "Volle tank, GoPro geladen, koffie mee.",
+          "cls": ""
+        },
+        {
+          "time": "08:00",
+          "title": "Passo Sella",
+          "note": "Onder de Sassolungo door — ochtendlicht.",
+          "cls": ""
+        },
+        {
+          "time": "08:45",
+          "title": "Passo Gardena",
+          "note": "Groene weiden onder de Sella-torens.",
+          "cls": ""
+        },
+        {
+          "time": "10:30",
+          "title": "Passo Falzarego",
+          "note": "Hoogste punt; kabelbaan Lagazuoi optioneel.",
+          "cls": ""
+        },
+        {
+          "time": "12:00",
+          "title": "Lago di Misurina",
+          "note": "Lunch aan het meer met Dolomieten-decor.",
+          "cls": ""
+        },
+        {
+          "time": "13:30",
+          "title": "Lago di Braies — P2",
+          "note": "Geboekte parking. Rondje langs het water.",
+          "cls": "key"
+        },
+        {
+          "time": "16:00",
+          "title": "Aankomst Naturhotel Leitlhof",
+          "note": "Inchecken, rustig aan.",
+          "cls": "end"
+        },
+        {
+          "time": "17:00",
+          "title": "Wellbeing Ritual",
+          "note": "Vaste afspraak — geboekt.",
+          "cls": "end"
+        }
+      ],
+      "wellness": {
+        "ritualTime": "17:00",
+        "spa": "Spa doorgaans 12:00–20:00 (check exact bij de receptie)",
+        "pool": "Verwarmd binnen- en buitenzwembad met bergzicht",
+        "sauna": "Finse sauna, biosauna en stoombad in het saunapark",
+        "textileFree": "De saunaruimte is doorgaans textielvrij (bloot) — neem een grote handdoek mee; badkleding mag wél bij het zwembad.",
+        "massage": "Boek een massage bij het inchecken (16:00) zodat je die ná het 17:00-ritual kunt plannen — populaire slots zijn ’s avonds snel vol."
+      },
+      "stops": [
+        {
+          "id": "d5:passo-sella",
+          "title": "Passo Sella",
+          "emoji": "🏔️",
+          "category": "must",
+          "stars": 5,
+          "time": "30 min",
+          "dwellMin": 30,
+          "best": "09:00 — ochtendlicht",
+          "weather": null,
+          "warning": null,
+          "desc": "De opener. Recht onder de getande Sassolungo-torens door, met ochtendlicht op de rotsen. De mooiste start die je je kunt wensen.",
+          "tip": "Stop bij de passhöhe voor het klassieke beeld van de weg die naar de torens kronkelt.",
+          "nav": "Passo Sella",
+          "parking": "Passo Sella",
+          "photo": "Passo Sella Sassolungo",
+          "special": null,
+          "coord": [
+            46.5107,
+            11.758
+          ]
+        },
+        {
+          "id": "d5:passo-gardena-gr-dner-joch",
+          "title": "Passo Gardena (Grödner Joch)",
+          "emoji": "🏔️",
+          "category": "must",
+          "stars": 5,
+          "time": "30 min",
+          "dwellMin": 30,
+          "best": "Late ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "Glooiende alpenweiden onder de verticale wanden van het Sella-massief. Zachter en groener dan Sella, minstens zo fotogeniek.",
+          "tip": "Ideale koffiestop bij de bergpost op de top voor je doorrijdt naar Falzarego.",
+          "nav": "Passo Gardena",
+          "parking": "Passo Gardena",
+          "photo": "Passo Gardena Grödner Joch",
+          "special": null,
+          "coord": [
+            46.5497,
+            11.81
+          ]
+        },
+        {
+          "id": "d5:passo-falzarego",
+          "title": "Passo Falzarego",
+          "emoji": "⛰️",
+          "category": "must",
+          "stars": 5,
+          "time": "45 min",
+          "dwellMin": 45,
+          "best": "± 11:30",
+          "weather": "Kan in de wolken hangen",
+          "warning": null,
+          "desc": "Het hoogste punt van de dag (2.105 m), kaal en groots. Optioneel: kabelbaan Lagazuoi omhoog voor een 360°-panorama over de Dolomieten.",
+          "tip": "Even uit de auto: op deze hoogte is de lucht scherp en het uitzicht eindeloos. Warme laag mee.",
+          "nav": "Passo Falzarego",
+          "parking": "Passo Falzarego",
+          "photo": "Passo Falzarego Lagazuoi",
+          "special": null,
+          "coord": [
+            46.5192,
+            12.011
+          ]
+        },
+        {
+          "id": "d5:lago-di-misurina",
+          "title": "Lago di Misurina",
+          "emoji": "🏞️",
+          "category": "must",
+          "stars": 5,
+          "time": "lunch · 60–75 min",
+          "dwellMin": 68,
+          "best": "13:00 — lunchstop",
+          "weather": null,
+          "warning": null,
+          "desc": "Rustig bergmeer op 1.750 m met de Dolomieten weerspiegeld in het water. De perfecte lunchstop op de route — zonder de drukte en de tijd van Tre Cime.",
+          "tip": "Terras aan het water pakken; hiervandaan is het nog maar een dik half uur naar Braies.",
+          "nav": "Lago di Misurina",
+          "parking": "Parcheggio Lago di Misurina",
+          "photo": "Lago di Misurina",
+          "special": null,
+          "coord": [
+            46.5822,
+            12.254
+          ]
+        },
+        {
+          "id": "d5:lago-di-braies-p2-geboekt",
+          "title": "Lago di Braies — P2 geboekt",
+          "emoji": "💙",
+          "category": "must",
+          "stars": 5,
+          "time": "75–90 min",
+          "dwellMin": 83,
+          "best": "14:30 — vóór de middagdrukte wegtrekt",
+          "weather": null,
+          "warning": null,
+          "desc": "Het smaragdgroene kroonjuweel van de Dolomieten, met de houten roeibootjes en de Seekofel erachter. Je P2-parking is gereserveerd — geen zoekstress.",
+          "tip": "Gebruik de aparte knop “Navigeer naar P2” hieronder. Loop het meer (deels) rond voor het beste licht op het water.",
+          "nav": "Lago di Braies",
+          "parking": "Parcheggio P2 Lago di Braies Prags",
+          "photo": "Lago di Braies",
+          "special": "p2",
+          "coord": [
+            46.7,
+            12.085
+          ]
+        },
+        {
+          "id": "d5:lagazuoi-kabelbaan",
+          "title": "Lagazuoi kabelbaan",
+          "emoji": "🚡",
+          "category": "nice",
+          "stars": 4,
+          "time": "60–90 min",
+          "dwellMin": 75,
+          "best": "Alleen bij helder weer",
+          "weather": "Alleen bij helder zicht",
+          "warning": null,
+          "desc": "Optioneel vanaf Falzarego: omhoog naar 2.750 m voor het meest weidse uitzicht van de dag. Alleen als je ruim op schema ligt.",
+          "tip": "Houd de klok in de gaten — het Wellbeing Ritual om 17:00 staat vast.",
+          "nav": "Lagazuoi kabelbaan",
+          "parking": "Rifugio Lagazuoi funivia Passo Falzarego",
+          "photo": "Rifugio Lagazuoi panorama",
+          "special": null,
+          "coord": [
+            46.5192,
+            12.01
+          ]
+        },
+        {
+          "id": "d5:rifugio-stop-naar-keuze",
+          "title": "Rifugio-stop naar keuze",
+          "emoji": "☕",
+          "category": "bonus",
+          "stars": 4,
+          "time": "30 min",
+          "dwellMin": 30,
+          "best": "Onderweg",
+          "weather": null,
+          "warning": null,
+          "desc": "Tussen de passen liggen tal van berghutten (rifugi) voor een espresso met uitzicht. Pak er eentje waar het je aanstaat.",
+          "tip": "Kleine, on-toeristische rifugi net naast de pas zijn vaak het lekkerst én het rustigst.",
+          "nav": "Passo Valparola",
+          "parking": "Passo Valparola",
+          "photo": "Passo Valparola",
+          "special": null,
+          "coord": [
+            46.518,
+            12.005
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Lunch aan het water · Misurina",
+          "q": "restaurant Lago di Misurina"
+        },
+        {
+          "t": "Rifugio · Passo Gardena",
+          "q": "rifugio Passo Gardena"
+        },
+        {
+          "t": "Diner · Naturhotel Leitlhof",
+          "q": "Naturhotel Leitlhof Innichen restaurant"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Sella → Gardena serpentines",
+          "q": "Passo Gardena"
+        },
+        {
+          "t": "Afdaling Falzarego",
+          "q": "Passo Falzarego"
+        },
+        {
+          "t": "Aankomst Lago di Braies",
+          "q": "Lago di Braies"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Sassolungo vanaf Passo Sella",
+          "q": "Passo Sella Sassolungo"
+        },
+        {
+          "t": "Sella-torens vanaf Gardena",
+          "q": "Passo Gardena Grödner Joch"
+        },
+        {
+          "t": "Roeibootjes Lago di Braies",
+          "q": "Lago di Braies boats"
+        },
+        {
+          "t": "Spiegeling Lago di Misurina",
+          "q": "Lago di Misurina"
+        }
+      ],
+      "fuel": "Cruciaal: vertrek met een vólle tank uit Canazei. Tussen de passen zijn pompen schaars. Zo rij je de hele dag zonder omweg of stress.",
+      "hotel": {
+        "id": "naturhotel-leitlhof",
+        "name": "Naturhotel Leitlhof",
+        "booked": true,
+        "bookedLabel": "geboekt",
+        "address": "Innichen / San Candido · Zuid-Tirol · Italië",
+        "mapsQuery": "Naturhotel Leitlhof Innichen",
+        "website": "Naturhotel Leitlhof",
+        "bookingQuery": "Naturhotel Leitlhof San Candido",
+        "checkin": "vanaf 15:00 · Wellbeing Ritual 17:00",
+        "parking": "Eigen parkeerplaats / garage",
+        "ev": "EV-laadpunten aanwezig bij het hotel",
+        "restaurant": "Duurzaam fine-dining (halfpension)",
+        "wellness": "Groot spa- & saunapark met bergzicht",
+        "coord": [
+          46.736,
+          12.279
+        ]
+      },
+      "planning": {
+        "departDefault": "07:30",
+        "targetArrival": "16:00",
+        "driveMin": 300,
+        "buffer": 30,
+        "appointment": {
+          "label": "Wellbeing Ritual",
+          "time": "17:00"
+        },
+        "stops": [
+          {
+            "id": "d5:passo-sella",
+            "title": "Passo Sella",
+            "category": "must",
+            "dwellMin": 30,
+            "optional": false
+          },
+          {
+            "id": "d5:passo-gardena-gr-dner-joch",
+            "title": "Passo Gardena (Grödner Joch)",
+            "category": "must",
+            "dwellMin": 30,
+            "optional": false
+          },
+          {
+            "id": "d5:passo-falzarego",
+            "title": "Passo Falzarego",
+            "category": "must",
+            "dwellMin": 45,
+            "optional": false
+          },
+          {
+            "id": "d5:lago-di-misurina",
+            "title": "Lago di Misurina",
+            "category": "must",
+            "dwellMin": 68,
+            "optional": false
+          },
+          {
+            "id": "d5:lago-di-braies-p2-geboekt",
+            "title": "Lago di Braies — P2 geboekt",
+            "category": "must",
+            "dwellMin": 83,
+            "optional": false
+          },
+          {
+            "id": "d5:lagazuoi-kabelbaan",
+            "title": "Lagazuoi kabelbaan",
+            "category": "nice",
+            "dwellMin": 75,
+            "optional": true
+          },
+          {
+            "id": "d5:rifugio-stop-naar-keuze",
+            "title": "Rifugio-stop naar keuze",
+            "category": "bonus",
+            "dwellMin": 30,
+            "optional": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "d6",
+      "index": 6,
+      "tabNumber": "7",
+      "tabLabel": "13 aug",
+      "date": "2026-08-13",
+      "endDate": "2026-08-13",
+      "isPool": false,
+      "isEpic": false,
+      "eyebrow": "Donderdag 13 augustus · Dag 6",
+      "title": "San Candido → Heidelberg",
+      "subtitle": "De lange terugrit — met een mooi slot",
+      "poolIntro": null,
+      "km": "± 600 km",
+      "drive": "6 u (rijden)",
+      "driveComfort": "≈ 6 u",
+      "driveEpic": "≈ 6 u 20 rijden",
+      "depart": "08:00",
+      "arrive": "± 18:00",
+      "weather": "Wisselend onderweg. Deze dag draait om kilometers maken; bewaar je energie voor de avond in Heidelberg.",
+      "badWeather": "Regen op de A-wegen? Geen bezwaar — dit is een transitdag. Plan gewoon een langere, droge lunchstop in Innsbruck.",
+      "advice": "Efficiënt doorrijden via Brenner en Innsbruck. Één goede lunchstop, en ’s avonds Heidelberg als beloning.",
+      "departAdvice": null,
+      "route": {
+        "origin": "Innichen (San Candido), Italië",
+        "dest": "Berggasthof Königstuhl, Heidelberg, Duitsland",
+        "epic": [
+          "Brennerpass, Italië/Oostenrijk",
+          "Innsbruck, Oostenrijk",
+          "Heidelberg Altstadt, Duitsland"
+        ]
+      },
+      "timeline": null,
+      "wellness": null,
+      "stops": [
+        {
+          "id": "d6:innsbruck-lunchstop",
+          "title": "Innsbruck — lunchstop",
+          "emoji": "🏙️",
+          "category": "must",
+          "stars": 4,
+          "time": "75–90 min",
+          "dwellMin": 83,
+          "best": "Middag",
+          "weather": null,
+          "warning": null,
+          "desc": "Perfect gelegen halverwege: bergstad met een compacte oude stad, het Goldene Dachl en bergen aan alle kanten. Ideaal om de benen te strekken.",
+          "tip": "Kort en krachtig: parkeer in de Altstadt-garage, lunch, en weer door — nog een flinke rit te gaan.",
+          "nav": "Innsbruck",
+          "parking": "Parkgarage Altstadt Innsbruck",
+          "photo": "Goldenes Dachl Innsbruck",
+          "special": null,
+          "coord": [
+            47.2692,
+            11.4041
+          ]
+        },
+        {
+          "id": "d6:heidelberg-altstadt-schloss",
+          "title": "Heidelberg — Altstadt & Schloss",
+          "emoji": "🏰",
+          "category": "must",
+          "stars": 5,
+          "time": "avond",
+          "dwellMin": 90,
+          "best": "Avondlicht",
+          "weather": null,
+          "warning": null,
+          "desc": "Aankomst met stijl: het beroemde kasteel boven de Neckar en de Alte Brücke in avondlicht. Mooie afsluiter van de reis.",
+          "tip": "Berggasthof Königstuhl ligt bóven de stad — geniet eerst van het uitzicht en rijd daarna omhoog naar het hotel.",
+          "nav": "Heidelberg",
+          "parking": "Parkhaus P12 Kornmarkt/Schloss Heidelberg",
+          "photo": "Heidelberger Schloss",
+          "special": null,
+          "coord": [
+            49.4106,
+            8.7156
+          ]
+        },
+        {
+          "id": "d6:vipiteno-sterzing",
+          "title": "Vipiteno / Sterzing",
+          "emoji": "⛪",
+          "category": "nice",
+          "stars": 3,
+          "time": "30–40 min",
+          "dwellMin": 35,
+          "best": "Ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "Kleurrijk Zuid-Tirools stadje net vóór de Brenner. Fijne koffiestop om de laatste keer echt Italië te proeven.",
+          "tip": "Laatste kans op een goede Italiaanse espresso en Speck voor onderweg.",
+          "nav": "Vipiteno",
+          "parking": "Parkplatz Sterzing Zentrum",
+          "photo": "Zwölferturm Sterzing",
+          "special": null,
+          "coord": [
+            46.8969,
+            11.43
+          ]
+        },
+        {
+          "id": "d6:alte-br-cke-heidelberg",
+          "title": "Alte Brücke Heidelberg",
+          "emoji": "🌉",
+          "category": "bonus",
+          "stars": 4,
+          "time": "30 min",
+          "dwellMin": 30,
+          "best": "Zonsondergang",
+          "weather": null,
+          "warning": null,
+          "desc": "De klassieke wandeling over de oude brug met zicht op kasteel en rivier. Rustig uitwaaien na een dag rijden.",
+          "tip": "Even naar de overkant (Philosophenweg-zijde) lopen voor het beroemde ansichtkaart-uitzicht.",
+          "nav": "Alte Brücke Heidelberg",
+          "parking": "Parkhaus P12 Kornmarkt/Schloss Heidelberg",
+          "photo": "Alte Brücke Heidelberg",
+          "special": null,
+          "coord": [
+            49.4128,
+            8.7106
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Lunch · Innsbruck Altstadt",
+          "q": "restaurant Altstadt Innsbruck"
+        },
+        {
+          "t": "Diner · Heidelberg Altstadt",
+          "q": "restaurant Altstadt Heidelberg"
+        },
+        {
+          "t": "Uitzicht · Königstuhl",
+          "q": "Berggasthof Königstuhl Heidelberg restaurant"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Afdaling Brennerpas",
+          "q": "Brennerpass"
+        },
+        {
+          "t": "Klim naar Königstuhl",
+          "q": "Königstuhl Heidelberg"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Goldenes Dachl Innsbruck",
+          "q": "Goldenes Dachl Innsbruck"
+        },
+        {
+          "t": "Heidelberger Schloss",
+          "q": "Heidelberger Schloss"
+        },
+        {
+          "t": "Alte Brücke bij avond",
+          "q": "Alte Brücke Heidelberg"
+        }
+      ],
+      "fuel": "Let op de tol: Oostenrijk vereist een vignette (Brenner heeft daarnaast aparte Maut). Tank het voordeligst in Oostenrijk of net over de Duitse grens — goedkoper dan Italië en Zwitserland.",
+      "hotel": {
+        "id": "berggasthof-k-nigstuhl",
+        "name": "Berggasthof Königstuhl",
+        "booked": true,
+        "bookedLabel": "geboekt",
+        "address": "Königstuhl · boven Heidelberg · Duitsland",
+        "mapsQuery": "Berggasthof Königstuhl Heidelberg",
+        "website": "Berggasthof Königstuhl Heidelberg",
+        "bookingQuery": "Berggasthof Königstuhl Heidelberg",
+        "checkin": "vanaf 15:00",
+        "parking": "Eigen parkeerplaats bij de berggasthof",
+        "ev": "Laadpunten in Heidelberg (dal)",
+        "restaurant": "Duitse keuken met uitzicht",
+        "wellness": "—",
+        "coord": [
+          49.3986,
+          8.7264
+        ]
+      },
+      "planning": {
+        "departDefault": "08:00",
+        "targetArrival": "18:00",
+        "driveMin": 380,
+        "buffer": 30,
+        "appointment": null,
+        "stops": [
+          {
+            "id": "d6:innsbruck-lunchstop",
+            "title": "Innsbruck — lunchstop",
+            "category": "must",
+            "dwellMin": 83,
+            "optional": false
+          },
+          {
+            "id": "d6:heidelberg-altstadt-schloss",
+            "title": "Heidelberg — Altstadt & Schloss",
+            "category": "must",
+            "dwellMin": 90,
+            "optional": false
+          },
+          {
+            "id": "d6:vipiteno-sterzing",
+            "title": "Vipiteno / Sterzing",
+            "category": "nice",
+            "dwellMin": 35,
+            "optional": true
+          },
+          {
+            "id": "d6:alte-br-cke-heidelberg",
+            "title": "Alte Brücke Heidelberg",
+            "category": "bonus",
+            "dwellMin": 30,
+            "optional": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "d7",
+      "index": 7,
+      "tabNumber": "8",
+      "tabLabel": "14 aug",
+      "date": "2026-08-14",
+      "endDate": "2026-08-14",
+      "isPool": false,
+      "isEpic": false,
+      "eyebrow": "Vrijdag 14 augustus · Dag 7",
+      "title": "Heidelberg → Almere",
+      "subtitle": "Rustig naar huis",
+      "poolIntro": null,
+      "km": "± 500 km",
+      "drive": "5 u (rijden)",
+      "driveComfort": "≈ 5 u",
+      "driveEpic": "≈ 5 u 20 rijden",
+      "depart": "09:00",
+      "arrive": "± 15:00",
+      "weather": "Ontspannen slotdag. Eén frisse stop onderweg en dan naar huis.",
+      "badWeather": "Bij druk terugkeerverkeer (vrijdag!): vertrek liever wat vroeger of las de Köln-stop in om de spits te ontlopen.",
+      "advice": "Geen haast. Eén koffiestop bij Köln om de rit te breken, daarna in één ruk naar Almere.",
+      "departAdvice": null,
+      "route": {
+        "origin": "Heidelberg, Duitsland",
+        "dest": "Almere, Nederland",
+        "epic": [
+          "Köln, Duitsland",
+          "Almere, Nederland"
+        ]
+      },
+      "timeline": null,
+      "wellness": null,
+      "stops": [
+        {
+          "id": "d7:k-ln-dom-rijnboulevard",
+          "title": "Köln — Dom & Rijnboulevard",
+          "emoji": "⛪",
+          "category": "must",
+          "stars": 4,
+          "time": "60–75 min",
+          "dwellMin": 68,
+          "best": "Late ochtend",
+          "weather": null,
+          "warning": null,
+          "desc": "De ideale beenstrek-stop op de weg naar huis: de imposante Dom, een espresso aan de Rijn en dan het laatste stuk naar Nederland.",
+          "tip": "Parkeer bij Am Dom/Groß St. Martin — je staat dan direct bij de Dom en de boulevard.",
+          "nav": "Köln",
+          "parking": "Parkhaus Am Dom Köln",
+          "photo": "Kölner Dom",
+          "special": null,
+          "coord": [
+            50.9413,
+            6.9583
+          ]
+        },
+        {
+          "id": "d7:designer-outlet-roermond",
+          "title": "Designer Outlet Roermond",
+          "emoji": "🛍️",
+          "category": "nice",
+          "stars": 3,
+          "time": "naar keuze",
+          "dwellMin": 45,
+          "best": "Alleen als je zin hebt",
+          "weather": null,
+          "warning": null,
+          "desc": "Vlak over de grens: handig als je de reis met een laatste stop wil rekken. Alleen doen als iedereen er zin in heeft.",
+          "tip": "Bij druk vrijdagverkeer eerder overslaan en doorrijden naar huis.",
+          "nav": "Designer Outlet Roermond",
+          "parking": "Designer Outlet Roermond parking",
+          "photo": "Designer Outlet Roermond",
+          "special": null,
+          "coord": [
+            51.1889,
+            5.977
+          ]
+        },
+        {
+          "id": "d7:thuis-in-almere",
+          "title": "Thuis in Almere",
+          "emoji": "🏡",
+          "category": "bonus",
+          "stars": 5,
+          "time": "—",
+          "dwellMin": 0,
+          "best": "Middag",
+          "weather": null,
+          "warning": null,
+          "desc": "Einde van een onvergetelijke roadtrip. Auto uitladen, foto’s terugkijken en nagenieten.",
+          "tip": "GoPro-kaarten meteen back-uppen — je wilt deze beelden niet kwijtraken.",
+          "nav": "Almere",
+          "parking": "Almere",
+          "photo": "Almere",
+          "special": null,
+          "coord": [
+            52.3508,
+            5.2647
+          ]
+        }
+      ],
+      "restaurants": [
+        {
+          "t": "Koffie · Köln Rijnboulevard",
+          "q": "café Rheinboulevard Köln"
+        },
+        {
+          "t": "Lunch onderweg",
+          "q": "restaurant A3 Autohof"
+        }
+      ],
+      "gopro": [
+        {
+          "t": "Rijnbrug bij Köln",
+          "q": "Hohenzollernbrücke Köln"
+        }
+      ],
+      "fotospots": [
+        {
+          "t": "Kölner Dom",
+          "q": "Kölner Dom"
+        },
+        {
+          "t": "Rijnboulevard",
+          "q": "Rheinboulevard Köln"
+        }
+      ],
+      "fuel": "Tank het laatst voordelig in Duitsland vóór de grens (of net in Nederland). Vermijd de dure snelweg-tankstations.",
+      "hotel": {
+        "id": "thuis-almere",
+        "name": "Thuis · Almere",
+        "booked": false,
+        "bookedLabel": "geboekt",
+        "address": "Almere · Nederland",
+        "mapsQuery": "Almere",
+        "website": null,
+        "bookingQuery": null,
+        "checkin": "—",
+        "parking": "Eigen oprit",
+        "ev": "Thuislader",
+        "restaurant": "—",
+        "wellness": "Eigen bank 🛋️",
+        "coord": [
+          52.3508,
+          5.2647
+        ]
+      },
+      "planning": {
+        "departDefault": "09:00",
+        "targetArrival": "15:00",
+        "driveMin": 320,
+        "buffer": 30,
+        "appointment": null,
+        "stops": [
+          {
+            "id": "d7:k-ln-dom-rijnboulevard",
+            "title": "Köln — Dom & Rijnboulevard",
+            "category": "must",
+            "dwellMin": 68,
+            "optional": false
+          },
+          {
+            "id": "d7:designer-outlet-roermond",
+            "title": "Designer Outlet Roermond",
+            "category": "nice",
+            "dwellMin": 45,
+            "optional": true
+          },
+          {
+            "id": "d7:thuis-in-almere",
+            "title": "Thuis in Almere",
+            "category": "bonus",
+            "dwellMin": 0,
+            "optional": true
+          }
+        ]
+      }
+    }
+  ],
+  "checklists": [
+    {
+      "id": "documenten",
+      "icon": "🪪",
+      "title": "Documenten",
+      "items": [
+        "Paspoort",
+        "Rijbewijs",
+        "Kentekenbewijs",
+        "Groene kaart (verzekering)",
+        "Creditcard",
+        "Contant geld (euro)"
+      ]
+    },
+    {
+      "id": "auto",
+      "icon": "🚗",
+      "title": "Auto",
+      "items": [
+        "Bandenspanning gecontroleerd",
+        "Oliepeil",
+        "Koelvloeistof",
+        "Ruitensproeiervloeistof",
+        "GoPro",
+        "SD-kaarten (leeg & extra)",
+        "USB-kabels",
+        "Powerbank",
+        "Laadkabels (auto & telefoon)",
+        "EHBO-set",
+        "Gevarendriehoek",
+        "Veiligheidshesje(s)"
+      ]
+    },
+    {
+      "id": "tol-vignetten",
+      "icon": "🛣️",
+      "title": "Tol & vignetten",
+      "items": [
+        "Zwitserse vignette",
+        "Oostenrijkse vignette",
+        "Fulli / Telepass badge Italië"
+      ]
+    }
+  ]
+}
