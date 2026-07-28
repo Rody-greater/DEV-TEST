@@ -137,6 +137,7 @@ const days = DAYS.map((d, i) => {
     ev: d.hotel.ev,
     restaurant: d.hotel.restaurant,
     wellness: d.hotel.wellness,
+    breakfast: d.hotel.breakfast || null,
     coord: COORDS[d.hotel.name] || null
   } : null
 

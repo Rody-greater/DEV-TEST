@@ -184,6 +184,7 @@
         "ev": "Laadpunten in Bernkastel-Kues centrum",
         "restaurant": "Regionale Moezelkeuken",
         "wellness": "—",
+        "breakfast": "vanaf 07:30",
         "coord": [
           49.913,
           7.0706
@@ -404,6 +405,7 @@
         "ev": "Laadpunt navragen bij receptie",
         "restaurant": "Terras met meerzicht",
         "wellness": "Kleine spa / sauna",
+        "breakfast": "07:00–09:30",
         "coord": [
           47.0338,
           8.431
@@ -648,6 +650,7 @@
         "ev": "Laadpalen in Desenzano centrum",
         "restaurant": "Ontbijt inbegrepen",
         "wellness": "—",
+        "breakfast": "07:30–10:00",
         "coord": [
           45.4692,
           10.5357
@@ -937,6 +940,7 @@
         "ev": "Laadpalen in Desenzano centrum",
         "restaurant": "Ontbijt inbegrepen",
         "wellness": "—",
+        "breakfast": "07:30–10:00",
         "coord": [
           45.4692,
           10.5357
@@ -1166,6 +1170,7 @@
         "ev": "Laadpunten in Canazei centrum",
         "restaurant": "Alpiene keuken",
         "wellness": "Sauna / relaxruimte",
+        "breakfast": "± 07:30–10:00",
         "coord": [
           46.4767,
           11.77
@@ -1535,6 +1540,7 @@
         "ev": "EV-laadpunten aanwezig bij het hotel",
         "restaurant": "Duurzaam fine-dining (halfpension)",
         "wellness": "Groot spa- & saunapark met bergzicht",
+        "breakfast": "07:00–10:30",
         "coord": [
           46.736,
           12.279
@@ -1779,6 +1785,7 @@
         "ev": "Laadpunten in Heidelberg (dal)",
         "restaurant": "Duitse keuken met uitzicht",
         "wellness": "—",
+        "breakfast": "wkn 07:00–10:00 · wknd 08:00–10:30",
         "coord": [
           49.3986,
           8.7264
@@ -1964,6 +1971,7 @@
         "ev": "Thuislader",
         "restaurant": "—",
         "wellness": "Eigen bank 🛋️",
+        "breakfast": null,
         "coord": [
           52.3508,
           5.2647

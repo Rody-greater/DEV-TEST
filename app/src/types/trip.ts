@@ -35,6 +35,7 @@ export interface Hotel {
   ev: string
   restaurant: string
   wellness: string
+  breakfast: string | null
   coord: LatLng | null
 }
 

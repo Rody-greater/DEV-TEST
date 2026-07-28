@@ -14,6 +14,7 @@ const note = computed({
 
 const facts = computed(() => [
   { k: 'Inchecken', v: props.hotel.checkin },
+  { k: 'Ontbijt', v: props.hotel.breakfast },
   { k: 'Parkeren', v: props.hotel.parking },
   { k: 'EV laden', v: props.hotel.ev },
   { k: 'Restaurant', v: props.hotel.restaurant },

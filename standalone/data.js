@@ -74,7 +74,7 @@ const DAYS = [
     mapsQuery:'Burgblickhotel Bernkastel-Kues',
     website:'Burgblickhotel Bernkastel-Kues', bookingQuery:'Burgblickhotel Bernkastel-Kues',
     checkin:'vanaf 15:00', parking:'Eigen parkeerplaats', ev:'Laadpunten in Bernkastel-Kues centrum',
-    restaurant:'Regionale Moezelkeuken', wellness:'—'
+    restaurant:'Regionale Moezelkeuken', wellness:'—', breakfast:'vanaf 07:30'
   })
 },
 
@@ -135,7 +135,7 @@ const DAYS = [
     mapsQuery:'Hotel Alpenblick Weggis',
     website:'Hotel Alpenblick Weggis', bookingQuery:'Hotel Alpenblick Weggis',
     checkin:'vanaf 15:00', parking:'Hotelparking', ev:'Laadpunt navragen bij receptie',
-    restaurant:'Terras met meerzicht', wellness:'Kleine spa / sauna'
+    restaurant:'Terras met meerzicht', wellness:'Kleine spa / sauna', breakfast:'07:00–09:30'
   })
 },
 
@@ -204,7 +204,7 @@ const DAYS = [
     mapsQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
     website:'Hotel Aquila d\'Oro Desenzano del Garda', bookingQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
     checkin:'vanaf 14:00', parking:'Parkeren navragen — centrum Desenzano is beperkt',
-    ev:'Laadpalen in Desenzano centrum', restaurant:'Ontbijt inbegrepen', wellness:'—'
+    ev:'Laadpalen in Desenzano centrum', restaurant:'Ontbijt inbegrepen', wellness:'—', breakfast:'07:30–10:00'
   })
 },
 
@@ -273,7 +273,7 @@ const DAYS = [
     mapsQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
     website:'Hotel Aquila d\'Oro Desenzano del Garda', bookingQuery:'Hotel Aquila d\'Oro Desenzano del Garda',
     checkin:'vanaf 14:00', parking:'Parkeren navragen — centrum Desenzano is beperkt',
-    ev:'Laadpalen in Desenzano centrum', restaurant:'Ontbijt inbegrepen', wellness:'—'
+    ev:'Laadpalen in Desenzano centrum', restaurant:'Ontbijt inbegrepen', wellness:'—', breakfast:'07:30–10:00'
   })
 },
 
@@ -343,7 +343,7 @@ const DAYS = [
     mapsQuery:'Chalet Vites Canazei',
     website:'Chalet Vites Canazei', bookingQuery:'Chalet Vites Canazei',
     checkin:'vanaf 15:00', parking:'Eigen parkeerplaats bij het chalet',
-    ev:'Laadpunten in Canazei centrum', restaurant:'Alpiene keuken', wellness:'Sauna / relaxruimte'
+    ev:'Laadpunten in Canazei centrum', restaurant:'Alpiene keuken', wellness:'Sauna / relaxruimte', breakfast:'± 07:30–10:00'
   })
 },
 
@@ -441,7 +441,7 @@ const DAYS = [
     website:'Naturhotel Leitlhof', bookingQuery:'Naturhotel Leitlhof San Candido',
     checkin:'vanaf 15:00 · Wellbeing Ritual 17:00',
     parking:'Eigen parkeerplaats / garage', ev:'EV-laadpunten aanwezig bij het hotel',
-    restaurant:'Duurzaam fine-dining (halfpension)', wellness:'Groot spa- & saunapark met bergzicht'
+    restaurant:'Duurzaam fine-dining (halfpension)', wellness:'Groot spa- & saunapark met bergzicht', breakfast:'07:00–10:30'
   })
 },
 
@@ -502,7 +502,7 @@ const DAYS = [
     mapsQuery:'Berggasthof Königstuhl Heidelberg',
     website:'Berggasthof Königstuhl Heidelberg', bookingQuery:'Berggasthof Königstuhl Heidelberg',
     checkin:'vanaf 15:00', parking:'Eigen parkeerplaats bij de berggasthof',
-    ev:'Laadpunten in Heidelberg (dal)', restaurant:'Duitse keuken met uitzicht', wellness:'—'
+    ev:'Laadpunten in Heidelberg (dal)', restaurant:'Duitse keuken met uitzicht', wellness:'—', breakfast:'wkn 07:00–10:00 · wknd 08:00–10:30'
   })
 },
 
