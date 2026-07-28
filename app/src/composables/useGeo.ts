@@ -1,38 +1,48 @@
-import { ref, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import type { LatLng } from '@/types/trip'
 
 export interface GeoPosition { lat: number; lng: number; accuracy: number }
 
 /**
- * HTML5 Geolocation wrapper. Works fully offline (the device GPS needs no
- * network) and degrades gracefully: when unsupported or denied, everything
- * else in the app keeps working manually.
+ * HTML5 Geolocation — a single shared watch for the whole app (Home GPS toggle,
+ * Road Captain proximity, Quick Actions). State lives at module scope so every
+ * consumer sees the same position and there is only ever one prompt and one
+ * watcher. Lifecycle follows user intent (enable/disable), NOT component mount:
+ * navigating between pages no longer restarts or resets the GPS.
+ *
+ * Works fully offline (the device GPS needs no network) and degrades gracefully:
+ * when unsupported or denied, everything else in the app keeps working manually.
  */
+const supported = typeof navigator !== 'undefined' && 'geolocation' in navigator
+const enabled = ref(false)
+const position = ref<GeoPosition | null>(null)
+const error = ref<string | null>(null)
+let watchId: number | null = null
+
+function enable() {
+  if (!supported) return
+  enabled.value = true
+  error.value = null
+  if (watchId != null) return // already watching — one shared watcher
+  watchId = navigator.geolocation.watchPosition(
+    p => { position.value = { lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy }; error.value = null },
+    e => {
+      error.value = e.message
+      // Only a hard permission denial turns GPS off; transient timeouts /
+      // position-unavailable keep the watch alive so it can recover.
+      if (e.code === e.PERMISSION_DENIED) disable()
+    },
+    { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 }
+  )
+}
+
+function disable() {
+  if (watchId != null) { navigator.geolocation.clearWatch(watchId); watchId = null }
+  enabled.value = false
+  position.value = null
+}
+
 export function useGeo() {
-  const supported = typeof navigator !== 'undefined' && 'geolocation' in navigator
-  const enabled = ref(false)
-  const position = ref<GeoPosition | null>(null)
-  const error = ref<string | null>(null)
-  let watchId: number | null = null
-
-  function enable() {
-    if (!supported || watchId != null) return
-    enabled.value = true
-    error.value = null
-    watchId = navigator.geolocation.watchPosition(
-      p => { position.value = { lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy }; error.value = null },
-      e => { error.value = e.message; enabled.value = false },
-      { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 }
-    )
-  }
-
-  function disable() {
-    if (watchId != null) { navigator.geolocation.clearWatch(watchId); watchId = null }
-    enabled.value = false
-    position.value = null
-  }
-
-  onUnmounted(disable)
   return { supported, enabled, position, error, enable, disable }
 }
 

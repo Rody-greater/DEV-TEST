@@ -6,6 +6,7 @@ import { useUserStore } from '@/stores/user'
 import { useNow } from '@/composables/useNow'
 import { useTripStatus } from '@/composables/useTripStatus'
 import { useRoadCaptain } from '@/composables/useRoadCaptain'
+import { useWeather } from '@/composables/useWeather'
 import { dutchDate, humanDuration } from '@/utils/time'
 import StatusBadge from '@/components/ui/StatusBadge.vue'
 import CountdownPill from '@/components/ui/CountdownPill.vue'
@@ -22,6 +23,11 @@ const { phase, activeDay, dayNumber, totalDays, daysUntilStart, progressPct } = 
 const { result } = useRoadCaptain(activeDay, now)
 
 const hotel = computed(() => activeDay.value.hotel)
+
+// Live weather at today's endpoint (offline-degrading; shows nothing if unavailable)
+const wxCoord = computed(() => activeDay.value.hotel?.coord ?? activeDay.value.stops.find(s => s.coord)?.coord ?? null)
+const wxDate = computed(() => activeDay.value.date)
+const { weather } = useWeather(wxCoord, wxDate)
 const nextStop = computed(() => {
   const order = ['must', 'nice', 'pool', 'bonus']
   return [...activeDay.value.stops]
@@ -72,6 +78,11 @@ const totalStops = computed(() => trip.days.reduce((n, d) => n + d.stops.length,
       </div>
       <h2 class="text-xl font-extrabold mt-1">{{ activeDay.title }}</h2>
       <p class="text-sm text-muted">{{ activeDay.subtitle }}</p>
+      <div v-if="weather" class="mt-1.5 inline-flex items-center gap-1.5 text-xs text-muted">
+        <span class="text-sm">{{ weather.emoji }}</span>
+        <span class="tabular-nums font-bold text-ink">{{ weather.tMax }}° / {{ weather.tMin }}°</span>
+        <span class="text-faint">· {{ weather.text }} · {{ weather.precipProb }}% neerslag</span>
+      </div>
 
       <div class="mt-3 grid grid-cols-3 gap-2 text-center">
         <div class="rounded-xl2 border border-line bg-bg2/60 py-2">

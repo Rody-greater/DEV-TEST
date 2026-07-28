@@ -5,6 +5,7 @@ import { useTripStore } from '@/stores/trip'
 import { dutchDate } from '@/utils/time'
 import RouteCard from '@/components/trip/RouteCard.vue'
 import RoadCaptain from '@/components/trip/RoadCaptain.vue'
+import WeatherBanner from '@/components/trip/WeatherBanner.vue'
 import StopCard from '@/components/trip/StopCard.vue'
 import HotelCard from '@/components/trip/HotelCard.vue'
 import TimelineView from '@/components/trip/TimelineView.vue'
@@ -66,12 +67,7 @@ const groups = computed(() => {
     </div>
 
     <!-- banners -->
-    <div v-if="day.weather" class="rounded-xl2 border border-bronze-soft bg-gradient-to-br from-[#241d13] to-[#1a1610] px-4 py-3 text-sm text-[#e9d3b4]">
-      <b class="text-ink">Weer:</b> {{ day.weather }}
-    </div>
-    <div v-if="day.badWeather" class="rounded-xl2 border border-[#244566] bg-[#12202f] px-4 py-3 text-sm text-[#a9cdf3]">
-      🌧️ <b class="text-ink">Bij slecht weer:</b> {{ day.badWeather }}
-    </div>
+    <WeatherBanner :day="day" />
     <div v-if="day.advice" class="rounded-xl2 border border-bronze-soft bg-gradient-to-br from-[#241d13] to-[#1a1610] px-4 py-3 text-sm text-[#e9d3b4]">
       <b class="text-ink">Mijn keuze:</b> {{ day.advice }}
     </div>

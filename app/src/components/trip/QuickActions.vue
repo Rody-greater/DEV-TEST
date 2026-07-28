@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { mapsSearch, openExternal } from '@/composables/useMaps'
+import { useGeo } from '@/composables/useGeo'
 import { BoltIcon } from '@heroicons/vue/24/solid'
+
+const geo = useGeo()
 
 const open = ref(false)
 const busy = ref(false)
@@ -15,23 +18,26 @@ const actions: QA[] = [
   { key: 'photo', icon: '📸', label: 'Fotospot', term: 'viewpoint', fallback: 'scenic viewpoint in de buurt' }
 ]
 
+const query = (a: QA, coord: string) => mapsSearch(a.term ? `${a.term} near ${coord}` : coord)
+
 function run(a: QA) {
   open.value = false
-  // iOS Safari blocks window.open() unless it runs synchronously inside the tap
-  // gesture. getCurrentPosition is async, so open a blank tab NOW and redirect it
-  // once the coordinates resolve. Fall back to same-tab navigation if it was blocked.
+
+  // Fast path: the Home GPS toggle already has a live fix — open Maps synchronously
+  // inside the tap gesture (no popup block, no blank-tab wait, no second prompt).
+  const p = geo.position.value
+  if (p) { openExternal(query(a, `${p.lat},${p.lng}`)); return }
+
+  if (!navigator.geolocation) { openExternal(mapsSearch(a.fallback)); return }
+
+  // Slow path: no shared fix yet. iOS Safari blocks window.open() from an async
+  // callback, so open a blank tab NOW and redirect it once coordinates resolve.
   const tab = window.open('about:blank', '_blank')
   try { if (tab) tab.opener = null } catch { /* cross-origin after redirect */ }
   const go = (url: string) => { if (tab) tab.location.href = url; else openExternal(url) }
-
-  if (!navigator.geolocation) { go(mapsSearch(a.fallback)); return }
   busy.value = true
   navigator.geolocation.getCurrentPosition(
-    pos => {
-      busy.value = false
-      const c = `${pos.coords.latitude},${pos.coords.longitude}`
-      go(mapsSearch(a.term ? `${a.term} near ${c}` : c))
-    },
+    pos => { busy.value = false; go(query(a, `${pos.coords.latitude},${pos.coords.longitude}`)) },
     () => { busy.value = false; go(mapsSearch(a.fallback)) },
     { enableHighAccuracy: true, timeout: 8000, maximumAge: 60_000 }
   )

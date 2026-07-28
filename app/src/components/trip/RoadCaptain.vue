@@ -48,6 +48,11 @@ onMounted(() => {
   if (user.geoEnabled && geo.supported && !geo.enabled.value) geo.enable()
 })
 
+// A hard permission denial disables the shared watch — forget the opt-in so we
+// don't auto-re-enable into the same error on the next visit. Transient errors
+// keep the watch (and the preference) alive.
+watch(() => geo.error.value, e => { if (e && !geo.enabled.value) user.setGeoEnabled(false) })
+
 watch(
   () => geo.position.value,
   pos => {

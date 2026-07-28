@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useTripStore } from '@/stores/trip'
 import ChecklistGroup from '@/components/trip/ChecklistGroup.vue'
+import BorderInfo from '@/components/trip/BorderInfo.vue'
 
 const trip = useTripStore()
 </script>
@@ -18,9 +19,6 @@ const trip = useTripStore()
       :group-id="g.id" :icon="g.icon" :title="g.title" :items="g.items" :open="i === 0"
     />
 
-    <div class="card p-4 text-sm text-muted leading-relaxed">
-      <b class="text-ink">Tol &amp; vignetten:</b> Zwitserse vignette vóór de grens (dag 2), Oostenrijkse vignette voor de terugreis (dag 13, via Brenner),
-      en een Telepass/Fulli-badge maakt de Italiaanse tol soepeler. Controleer altijd de actuele regels.
-    </div>
+    <BorderInfo />
   </div>
 </template>
