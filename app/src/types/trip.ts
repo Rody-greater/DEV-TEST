@@ -1,6 +1,33 @@
 export type Category = 'must' | 'nice' | 'bonus' | 'pool'
 export type LatLng = [number, number]
 
+export type StopCategory =
+  | 'city' | 'nature' | 'bridge' | 'mountain' | 'lake'
+  | 'hotel' | 'viewpoint' | 'wine' | 'historic'
+
+export interface GuideHighlight {
+  title: string
+  description?: string
+  priority: 'essential' | 'nice-to-have'
+  estimatedMinutes?: number
+}
+export interface GuidePhotoSpot {
+  title: string
+  description: string
+  estimatedMinutes?: number
+}
+export interface StopGuide {
+  why: string
+  highlights: GuideHighlight[]
+  photoSpots?: GuidePhotoSpot[]
+  food?: string[]
+  practical?: string[]
+  walkingTime?: string
+  recommendedStayMinutes: number
+  relaxedStayMinutes?: number
+  captainTip: string
+}
+
 export interface Stop {
   id: string
   title: string
@@ -19,6 +46,8 @@ export interface Stop {
   photo: string | null
   special: string | null
   coord: LatLng | null
+  guideCategory: StopCategory | null
+  guide: StopGuide | null
 }
 
 export interface Hotel {

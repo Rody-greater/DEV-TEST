@@ -7,6 +7,7 @@ import { useNow } from '@/composables/useNow'
 import { useTripStatus } from '@/composables/useTripStatus'
 import { useRoadCaptain } from '@/composables/useRoadCaptain'
 import { useWeather } from '@/composables/useWeather'
+import ExploreGuide from '@/components/trip/ExploreGuide.vue'
 import { dutchDate, humanDuration } from '@/utils/time'
 import StatusBadge from '@/components/ui/StatusBadge.vue'
 import CountdownPill from '@/components/ui/CountdownPill.vue'
@@ -22,6 +23,7 @@ const { phase, activeDay, dayNumber, totalDays, daysUntilStart, progressPct } = 
 
 const { result } = useRoadCaptain(activeDay, now)
 
+const arrivedStop = computed(() => activeDay.value.stops.find(s => user.statusOf(s.id) === 'arrived') || null)
 const hotel = computed(() => activeDay.value.hotel)
 
 // Live weather at today's endpoint (offline-degrading; shows nothing if unavailable)
@@ -55,6 +57,9 @@ const totalStops = computed(() => trip.days.reduce((n, d) => n + d.stops.length,
         <span class="text-xs font-black">{{ progressPct }}%</span>
       </RouterLink>
     </header>
+
+    <!-- Explore Mode: als je nu bij een stop bent aangekomen -->
+    <ExploreGuide v-if="arrivedStop" :day="activeDay" :stop="arrivedStop" :key="arrivedStop.id" />
 
     <!-- pre-trip banner -->
     <div v-if="phase === 'before'" class="card p-4 flex items-center justify-between animate-fadeUp">

@@ -77,6 +77,13 @@ app/
   Optioneel GPS: binnen ~100 m van een stop stelt de app “ben je aangekomen?” voor
   (bevestiging vereist, werkt offline). Aankomst-/vertrektijden en verblijftijd worden
   lokaal bewaard.
+- **Explore Mode (2.1):** zodra een stop de status *aangekomen* krijgt, verschijnt een
+  compacte, tijdsbewuste reisgids: *Welkom in …*, waarom de stop de moeite waard is,
+  wat je niet mag missen (met tijdsinschatting), een fototip, praktische info en een
+  Captain Tip. De gids gebruikt exact dezelfde tijdsbron als de Road Captain en kiest een
+  rustige modus op basis van je speling — `relaxed` · `normal` · `compact` · `skip-extra` —
+  zonder ooit haasttaal. Bij tijdsdruk worden extra onderdelen vriendelijk overgeslagen,
+  niet je vakantiegevoel. Alle 40 stops hebben eigen gidsinhoud; werkt volledig offline.
 - **Kaart (Leaflet):** alle stops, hotels en parkeerplaatsen met echte coördinaten;
   klik op een marker voor navigeren/parkeren. Tiles worden offline gecachet.
 - **Leitlhof-highlight:** Wellbeing Ritual (17:00, geboekt) met countdown, spa/sauna/zwembad,

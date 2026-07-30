@@ -10,6 +10,7 @@ import { dirname, resolve } from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const { DAYS, CHECKLISTS } = await import(resolve(__dirname, '../../standalone/data.js'))
+const { GUIDES } = await import(resolve(__dirname, './guides.mjs'))
 
 /* ---- echte coördinaten (geverifieerde, bekende locaties) ---- */
 const COORDS = {
@@ -91,8 +92,10 @@ function toClock(str){ const m = String(str).match(/(\d{1,2}):(\d{2})/); return 
 
 /* ---- transformeer één stop ---- */
 function stop(dayId, category, s){
+  const id = `${dayId}:${slug(s.title)}`
+  const g = GUIDES[id] || null
   return {
-    id: `${dayId}:${slug(s.title)}`,
+    id,
     title: s.title,
     emoji: s.emoji,
     category,                       // must | nice | bonus | pool
@@ -108,7 +111,9 @@ function stop(dayId, category, s){
     parking: s.parking || null,
     photo: s.photo || null,
     special: s.special || null,
-    coord: COORDS[s.title] || null
+    coord: COORDS[s.title] || null,
+    guideCategory: g ? g.category : null,
+    guide: g ? g.guide : null
   }
 }
 

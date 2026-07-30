@@ -2,7 +2,9 @@
 import { computed } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { useTripStore } from '@/stores/trip'
+import { useUserStore } from '@/stores/user'
 import { dutchDate } from '@/utils/time'
+import ExploreGuide from '@/components/trip/ExploreGuide.vue'
 import RouteCard from '@/components/trip/RouteCard.vue'
 import RoadCaptain from '@/components/trip/RoadCaptain.vue'
 import WeatherBanner from '@/components/trip/WeatherBanner.vue'
@@ -15,7 +17,9 @@ import { ChevronLeftIcon } from '@heroicons/vue/24/solid'
 
 const route = useRoute()
 const trip = useTripStore()
+const user = useUserStore()
 const day = computed(() => trip.dayById(route.params.id as string) || trip.days[0])
+const arrivedStop = computed(() => day.value.stops.find(s => user.statusOf(s.id) === 'arrived') || null)
 
 const groups = computed(() => {
   const d = day.value
@@ -41,6 +45,9 @@ const groups = computed(() => {
       <p class="text-sm text-muted">{{ day.subtitle }}</p>
       <p class="text-xs text-faint mt-1">{{ day.isPool ? '7 – 10 augustus' : dutchDate(day.date) }}</p>
     </header>
+
+    <!-- Explore Mode: verschijnt zodra je bij een stop bent aangekomen -->
+    <ExploreGuide v-if="arrivedStop" :day="day" :stop="arrivedStop" :key="arrivedStop.id" />
 
     <!-- stat strip -->
     <div v-if="!day.isPool" class="grid grid-cols-4 gap-2">
