@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { useTripStore } from '@/stores/trip'
 import { useUserStore } from '@/stores/user'
+import { useRoadCaptain } from '@/composables/useRoadCaptain'
 import { dutchDate } from '@/utils/time'
 import ExploreGuide from '@/components/trip/ExploreGuide.vue'
 import RouteCard from '@/components/trip/RouteCard.vue'
@@ -20,6 +21,10 @@ const trip = useTripStore()
 const user = useUserStore()
 const day = computed(() => trip.dayById(route.params.id as string) || trip.days[0])
 const arrivedStop = computed(() => day.value.stops.find(s => user.statusOf(s.id) === 'arrived') || null)
+
+// Shared priority-aware plan so each stop card shows its include/fit state.
+const { result: captain } = useRoadCaptain(day)
+const planById = computed(() => Object.fromEntries(captain.value.stops.map(s => [s.id, s])))
 
 const groups = computed(() => {
   const d = day.value
@@ -99,7 +104,7 @@ const groups = computed(() => {
         <span class="w-2.5 h-2.5 rounded-full" :class="g.dot" />{{ g.label }}
       </div>
       <div class="space-y-2.5">
-        <StopCard v-for="s in g.stops" :key="s.id" :stop="s" />
+        <StopCard v-for="s in g.stops" :key="s.id" :stop="s" :plan="planById[s.id]" />
       </div>
     </template>
 

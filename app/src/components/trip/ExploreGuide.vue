@@ -51,6 +51,7 @@ function photo(q: string) { openExternal(mapsSearch(q)) }
     <p v-if="advice.elapsedLine" class="mt-1 text-sm text-bronze/90 leading-relaxed flex items-start gap-1.5">
       <ClockIcon class="w-4 h-4 mt-0.5 shrink-0" />{{ advice.elapsedLine }}
     </p>
+    <p v-if="advice.planNote" class="mt-1 text-sm text-bonus/90 leading-relaxed">{{ advice.planNote }}</p>
 
     <!-- hard deadline — the only firm note, only when a booked appointment is at risk -->
     <div v-if="advice.hardDeadline" class="mt-3 rounded-xl2 border border-[#f97316]/40 bg-[#f97316]/10 px-3 py-2.5 text-sm text-[#f9a35a]">

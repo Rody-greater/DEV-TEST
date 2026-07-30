@@ -91,6 +91,10 @@ function driveMinutes(str){
 function toClock(str){ const m = String(str).match(/(\d{1,2}):(\d{2})/); return m ? `${m[1].padStart(2,'0')}:${m[2]}` : null }
 
 /* ---- transformeer één stop ---- */
+// Planning priority derived from the existing category (single source):
+//   must -> essential · nice -> optional · bonus -> bonus · pool -> optional
+const PRIORITY = { must: 'essential', nice: 'optional', bonus: 'bonus', pool: 'optional' }
+
 function stop(dayId, category, s){
   const id = `${dayId}:${slug(s.title)}`
   const g = GUIDES[id] || null
@@ -99,6 +103,7 @@ function stop(dayId, category, s){
     title: s.title,
     emoji: s.emoji,
     category,                       // must | nice | bonus | pool
+    priority: s.priority || PRIORITY[category] || 'essential',
     stars: s.stars,
     time: s.time,
     dwellMin: dwellMinutes(s.time),

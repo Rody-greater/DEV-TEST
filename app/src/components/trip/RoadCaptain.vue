@@ -10,7 +10,9 @@ import { ArrowPathIcon, SignalIcon, SignalSlashIcon } from '@heroicons/vue/24/so
 
 const props = defineProps<{ day: Day }>()
 const dayRef = toRef(props, 'day')
-const { result, setDeparture, resetDeparture, arrive, depart, skip, resetStop } = useRoadCaptain(dayRef)
+const { result, setDeparture, resetDeparture, arrive, depart, skip, resetStop, addStop, removeStop } = useRoadCaptain(dayRef)
+
+const priorityLabel: Record<string, string> = { essential: '⭐ Kernstop', optional: '◇ Optioneel', bonus: '✨ Bonus' }
 
 /* metadata (emoji + coord) per stop id, from the full day data */
 const meta = computed(() => {
@@ -24,11 +26,13 @@ const departure = computed({
   set: (v: string) => setDeparture(v)
 })
 
-/* Ordered stop lists */
-const active = computed(() => result.value.stops.filter(s => s.status === 'pending' || s.status === 'arrived'))
+/* Ordered stop lists — the active plan is essentials + added optionals/bonuses */
+const active = computed(() => result.value.stops.filter(s => s.included && (s.status === 'pending' || s.status === 'arrived')))
 const nextStop = computed(() => active.value[0] || null)
 const laterStops = computed(() => active.value.slice(1))
 const doneStops = computed(() => result.value.stops.filter(s => s.status === 'departed' || s.status === 'skipped'))
+/* Opportunities — optional/bonus stops you can still add to today */
+const possibilities = computed(() => result.value.stops.filter(s => !s.included && s.status === 'pending' && s.priority !== 'essential'))
 
 /* ---- GPS proximity suggestions (optional, offline-capable) ---- */
 const geo = useGeo()
@@ -154,7 +158,17 @@ const slackText = computed(() => {
     <div class="grid grid-cols-3 gap-2 text-center text-xs">
       <div><span class="text-faint">Werkelijk vertrek</span><div class="font-bold tabular-nums">{{ result.actualDeparture || '—' }}</div></div>
       <div><span class="text-faint">Laatste aankomst</span><div class="font-bold tabular-nums">{{ result.actualArrival || '—' }}</div></div>
-      <div><span class="text-faint">Nog te bezoeken</span><div class="font-bold tabular-nums">{{ result.remainingStops }}</div></div>
+      <div><span class="text-faint">Nog te bezoeken</span><div class="font-bold tabular-nums">{{ result.coreRemaining }} kernstop{{ result.coreRemaining === 1 ? '' : 's' }}</div></div>
+    </div>
+    <div v-if="result.optionalPossible || result.bonusPossible" class="text-center text-xs text-muted">
+      <span v-if="result.optionalPossible">{{ result.optionalPossible }} optionele stop{{ result.optionalPossible === 1 ? '' : 'pen' }} mogelijk</span>
+      <span v-if="result.optionalPossible && result.bonusPossible"> · </span>
+      <span v-if="result.bonusPossible">{{ result.bonusPossible }} bonus bij ruime tijd</span>
+    </div>
+
+    <!-- hard-deadline note: only when a booked appointment is truly at risk -->
+    <div v-if="result.hardDeadline" class="rounded-xl2 border border-[#f97316]/40 bg-[#f97316]/10 px-4 py-2.5 text-sm text-[#f9a35a]">
+      ⏳ {{ result.hardDeadline }}
     </div>
 
     <div v-if="result.appointment" class="rounded-xl2 border border-bronze-deep bg-bronze-soft/40 px-4 py-2.5 text-sm">
@@ -198,18 +212,47 @@ const slackText = computed(() => {
         <div class="text-xs font-extrabold uppercase tracking-wide text-faint pt-1">Daarna</div>
         <div
           v-for="s in laterStops" :key="s.id"
-          class="flex items-center justify-between rounded-xl2 border px-3 py-2.5 text-sm"
-          :class="s.adviseSkip ? 'border-[#ef4444]/30 bg-[#ef4444]/5' : 'border-line bg-card2'"
+          class="flex items-center justify-between rounded-xl2 border border-line bg-card2 px-3 py-2.5 text-sm"
         >
           <span class="flex items-center gap-2 min-w-0">
             <span>{{ meta[s.id]?.emoji }}</span>
             <span class="truncate">{{ s.title }}</span>
-            <span v-if="s.adviseSkip" class="text-[10px] font-extrabold text-[#ef4444] uppercase shrink-0">skip advies</span>
+            <span class="text-[10px] font-bold uppercase shrink-0"
+              :class="s.priority === 'essential' ? 'text-bronze' : s.priority === 'optional' ? 'text-nice' : 'text-nav'">
+              {{ priorityLabel[s.priority] }}
+            </span>
           </span>
           <span class="flex items-center gap-2 shrink-0">
             <span class="text-xs text-faint tabular-nums">{{ humanDuration(s.dwellMin) }}</span>
-            <button type="button" class="text-[11px] font-bold text-[#f97316] tap" @click="skip(s.id)">skip</button>
+            <button v-if="s.priority !== 'essential'" type="button" class="text-[11px] font-bold text-muted tap" @click="removeStop(s.id)">uit planning</button>
           </span>
+        </div>
+      </template>
+
+      <!-- opportunities: optional/bonus stops you can still add -->
+      <template v-if="possibilities.length">
+        <div class="text-xs font-extrabold uppercase tracking-wide text-faint pt-1">Mogelijkheden vandaag</div>
+        <div v-for="s in possibilities" :key="s.id" class="rounded-xl2 border border-line bg-bg2/50 px-3 py-2.5 text-sm">
+          <div class="flex items-center justify-between gap-2">
+            <span class="flex items-center gap-2 min-w-0">
+              <span>{{ meta[s.id]?.emoji }}</span><span class="truncate">{{ s.title }}</span>
+              <span class="text-[10px] font-bold uppercase shrink-0" :class="s.priority === 'optional' ? 'text-nice' : 'text-nav'">{{ priorityLabel[s.priority] }}</span>
+            </span>
+            <span class="text-xs text-faint tabular-nums shrink-0">{{ humanDuration(s.dwellMin) }}</span>
+          </div>
+          <div class="mt-1.5 flex items-center justify-between gap-2">
+            <span class="text-xs" :class="(s.priority === 'bonus' ? s.comfortable : s.canAdd) ? 'text-bonus' : 'text-muted'">
+              {{ (s.priority === 'bonus' ? s.comfortable : s.canAdd)
+                  ? (s.priority === 'bonus' ? `Past comfortabel in je dag` : `Past nog in je dag`)
+                  : `Bewaren we voor een volgende keer` }}
+            </span>
+            <button
+              v-if="s.priority === 'bonus' ? s.comfortable : s.canAdd"
+              type="button"
+              class="rounded-lg border border-bonus/50 bg-bonus/15 text-bonus px-3 py-1.5 text-xs font-extrabold tap shrink-0"
+              @click="addStop(s.id)"
+            >+ Toevoegen aan vandaag</button>
+          </div>
         </div>
       </template>
 

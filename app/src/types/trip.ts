@@ -1,6 +1,9 @@
 export type Category = 'must' | 'nice' | 'bonus' | 'pool'
 export type LatLng = [number, number]
 
+/** Road Captain 2.2 — planning priority. Single source used in all math + UI. */
+export type StopPriority = 'essential' | 'optional' | 'bonus'
+
 export type StopCategory =
   | 'city' | 'nature' | 'bridge' | 'mountain' | 'lake'
   | 'hotel' | 'viewpoint' | 'wine' | 'historic'
@@ -33,6 +36,7 @@ export interface Stop {
   title: string
   emoji: string
   category: Category
+  priority: StopPriority
   stars: number
   time: string
   dwellMin: number

@@ -133,8 +133,13 @@ const totalStops = computed(() => trip.days.reduce((n, d) => n + d.stops.length,
         </div>
       </div>
       <div class="flex items-center justify-between text-xs">
-        <span class="flex items-center gap-1.5 text-muted"><ClockIcon class="w-4 h-4 text-nav" /> Nog te bezoeken <b class="text-ink">{{ result.remainingStops }}</b></span>
+        <span class="flex items-center gap-1.5 text-muted"><ClockIcon class="w-4 h-4 text-nav" /> Nog te bezoeken <b class="text-ink">{{ result.coreRemaining }} kernstop{{ result.coreRemaining === 1 ? '' : 's' }}</b></span>
         <span v-if="result.appointment" class="text-muted">Afspraak <b class="text-bronze">{{ result.appointment.time }}</b></span>
+      </div>
+      <div v-if="result.optionalPossible || result.bonusPossible" class="text-xs text-muted">
+        <span v-if="result.optionalPossible">{{ result.optionalPossible }} optionele stop{{ result.optionalPossible === 1 ? '' : 'pen' }} mogelijk</span>
+        <span v-if="result.optionalPossible && result.bonusPossible"> · </span>
+        <span v-if="result.bonusPossible">{{ result.bonusPossible }} bonus beschikbaar bij ruime tijd</span>
       </div>
       <RouterLink :to="`/day/${activeDay.id}`" class="block text-center text-xs font-extrabold text-nav pt-1">Open Road Captain →</RouterLink>
     </div>

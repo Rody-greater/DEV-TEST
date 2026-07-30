@@ -14,6 +14,7 @@ interface UserState {
   stopArrived: Record<string, number>    // stop id -> arrival timestamp (ms)
   stopDeparted: Record<string, number>   // stop id -> departure timestamp (ms)
   geoEnabled: boolean                    // remembered GPS opt-in (permission stays granted by the browser)
+  included: Record<string, boolean>      // RC 2.2 — optional/bonus stops added to today's active plan
 }
 
 export const useUserStore = defineStore('user', {
@@ -28,7 +29,8 @@ export const useUserStore = defineStore('user', {
     stopStatus: {},
     stopArrived: {},
     stopDeparted: {},
-    geoEnabled: false
+    geoEnabled: false,
+    included: {}
   }),
   getters: {
     isChecked: (s) => (id: string) => !!s.checks[id],
@@ -36,6 +38,7 @@ export const useUserStore = defineStore('user', {
     ratingOf: (s) => (id: string) => s.ratings[id] || 0,
     noteOf: (s) => (id: string) => s.notes[id] || '',
     departureOf: (s) => (id: string) => s.departures[id] || '',
+    isIncluded: (s) => (id: string) => !!s.included[id],
     favoriteIds: (s) => Object.keys(s.favorites).filter(k => s.favorites[k]),
     checkedCount: (s) => Object.values(s.checks).filter(Boolean).length,
     statusOf: (s) => (id: string): StopStatus => s.stopStatus[id] || 'pending',
@@ -51,6 +54,8 @@ export const useUserStore = defineStore('user', {
     setDeparture(dayId: string, time: string) { this.departures[dayId] = time },
     toggleSkip(id: string) { this.skips[id] = !this.skips[id] },
     setGeoEnabled(v: boolean) { this.geoEnabled = v },
+    setIncluded(id: string, v: boolean) { this.included[id] = v },
+    toggleIncluded(id: string) { this.included[id] = !this.included[id] },
 
     /* ---- Road Captain 2.0 status transitions ---- */
     setStatus(id: string, status: StopStatus, at: number) {

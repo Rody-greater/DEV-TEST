@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Stop } from '@/types/trip'
+import type { CaptainStop } from '@/composables/useRoadCaptain'
 import { useUserStore } from '@/stores/user'
 import { mapsSearch, openExternal } from '@/composables/useMaps'
 import Stars from '@/components/ui/Stars.vue'
@@ -11,9 +12,16 @@ import {
 } from '@heroicons/vue/24/outline'
 import { HeartIcon as HeartSolid } from '@heroicons/vue/24/solid'
 
-const props = defineProps<{ stop: Stop }>()
+const props = defineProps<{ stop: Stop; plan?: CaptainStop | null }>()
 const user = useUserStore()
 const open = ref(false)
+
+const priorityLabel = computed(() => ({ essential: '⭐ Kernstop', optional: '◇ Optioneel', bonus: '✨ Bonus' }[props.stop.priority]))
+const priorityColor = computed(() => ({ essential: 'text-bronze', optional: 'text-nice', bonus: 'text-nav' }[props.stop.priority]))
+const cleanName = computed(() => props.stop.title.split(/ — | \/ | \(/)[0].trim())
+const included = computed(() => props.plan?.included ?? (props.stop.priority === 'essential'))
+const canAdd = computed(() => props.stop.priority === 'bonus' ? !!props.plan?.comfortable : !!props.plan?.canAdd)
+function toggleInclude() { user.setIncluded(props.stop.id, !user.isIncluded(props.stop.id)) }
 
 const done = computed(() => user.isChecked(props.stop.id))
 const status = computed(() => user.statusOf(props.stop.id))
@@ -29,10 +37,6 @@ const note = computed({
   get: () => user.noteOf(props.stop.id),
   set: (v: string) => user.setNote(props.stop.id, v)
 })
-
-const catColor = computed(() => ({
-  must: 'text-must', nice: 'text-nice', bonus: 'text-bonus', pool: 'text-nice'
-}[props.stop.category]))
 
 function go(q: string | null, fallback?: string) {
   openExternal(mapsSearch(q || fallback || props.stop.nav))
@@ -72,9 +76,7 @@ function onLeave(el: Element) {
         <div class="mt-1 flex items-center gap-3 text-xs text-muted">
           <Stars :value="stop.stars" />
           <span>⏱ {{ stop.time }}</span>
-          <span class="uppercase font-bold tracking-wide" :class="catColor">
-            {{ stop.category === 'must' ? 'Must' : stop.category === 'nice' ? 'Leuk' : stop.category === 'bonus' ? 'Bonus' : 'Optie' }}
-          </span>
+          <span class="font-bold" :class="priorityColor">{{ priorityLabel }}</span>
           <span v-if="statusChip" class="font-bold" :class="statusChip.c">{{ statusChip.t }}</span>
         </div>
       </button>
@@ -123,6 +125,28 @@ function onLeave(el: Element) {
             <button v-if="stop.photo" type="button" class="flex items-center justify-between rounded-xl2 border border-line bg-card2 px-4 py-3 font-bold text-sm tap" @click="go(stop.photo)">
               <span class="flex items-center gap-2"><CameraIcon class="w-5 h-5 text-muted" /> Fotospot</span><span class="text-nav text-xs font-extrabold">Maps →</span>
             </button>
+          </div>
+
+          <!-- Road Captain 2.2: include optional/bonus in today's plan -->
+          <div v-if="stop.priority !== 'essential' && status === 'pending'"
+               class="rounded-xl2 border px-3 py-2.5"
+               :class="included ? 'border-bonus/40 bg-bonus/5' : 'border-line bg-bg2/60'">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-sm">
+                <template v-if="included">Staat in je planning voor vandaag.</template>
+                <template v-else-if="canAdd">
+                  <b :class="priorityColor">{{ stop.priority === 'bonus' ? '✨ Bonus mogelijk' : '◇ Optioneel' }}</b> —
+                  {{ stop.priority === 'bonus' ? 'past comfortabel in je dag.' : 'past nog in je dag.' }}
+                </template>
+                <template v-else>{{ cleanName }} bewaren we voor een volgende keer.</template>
+              </span>
+              <button
+                v-if="included || canAdd" type="button"
+                class="shrink-0 rounded-lg px-3 py-1.5 text-xs font-extrabold tap"
+                :class="included ? 'border border-line bg-card2 text-muted' : 'border border-bonus/50 bg-bonus/15 text-bonus'"
+                @click="toggleInclude"
+              >{{ included ? 'Uit planning halen' : '+ Toevoegen aan vandaag' }}</button>
+            </div>
           </div>
 
           <!-- Road Captain: stop status + timers -->

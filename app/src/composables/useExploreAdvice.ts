@@ -24,6 +24,7 @@ export interface ExploreAdvice {
   elapsedMin: number
   remainingHereMin: number
   hardDeadline: string | null
+  planNote: string | null
 }
 
 const round5 = (n: number) => Math.max(5, Math.round(n / 5) * 5)
@@ -43,7 +44,9 @@ export function useExploreAdvice(stop: Ref<Stop>, captain: Ref<CaptainResult>, n
       return emptyAdvice()
     }
 
-    const slack = captain.value.slackMin
+    // Pace follows the ESSENTIALS floor (core of the day), never the extras — so a
+    // non-active optional/bonus can never make Explore read "achter".
+    const slack = captain.value.coreSlackMin ?? captain.value.slackMin
     const pace: ExplorePace =
       slack == null || slack >= 45 ? 'relaxed'
         : slack >= 15 ? 'normal'
@@ -94,11 +97,22 @@ export function useExploreAdvice(stop: Ref<Stop>, captain: Ref<CaptainResult>, n
       }
     }
 
-    // The only place a firm tone is allowed: a hard appointment truly at risk.
+    // The only place a firm tone is allowed: a hard appointment truly at risk
+    // (based on the active plan, not the essentials floor).
     let hardDeadline: string | null = null
-    if (captain.value.appointment && slack != null && slack < 0) {
+    const activeSlack = captain.value.slackMin
+    if (captain.value.appointment && activeSlack != null && activeSlack < 0) {
       const leaveIn = Math.max(5, Math.round(suggestedStayMin - elapsedMin))
       hardDeadline = `Om op tijd te zijn${inTime} (${captain.value.appointment.time}) kun je hier het best binnen ~${leaveIn} min afronden.`
+    }
+
+    // Priority-aware plan note — extras framed as opportunities, never as a miss.
+    let planNote: string | null = null
+    const core = captain.value.coreSlackMin
+    if (core != null && core >= 15) {
+      if (captain.value.optionalPossible > 0) planNote = 'Je kernplanning ligt goed — een optionele stop past daarna comfortabel.'
+      else if (captain.value.bonusPossible > 0) planNote = 'Je ligt goed op tijd; zelfs een bonusstop past er vandaag nog bij.'
+      else planNote = 'Je kernplanning ligt goed. Neem hier rustig de tijd.'
     }
 
     return {
@@ -112,7 +126,7 @@ export function useExploreAdvice(stop: Ref<Stop>, captain: Ref<CaptainResult>, n
       walkingTime: guide.walkingTime || null,
       captainTip: guide.captainTip,
       suggestedStayMin, elapsedMin: Math.round(elapsedMin), remainingHereMin,
-      hardDeadline
+      hardDeadline, planNote
     }
   })
 
@@ -125,7 +139,7 @@ function cleanTitle(t: string): string {
 
 function emptyAdvice(): ExploreAdvice {
   return {
-    active: false, pace: 'normal', welcome: '', timeLine: '', elapsedLine: null,
+    active: false, pace: 'normal', welcome: '', timeLine: '', elapsedLine: null, planNote: null,
     essentials: [], extras: [], showExtras: false, extrasNote: null, photoSpots: [],
     food: [], practical: [], walkingTime: null, captainTip: '',
     suggestedStayMin: 0, elapsedMin: 0, remainingHereMin: 0, hardDeadline: null
