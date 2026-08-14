@@ -6,6 +6,17 @@ const topo = require('world-atlas/countries-50m.json');
 
 const SP = '/tmp/claude-0/-home-user-DEV-TEST/dd5645eb-851d-58bf-8b63-14a7edb279f7/scratchpad/';
 const data = JSON.parse(readFileSync(SP + 'points.json', 'utf8'));
+
+// If a real routing run has been done (route_segments.py -> routed_total.json),
+// stamp the TRUE routed distance and drop the estimate label automatically.
+let routed = null;
+try { routed = JSON.parse(readFileSync(SP + 'routed_total.json', 'utf8')); } catch { /* estimate mode */ }
+const fmtKm = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+const heroKm = routed ? fmtKm(routed.total_road_km) : '≈ 2 720';
+const heroLabel = routed ? 'KM · TOTAL ROAD DISTANCE' : 'KM · ROAD DISTANCE (EST.)';
+const heroFoot = routed
+  ? 'Road distance routed per logged GPS segment (' + (routed.method || 'OSRM driving') + ').'
+  : 'Road distance estimated from logged GPS points via calibrated per-segment detour factors (no live routing engine available in this environment).';
 const pts = data.points;
 const home = data.home;
 const route = [...pts.map(p => [p.lat, p.lng]), [home[0], home[1]]]; // close to Almere
@@ -179,7 +190,7 @@ function big(x, y, val, lab, sub) {
   parts.push(`<text x="${x}" y="${y}" fill="#f4efe6" font-size="54" font-weight="800" letter-spacing="0.5">${val}</text>`);
   parts.push(`<text x="${x}" y="${y + 23}" fill="#8f887b" font-size="12.5" font-weight="600" letter-spacing="2.5">${lab}</text>`);
 }
-big(58, BY + 50, '≈ 2 720', 'KM · ROAD DISTANCE (EST.)');
+big(58, BY + 50, heroKm, heroLabel);
 big(560, BY + 50, '39H 08M', 'BEHIND THE WHEEL');
 
 // second row: 10 / 5 / 2244
@@ -196,7 +207,7 @@ parts.push(`<text x="430" y="${r2 + 38}" fill="#6f685c" font-size="10.5" letter-
 // country line
 const cl = r2 + 70;
 parts.push(`<text x="58" y="${cl}" fill="#a99f8c" font-size="14.5" font-weight="700" letter-spacing="3">NETHERLANDS &#8226; GERMANY &#8226; SWITZERLAND &#8226; ITALY &#8226; AUSTRIA</text>`);
-parts.push(`<text x="58" y="${cl + 22}" fill="#5c574d" font-size="10" letter-spacing="1.1">Road distance estimated from logged GPS points via calibrated per-segment detour factors (no live routing engine available in this environment).</text>`);
+parts.push(`<text x="58" y="${cl + 22}" fill="#5c574d" font-size="10" letter-spacing="1.1">${heroFoot}</text>`);
 
 parts.push(`</svg>`);
 writeFileSync(SP + 'roadtrip2.svg', parts.join('\n'));

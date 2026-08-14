@@ -47,9 +47,40 @@ The measured straight-line lower bound is 2 131 km. Validation against known
 legs: Almere→Heerlen est 206 km (real ~200), San Candido→Reutte est 194 km
 (real ~185), return day est 1 048 km (real ~1 050).
 
-To get true routed distance later, feed the coordinate pairs in
-`roadtrip_segments.csv` through a driving-profile routing engine and replace
-the `estimated_road_km` column.
+### Getting the REAL routed distance (on a machine with internet)
+
+Routing can't run inside the Claude sandbox (network policy blocks every
+routing host and the OSM data servers), but it's a one-liner anywhere with
+internet — including from a local coding agent (Codex / Claude Code) on your
+own machine.
+
+```bash
+cd roadtrip-poster
+
+# Option 1 — zero setup, public OSRM demo server (car profile):
+python3 route_segments.py --sleep 0.6
+
+# Option 2 — your own local OSRM built from a Geofabrik extract (offline once built):
+#   docker run -t -v "$PWD:/data" ghcr.io/project-osrm/osrm-backend osrm-extract -p /opt/car.lua /data/alps-latest.osm.pbf
+#   ... osrm-partition / osrm-customize ... then:  osrm-routed --algorithm mld /data/alps-latest.osrm
+python3 route_segments.py --osrm-url http://localhost:5000
+```
+
+This writes `routed_total.json`, `roadtrip_routed_segments.csv` and
+`roadtrip_routed_days.csv`. Because the log is cut into short segments whose
+endpoints already sit on the pass roads (Gotthard hospice, SS242/SS243, …),
+point-to-point routing follows the passes rather than tunnels; any segment
+with an implausible routed/straight ratio is **flagged**, never silently
+trusted.
+
+Then just re-run the generator — it auto-detects `routed_total.json`, stamps
+the true number, and drops the "(EST.)" label:
+
+```bash
+node genposter2.mjs        # hero becomes "X XXX KM · TOTAL ROAD DISTANCE"
+```
+
+(No `routed_total.json` present → it stays in labelled-estimate mode.)
 
 ## Map
 
