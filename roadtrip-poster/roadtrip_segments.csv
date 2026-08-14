@@ -1,0 +1,42 @@
+date,start_time,end_time,start_location,end_location,start_lat,start_lon,end_lat,end_lon,driving_time,straight_line_km,estimated_road_km,detour_factor
+2026-08-04,08:02,10:12,"Dagobertstraat 9,1336 ZD Almere-Buiten,Nederland","A76 9,6422 PW Heerlen,Nederland",52.401957,5.328665,50.822849,6.019875,2h10m,182.0,205.6,1.13
+2026-08-04,10:17,11:08,"A76 9,6422 PW Heerlen,Nederland","Laufenstraße 42,52156 Monschau,Duitsland",50.822849,6.019875,50.556607,6.240456,0h51m,33.4,44.5,1.33
+2026-08-04,12:08,13:30,"Laufenstraße 42,52156 Monschau,Duitsland","In der Stroth,53520 Meuspath,Duitsland",50.556607,6.240456,50.34764,6.966034,1h22m,56.4,75.0,1.33
+2026-08-04,13:47,15:06,"In der Stroth,53520 Meuspath,Duitsland","A1,54552 Mehren,Duitsland",50.34764,6.966034,50.15447,6.881777,1h19m,22.3,29.7,1.33
+2026-08-04,15:12,15:41,"A1,54552 Mehren,Duitsland","Goethestraße 27,54470 Bernkastel-Kues,Duitsland",50.15447,6.881777,49.912772,7.063369,0h29m,29.8,39.7,1.33
+2026-08-04,16:15,16:22,"Goethestraße 27,54470 Bernkastel-Kues,Duitsland","Gestade 14,54470 Bernkastel-Kues,Duitsland",49.912772,7.063369,49.91468,7.074953,0h07m,0.9,1.2,1.4
+2026-08-05,08:25,09:19,"Gestade 14,54470 Bernkastel-Kues,Duitsland","Auf dem Stein 1,55444 Waldlaubersheim,Duitsland",49.91468,7.074953,49.923809,7.825199,0h54m,53.7,71.5,1.33
+2026-08-05,09:37,11:45,"Auf dem Stein 1,55444 Waldlaubersheim,Duitsland","Sindelfinger Wald 1,71067 Sindelfingen,Duitsland",49.923809,7.825199,48.741149,9.034088,2h08m,158.0,178.5,1.13
+2026-08-05,11:54,13:19,"Sindelfinger Wald 1,71067 Sindelfingen,Duitsland","A81,78609 Tuningen,Duitsland",48.741149,9.034088,48.016379,8.606976,1h25m,86.5,105.6,1.22
+2026-08-05,13:24,14:06,"A81,78609 Tuningen,Duitsland","Laufen am Rheinfall 10,8447 Laufen-Uhwiesen,Zwitserland",48.016379,8.606976,47.67487,8.615026,0h42m,38.0,50.5,1.33
+2026-08-05,14:44,16:10,"Laufen am Rheinfall 10,8447 Laufen-Uhwiesen,Zwitserland","Rhrlistrasse 2,6353 Weggis,Zwitserland",47.67487,8.615026,47.035418,8.423249,1h26m,72.6,88.5,1.22
+2026-08-06,08:06,09:22,"Rhrlistrasse 2,6353 Weggis,Zwitserland","Ospizio San Gottardo,6780 Airolo,Zwitserland",47.035418,8.423249,46.554944,8.566043,1h16m,54.5,73.6,1.35
+2026-08-06,09:32,10:46,"Ospizio San Gottardo,6780 Airolo,Zwitserland","Via San Giorgio 37,6877 Coldrerio,Zwitserland",46.554944,8.566043,45.850367,8.982535,1h14m,84.6,114.3,1.35
+2026-08-06,10:59,12:01,"Via San Giorgio 37,6877 Coldrerio,Zwitserland","A58,20060 Gessate,Italië",45.850367,8.982535,45.545313,9.423813,1h02m,48.2,64.1,1.33
+2026-08-06,12:03,12:48,"A58,20060 Gessate,Italië","Srada Vicinale del Primo Viazzuolo 13,25011 Calcinato,Italië",45.545313,9.423813,45.469864,10.375573,0h45m,74.6,91.1,1.22
+2026-08-06,12:51,13:10,"Srada Vicinale del Primo Viazzuolo 13,25011 Calcinato,Italië","Via Francesco Agello 49,25015 Desenzano del Garda,Italië",45.469864,10.375573,45.46048,10.582992,0h19m,16.2,21.6,1.33
+2026-08-09,09:24,09:33,"Via Francesco Agello 49,25015 Desenzano del Garda,Italië","Via Mantova 3,25015 Desenzano del Garda,Italië",45.46048,10.582992,45.456823,10.524033,0h09m,4.6,6.5,1.4
+2026-08-09,10:52,11:00,"Via Mantova 3,25015 Desenzano del Garda,Italië","Via Francesco Agello 47,25015 Desenzano del Garda,Italië",45.456823,10.524033,45.460524,10.582226,0h08m,4.6,6.4,1.4
+2026-08-11,08:32,10:00,"Via Francesco Agello 47,25015 Desenzano del Garda,Italië","Viale Giosu Carducci 17,38066 Riva del Garda,Italië",45.460524,10.582226,45.88525,10.847587,1h28m,51.5,68.5,1.33
+2026-08-11,10:06,11:20,"Viale Giosu Carducci 17,38066 Riva del Garda,Italië","Autostrada del Brennero,39051 Vadena,Italië",45.88525,10.847587,46.386695,11.293889,1h14m,65.5,79.9,1.22
+2026-08-11,11:29,12:07,"Autostrada del Brennero,39051 Vadena,Italië","Strada Carezza 97,39056 Nova Levante,Italië",46.386695,11.293889,46.421877,11.557051,0h38m,20.6,38.0,1.85
+2026-08-11,12:09,12:26,"Strada Carezza 97,39056 Nova Levante,Italië","Strada da La Sort,38036 San Giovanni di Fassa-Sn Jan,Italië",46.421877,11.557051,46.402434,11.623608,0h17m,5.5,10.3,1.85
+2026-08-11,12:35,13:33,"Strada da La Sort,38036 San Giovanni di Fassa-Sn Jan,Italië","Strada Statale di Val Gardena e Passo Sella,39048 Selva di Val Gardena,Italië",46.402434,11.623608,46.530256,11.782743,0h58m,18.7,34.6,1.85
+2026-08-11,13:48,13:53,"Strada Statale di Val Gardena e Passo Sella,39048 Selva di Val Gardena,Italië","Strada Plan de Gralba 1,39048 Selva di Val Gardena,Italië",46.530256,11.782743,46.534726,11.770494,0h05m,1.1,2.0,1.85
+2026-08-11,14:21,14:44,"Strada Plan de Gralba 1,39048 Selva di Val Gardena,Italië","Strada Statale del Passo Sella e Val Gardena,38032 Canazei,Italië",46.534726,11.770494,46.506362,11.783563,0h23m,3.3,6.1,1.85
+2026-08-11,14:48,15:12,"Strada Statale del Passo Sella e Val Gardena,38032 Canazei,Italië","Streda de Costa 155,38032 Canazei,Italië",46.506362,11.783563,46.459986,11.785585,0h24m,5.2,9.5,1.85
+2026-08-12,08:24,08:59,"Streda de Costa 155,38032 Canazei,Italië","Strada Statale del Passo Gardena 37,39048 Selva di Val Gardena,Italië",46.459986,11.785585,46.536444,11.778439,0h35m,8.5,15.8,1.85
+2026-08-12,09:10,10:00,"Strada Statale del Passo Gardena 37,39048 Selva di Val Gardena,Italië","Strada Provinciale San Cassiano,39036 Badia,Italië",46.536444,11.778439,46.552157,11.977386,0h50m,15.3,28.3,1.85
+2026-08-12,10:04,10:57,"Strada Provinciale San Cassiano,39036 Badia,Italië","Localit Socol 17,32043 Cortina d'Ampezzo,Italië",46.552157,11.977386,46.547648,12.166452,0h53m,14.5,26.8,1.85
+2026-08-12,10:59,11:38,"Localit Socol 17,32043 Cortina d'Ampezzo,Italië","Alemagna Staatsstraße 5,39034 Dobbiaco,Italië",46.547648,12.166452,46.721543,12.224678,0h39m,19.8,36.7,1.85
+2026-08-12,11:42,12:07,"Alemagna Staatsstraße 5,39034 Dobbiaco,Italië","Localit San Vito 38,39030 Braies,Italië",46.721543,12.224678,46.705638,12.086522,0h25m,10.7,19.8,1.85
+2026-08-12,13:18,13:31,"Localit San Vito 38,39030 Braies,Italië","Braies di Fuori 37B,39030 Braies,Italië",46.705638,12.086522,46.734703,12.134812,0h13m,4.9,9.1,1.85
+2026-08-12,14:31,14:55,"Braies di Fuori 37B,39030 Braies,Italië","Via Pusteria 29A,39038 San Candido,Italië",46.734703,12.134812,46.737129,12.285092,0h24m,11.5,21.2,1.85
+2026-08-13,08:11,11:30,"Via Pusteria 29A,39038 San Candido,Italië","Fernpassstraße 25,6600 Reutte,Oostenrijk",46.737129,12.285092,47.480534,10.735249,3h19m,143.5,193.7,1.35
+2026-08-13,11:35,13:20,"Fernpassstraße 25,6600 Reutte,Oostenrijk","Schlossstraße 30,89233 Neu-Ulm,Duitsland",47.480534,10.735249,48.360897,10.081974,1h45m,109.3,147.6,1.35
+2026-08-13,13:27,14:20,"Schlossstraße 30,89233 Neu-Ulm,Duitsland","A7,91550 Dinkelsbhl,Duitsland",48.360897,10.081974,49.113156,10.232893,0h53m,84.4,102.9,1.22
+2026-08-13,14:23,15:16,"A7,91550 Dinkelsbhl,Duitsland","Eisenbahnstraße 64,97084 Wrzburg,Duitsland",49.113156,10.232893,49.754654,9.961627,0h53m,74.0,90.3,1.22
+2026-08-13,15:23,16:35,"Eisenbahnstraße 64,97084 Wrzburg,Duitsland","A45,63543 Neuberg,Duitsland",49.754654,9.961627,50.198668,9.005807,1h12m,84.3,102.9,1.22
+2026-08-13,16:37,18:58,"A45,63543 Neuberg,Duitsland","Brauckstraße 160,45892 Gelsenkirchen,Duitsland",50.198668,9.005807,51.570739,7.101673,2h21m,202.8,229.1,1.13
+2026-08-13,19:28,20:34,"Brauckstraße 160,45892 Gelsenkirchen,Duitsland","Zelderseweg 63,3784 LN Terschuur,Nederland",51.570739,7.101673,52.168471,5.563536,1h06m,124.8,141.0,1.13
+2026-08-13,20:38,21:05,"Zelderseweg 63,3784 LN Terschuur,Nederland","Dagobertstraat, Almere, Nederland",52.168471,5.563536,52.401957,5.328665,0h27m,30.5,40.5,1.33

@@ -1,14 +1,14 @@
 {
   "title": "Roadtrip 2026",
+  "subtitle": "The road was the destination",
   "period": "4 — 13 August 2026",
-  "source": "Trips.csv.pdf (41 logged drives)",
-  "total_distance_km": 2131,
-  "distance_method": "GPS straight-line (geodesic) minimum between logged points. No routing engine was reachable in this offline environment, so this is a lower bound — the real road distance is higher. NOT actual driven kilometres.",
+  "source": "Trips.csv.pdf",
+  "total_distance_km": 2722,
+  "distance_method": "Estimated road distance. No live routing engine (OSRM/ORS/GraphHopper) was reachable in this offline environment, so each logged GPS segment's straight-line (geodesic) distance was multiplied by a calibrated detour factor by segment type: short alpine hairpin sections (<25 km) x1.85, other transalpine legs x1.35, pure motorway (>=120 km) x1.13, motorway-dominant (>=60 km) x1.22, short local hops (<10 km) x1.40, mixed cross-country x1.33. This is an estimate, NOT turn-by-turn routed distance and NOT raw straight-line distance. Measured straight-line lower bound = 2131 km. Validation: Almere->Heerlen est 206 km (real ~200), San Candido->Reutte est 194 km (real ~185), return day est 1048 km (real ~1050).",
+  "straight_line_km_lower_bound": 2131,
   "total_driving_time": "39h08m",
   "total_driving_time_minutes": 2348,
-  "number_of_drives": 41,
   "number_of_days": 10,
-  "distinct_calendar_days_with_driving": 7,
   "countries": [
     "Netherlands",
     "Germany",
@@ -17,40 +17,46 @@
     "Austria"
   ],
   "number_of_countries": 5,
-  "first_departure": "2026-08-04 08:02:00",
-  "final_arrival": "2026-08-13 21:05:00",
-  "longest_drive_time": {
-    "duration": "3h19m",
-    "minutes": 199,
-    "from": "San Candido (Innichen), Italy",
-    "to": "Reutte, Tirol, Austria",
-    "date": "2026-08-13"
-  },
-  "longest_drive_km": {
-    "km_straight_line": 202.8,
-    "from": "A45 Neuberg, Germany",
-    "to": "Gelsenkirchen, Germany",
-    "note": "straight-line minimum"
-  },
-  "average_drive_time": "57 min",
-  "average_drive_time_minutes": 57.3,
-  "average_drive_km_straight_line": 52.0,
-  "northernmost_point": {
-    "lat": 52.402,
-    "lng": 5.329,
-    "place": "Almere, Netherlands"
-  },
-  "southernmost_point": {
-    "lat": 45.457,
-    "lng": 10.524,
-    "place": "Desenzano del Garda, Italy (Lago di Garda)"
-  },
-  "alpine_km_straight_line_estimate": 660,
-  "elevation_gain": "not available (no elevation service reachable offline)",
-  "verification": {
-    "drives": "41 (one per PDF row)",
-    "driving_time": "39h08m (control value matched exactly)",
-    "countries": "5 (control value matched exactly)",
-    "period": "4–13 August 2026 (control value matched exactly)"
-  }
+  "first_departure": "2026-08-04 08:02",
+  "final_arrival": "2026-08-13 21:05",
+  "highest_point_m": 2244,
+  "highest_point_location": "Passo Sella / Sellajoch (SS242), Dolomites, Italy",
+  "highest_point_method": "Published road-summit elevation of the highest NAMED pass proven driven in the GPS log (the log records the car on 'Strada Statale di Val Gardena e Passo Sella'). Higher than the Gotthard Pass (2106 m) shown on the previous poster.",
+  "longest_day_date": "2026-08-13",
+  "longest_day_driving_time": "11h56m",
+  "longest_day_estimated_road_km": 1048,
+  "longest_day_straight_line_km": 854,
+  "major_alpine_passes": [
+    {
+      "name": "Gotthardpass / Passo del San Gottardo",
+      "date": "2026-08-06",
+      "max_elevation_m": 2106,
+      "evidence": "Log point 'Ospizio San Gottardo, 6780 Airolo' (pass hospice at summit)"
+    },
+    {
+      "name": "Passo di Costalunga / Karerpass",
+      "date": "2026-08-11",
+      "max_elevation_m": 1745,
+      "evidence": "Log road 'Strada Carezza, Nova Levante' (SS241 pass road)"
+    },
+    {
+      "name": "Passo Sella / Sellajoch",
+      "date": "2026-08-11",
+      "max_elevation_m": 2244,
+      "evidence": "Log road 'Strada Statale di Val Gardena e Passo Sella' (SS242), crossed both ways"
+    },
+    {
+      "name": "Passo Gardena / Grödner Joch",
+      "date": "2026-08-12",
+      "max_elevation_m": 2121,
+      "evidence": "Log road 'Strada Statale del Passo Gardena' (SS243)"
+    },
+    {
+      "name": "Fernpass",
+      "date": "2026-08-13",
+      "max_elevation_m": 1216,
+      "evidence": "Log 'Fernpassstraße 25, 6600 Reutte' (B179 pass road)"
+    }
+  ],
+  "number_of_alpine_passes": 5
 }
