@@ -1,0 +1,28 @@
+ROADTRIP 2026  ·  THE ROAD WAS THE DESTINATION
+Period: 4 — 13 August 2026
+Source: Trips.csv.pdf (41 logged drives)
+
+── KEY FIGURES ──────────────────────────────
+  Total distance ....... 2 131 km   (GPS straight-line minimum *)
+  Total driving time ... 39h 08m    (2 348 min)
+  Drives ............... 41
+  Days ................. 10
+  Countries ............ 5  (Netherlands · Germany · Switzerland · Italy · Austria)
+
+── TIMING ───────────────────────────────────
+  First departure ...... 2026-08-04  08:02
+  Final arrival ........ 2026-08-13  21:05
+  Average per drive .... 57 min / ~52 km (straight-line)
+  Longest by time ...... 3h19m  San Candido → Reutte (13 Aug)
+  Longest by distance .. 202.8 km (sl)  A45 Neuberg → Gelsenkirchen
+
+── GEOGRAPHY ────────────────────────────────
+  Northernmost ......... Almere, NL           (52.402, 5.329)
+  Southernmost ......... Lago di Garda, IT    (45.457, 10.524)
+  Alpine stretch ....... ~660 km (straight-line estimate)
+  Elevation gain ....... not available (no elevation service offline)
+
+* Distance method: straight-line (geodesic) minimum between logged GPS
+  points. No routing engine was reachable in this offline environment, so
+  2 131 km is a LOWER BOUND — the real driven road distance is higher.
+  This figure is never presented as actual driven kilometres.

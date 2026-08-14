@@ -1,0 +1,418 @@
+{
+ "points": [
+  {
+   "lat": 52.40195666666666,
+   "lng": 5.328665,
+   "loc": "Dagobertstraat 9,1336 ZD Almere-Buiten,Nederland",
+   "ctry": "Netherlands",
+   "b": "2026-08-04 08:02:00",
+   "e": "2026-08-04 10:12:00",
+   "dur": 130.0,
+   "eloc": "A76 9,6422 PW Heerlen,Nederlandþ,"
+  },
+  {
+   "lat": 50.822849444444444,
+   "lng": 6.019875,
+   "loc": "A76 9,6422 PW Heerlen,Nederland",
+   "ctry": "Netherlands",
+   "b": "2026-08-04 10:17:00",
+   "e": "2026-08-04 11:08:00",
+   "dur": 51.0,
+   "eloc": "Im Stdtchen 1,52156 Monschau,Duitsland"
+  },
+  {
+   "lat": 50.55660722222222,
+   "lng": 6.240455833333334,
+   "loc": "Laufenstra§e 42,52156 Monschau,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-04 12:08:00",
+   "e": "2026-08-04 13:30:00",
+   "dur": 82.0,
+   "eloc": "In der Stroth,53520 Meuspath,Duitsland"
+  },
+  {
+   "lat": 50.34764,
+   "lng": 6.966033888888889,
+   "loc": "In der Stroth,53520 Meuspath,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-04 13:47:00",
+   "e": "2026-08-04 15:06:00",
+   "dur": 79.0,
+   "eloc": "A1,54552 Mehren,Duitsland"
+  },
+  {
+   "lat": 50.154470277777776,
+   "lng": 6.881776944444445,
+   "loc": "A1,54552 Mehren,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-04 15:12:00",
+   "e": "2026-08-04 15:41:00",
+   "dur": 29.0,
+   "eloc": "Goethestra§e 29,54470 Bernkastel-Kues,Duitsland"
+  },
+  {
+   "lat": 49.912771944444444,
+   "lng": 7.063369166666667,
+   "loc": "Goethestra§e 27,54470 Bernkastel-Kues,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-04 16:15:00",
+   "e": "2026-08-04 16:22:00",
+   "dur": 7.0,
+   "eloc": "Gestade 14,54470 Bernkastel-Kues,Duitsland"
+  },
+  {
+   "lat": 49.91468,
+   "lng": 7.074953333333333,
+   "loc": "Gestade 14,54470 Bernkastel-Kues,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-05 08:25:00",
+   "e": "2026-08-05 09:19:00",
+   "dur": 54.0,
+   "eloc": "Auf dem Stein 1,55444 Waldlaubersheim,Duitsland"
+  },
+  {
+   "lat": 49.923808888888885,
+   "lng": 7.825199166666667,
+   "loc": "Auf dem Stein 1,55444 Waldlaubersheim,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-05 09:37:00",
+   "e": "2026-08-05 11:45:00",
+   "dur": 128.0,
+   "eloc": "Sindelfinger Wald 1,71067 Sindelfingen,Duitsland"
+  },
+  {
+   "lat": 48.741148611111115,
+   "lng": 9.0340875,
+   "loc": "Sindelfinger Wald 1,71067 Sindelfingen,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-05 11:54:00",
+   "e": "2026-08-05 13:19:00",
+   "dur": 85.0,
+   "eloc": "A81,78609 Tuningen,Duitsland"
+  },
+  {
+   "lat": 48.01637888888889,
+   "lng": 8.606976111111111,
+   "loc": "A81,78609 Tuningen,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-05 13:24:00",
+   "e": "2026-08-05 14:06:00",
+   "dur": 42.0,
+   "eloc": "Laufen am Rheinfall 10,8447 Laufen-Uhwiesen,Zwitserland"
+  },
+  {
+   "lat": 47.67487,
+   "lng": 8.61502638888889,
+   "loc": "Laufen am Rheinfall 10,8447 Laufen-Uhwiesen,Zwitserland",
+   "ctry": "Switzerland",
+   "b": "2026-08-05 14:44:00",
+   "e": "2026-08-05 16:10:00",
+   "dur": 86.0,
+   "eloc": "Luzernerstrasse 31,6353 Weggis,Zwitserland"
+  },
+  {
+   "lat": 47.03541805555555,
+   "lng": 8.423248611111111,
+   "loc": "Rhrlistrasse 2,6353 Weggis,Zwitserland",
+   "ctry": "Switzerland",
+   "b": "2026-08-06 08:06:00",
+   "e": "2026-08-06 09:22:00",
+   "dur": 76.0,
+   "eloc": "Ospizio San Gottardo,6780 Airolo,Zwitserland"
+  },
+  {
+   "lat": 46.554943888888886,
+   "lng": 8.566043055555555,
+   "loc": "Ospizio San Gottardo,6780 Airolo,Zwitserland",
+   "ctry": "Switzerland",
+   "b": "2026-08-06 09:32:00",
+   "e": "2026-08-06 10:46:00",
+   "dur": 74.0,
+   "eloc": "Via San Giorgio 37,6877 Coldrerio,Zwitserland"
+  },
+  {
+   "lat": 45.850366666666666,
+   "lng": 8.982535,
+   "loc": "Via San Giorgio 37,6877 Coldrerio,Zwitserland",
+   "ctry": "Switzerland",
+   "b": "2026-08-06 10:59:00",
+   "e": "2026-08-06 12:01:00",
+   "dur": 62.0,
+   "eloc": "A58,20060 Gessate,Itali"
+  },
+  {
+   "lat": 45.54531333333333,
+   "lng": 9.423813055555556,
+   "loc": "A58,20060 Gessate,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-06 12:03:00",
+   "e": "2026-08-06 12:48:00",
+   "dur": 45.0,
+   "eloc": "Srada Vicinale del Primo Viazzuolo 13,25011 Calcinato,Itali"
+  },
+  {
+   "lat": 45.46986416666667,
+   "lng": 10.3755725,
+   "loc": "Srada Vicinale del Primo Viazzuolo 13,25011 Calcinato,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-06 12:51:00",
+   "e": "2026-08-06 13:10:00",
+   "dur": 19.0,
+   "eloc": "Via Francesco Agello 49,25015 Desenzano del Garda,Itali"
+  },
+  {
+   "lat": 45.460480277777776,
+   "lng": 10.582991666666667,
+   "loc": "Via Francesco Agello 49,25015 Desenzano del Garda,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-09 09:24:00",
+   "e": "2026-08-09 09:33:00",
+   "dur": 9.0,
+   "eloc": "Via Mantova 3,25015 Desenzano del Garda,Itali"
+  },
+  {
+   "lat": 45.45682277777778,
+   "lng": 10.524032777777778,
+   "loc": "Via Mantova 3,25015 Desenzano del Garda,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-09 10:52:00",
+   "e": "2026-08-09 11:00:00",
+   "dur": 8.0,
+   "eloc": "Via Francesco Agello 47,25015 Desenzano del Garda,Itali"
+  },
+  {
+   "lat": 45.460524166666666,
+   "lng": 10.58222638888889,
+   "loc": "Via Francesco Agello 47,25015 Desenzano del Garda,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 08:32:00",
+   "e": "2026-08-11 10:00:00",
+   "dur": 88.0,
+   "eloc": "Viale Giosu Carducci 17,38066 Riva del Garda,Itali"
+  },
+  {
+   "lat": 45.88525027777778,
+   "lng": 10.847586666666666,
+   "loc": "Viale Giosu Carducci 17,38066 Riva del Garda,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 10:06:00",
+   "e": "2026-08-11 11:20:00",
+   "dur": 74.0,
+   "eloc": "Autostrada del Brennero,39051 Vadena,Itali"
+  },
+  {
+   "lat": 46.386694722222224,
+   "lng": 11.293888888888889,
+   "loc": "Autostrada del Brennero,39051 Vadena,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 11:29:00",
+   "e": "2026-08-11 12:07:00",
+   "dur": 38.0,
+   "eloc": "Strada Carezza 97,39056 Nova Levante,Itali"
+  },
+  {
+   "lat": 46.42187666666667,
+   "lng": 11.557050555555556,
+   "loc": "Strada Carezza 97,39056 Nova Levante,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 12:09:00",
+   "e": "2026-08-11 12:26:00",
+   "dur": 17.0,
+   "eloc": "Strada da La Sort,38036 San Giovanni di Fassa-Sn Jan,Itali"
+  },
+  {
+   "lat": 46.402434166666666,
+   "lng": 11.623608333333333,
+   "loc": "Strada da La Sort,38036 San Giovanni di Fassa-Sn Jan,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 12:35:00",
+   "e": "2026-08-11 13:33:00",
+   "dur": 58.0,
+   "eloc": "Strada Statale di Val Gardena e Passo Sella,39048 Selva di Val Gardena,Itali"
+  },
+  {
+   "lat": 46.530256111111115,
+   "lng": 11.782743055555555,
+   "loc": "Strada Statale di Val Gardena e Passo Sella,39048 Selva di Val Gardena,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 13:48:00",
+   "e": "2026-08-11 13:53:00",
+   "dur": 5.0,
+   "eloc": "Strada Plan de Gralba 1,39048 Selva di Val Gardena,Itali"
+  },
+  {
+   "lat": 46.53472583333333,
+   "lng": 11.770494444444445,
+   "loc": "Strada Plan de Gralba 1,39048 Selva di Val Gardena,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 14:21:00",
+   "e": "2026-08-11 14:44:00",
+   "dur": 23.0,
+   "eloc": "Strada Statale del Passo Sella e Val Gardena,38032 Canazei,Itali"
+  },
+  {
+   "lat": 46.50636222222222,
+   "lng": 11.783563333333333,
+   "loc": "Strada Statale del Passo Sella e Val Gardena,38032 Canazei,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-11 14:48:00",
+   "e": "2026-08-11 15:12:00",
+   "dur": 24.0,
+   "eloc": "Streda de Costa 167,38032 Canazei,Itali"
+  },
+  {
+   "lat": 46.459986111111114,
+   "lng": 11.785585,
+   "loc": "Streda de Costa 155,38032 Canazei,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-12 08:24:00",
+   "e": "2026-08-12 08:59:00",
+   "dur": 35.0,
+   "eloc": "Strada Statale del Passo Gardena 37,39048 Selva di Val Gardena,Itali"
+  },
+  {
+   "lat": 46.53644388888889,
+   "lng": 11.778439166666667,
+   "loc": "Strada Statale del Passo Gardena 37,39048 Selva di Val Gardena,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-12 09:10:00",
+   "e": "2026-08-12 10:00:00",
+   "dur": 50.0,
+   "eloc": "Strada Provinciale San Cassiano,39036 Badia,Itali"
+  },
+  {
+   "lat": 46.55215694444444,
+   "lng": 11.977385833333333,
+   "loc": "Strada Provinciale San Cassiano,39036 Badia,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-12 10:04:00",
+   "e": "2026-08-12 10:57:00",
+   "dur": 53.0,
+   "eloc": "Localit Socol 17,32043 Cortina d'Ampezzo,Itali"
+  },
+  {
+   "lat": 46.547647777777776,
+   "lng": 12.166452222222222,
+   "loc": "Localit Socol 17,32043 Cortina d'Ampezzo,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-12 10:59:00",
+   "e": "2026-08-12 11:38:00",
+   "dur": 39.0,
+   "eloc": "Alemagna Staatsstra§e 5,39034 Dobbiaco,Itali"
+  },
+  {
+   "lat": 46.72154333333334,
+   "lng": 12.224678055555556,
+   "loc": "Alemagna Staatsstra§e 5,39034 Dobbiaco,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-12 11:42:00",
+   "e": "2026-08-12 12:07:00",
+   "dur": 25.0,
+   "eloc": "Localit San Vito 38,39030 Braies,Itali"
+  },
+  {
+   "lat": 46.7056375,
+   "lng": 12.086521944444444,
+   "loc": "Localit San Vito 38,39030 Braies,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-12 13:18:00",
+   "e": "2026-08-12 13:31:00",
+   "dur": 13.0,
+   "eloc": "Braies di Fuori 37B,39030 Braies,Itali"
+  },
+  {
+   "lat": 46.734703333333336,
+   "lng": 12.134812222222223,
+   "loc": "Braies di Fuori 37B,39030 Braies,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-12 14:31:00",
+   "e": "2026-08-12 14:55:00",
+   "dur": 24.0,
+   "eloc": "Via Pusteria 29A,39038 San Candido,Itali"
+  },
+  {
+   "lat": 46.73712888888889,
+   "lng": 12.285091666666666,
+   "loc": "Via Pusteria 29A,39038 San Candido,Itali",
+   "ctry": "Italy",
+   "b": "2026-08-13 08:11:00",
+   "e": "2026-08-13 11:30:00",
+   "dur": 199.0,
+   "eloc": "Fernpassstra§e 25,6600 Reutte,Oostenrijk"
+  },
+  {
+   "lat": 47.480533888888885,
+   "lng": 10.735249444444445,
+   "loc": "Fernpassstra§e 25,6600 Reutte,Oostenrijk",
+   "ctry": "Austria",
+   "b": "2026-08-13 11:35:00",
+   "e": "2026-08-13 13:20:00",
+   "dur": 105.0,
+   "eloc": "Schlossstra§e 30,89233 Neu-Ulm,Duitsland"
+  },
+  {
+   "lat": 48.36089666666667,
+   "lng": 10.081973611111112,
+   "loc": "Schlossstra§e 30,89233 Neu-Ulm,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-13 13:27:00",
+   "e": "2026-08-13 14:20:00",
+   "dur": 53.0,
+   "eloc": "A7,91550 Dinkelsbhl,Duitsland"
+  },
+  {
+   "lat": 49.11315555555556,
+   "lng": 10.232892777777778,
+   "loc": "A7,91550 Dinkelsbhl,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-13 14:23:00",
+   "e": "2026-08-13 15:16:00",
+   "dur": 53.0,
+   "eloc": "Eisenbahnstra§e 64,97084 Wrzburg,Duitsland"
+  },
+  {
+   "lat": 49.75465388888889,
+   "lng": 9.961627222222223,
+   "loc": "Eisenbahnstra§e 64,97084 Wrzburg,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-13 15:23:00",
+   "e": "2026-08-13 16:35:00",
+   "dur": 72.0,
+   "eloc": "A45,63543 Neuberg,Duitsland"
+  },
+  {
+   "lat": 50.19866833333333,
+   "lng": 9.005806666666667,
+   "loc": "A45,63543 Neuberg,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-13 16:37:00",
+   "e": "2026-08-13 18:58:00",
+   "dur": 141.0,
+   "eloc": "Brauckstra§e 160,45892 Gelsenkirchen,Duitsland"
+  },
+  {
+   "lat": 51.57073944444444,
+   "lng": 7.1016725,
+   "loc": "Brauckstra§e 160,45892 Gelsenkirchen,Duitsland",
+   "ctry": "Germany",
+   "b": "2026-08-13 19:28:00",
+   "e": "2026-08-13 20:34:00",
+   "dur": 66.0,
+   "eloc": "Zelderseweg 63,3784 LN Terschuur,Nederland"
+  },
+  {
+   "lat": 52.16847055555556,
+   "lng": 5.563535833333333,
+   "loc": "Zelderseweg 63,3784 LN Terschuur,Nederland",
+   "ctry": "Netherlands",
+   "b": "2026-08-13 20:38:00",
+   "e": "2026-08-13 21:05:00",
+   "dur": 27.0,
+   "eloc": "Dagobertstraat 7,1336 ZD Almere-Buiten,Nederland"
+  }
+ ],
+ "home": [
+  52.40195666666666,
+  5.328665
+ ]
+}

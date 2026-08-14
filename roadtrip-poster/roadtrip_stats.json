@@ -1,0 +1,56 @@
+{
+  "title": "Roadtrip 2026",
+  "period": "4 — 13 August 2026",
+  "source": "Trips.csv.pdf (41 logged drives)",
+  "total_distance_km": 2131,
+  "distance_method": "GPS straight-line (geodesic) minimum between logged points. No routing engine was reachable in this offline environment, so this is a lower bound — the real road distance is higher. NOT actual driven kilometres.",
+  "total_driving_time": "39h08m",
+  "total_driving_time_minutes": 2348,
+  "number_of_drives": 41,
+  "number_of_days": 10,
+  "distinct_calendar_days_with_driving": 7,
+  "countries": [
+    "Netherlands",
+    "Germany",
+    "Switzerland",
+    "Italy",
+    "Austria"
+  ],
+  "number_of_countries": 5,
+  "first_departure": "2026-08-04 08:02:00",
+  "final_arrival": "2026-08-13 21:05:00",
+  "longest_drive_time": {
+    "duration": "3h19m",
+    "minutes": 199,
+    "from": "San Candido (Innichen), Italy",
+    "to": "Reutte, Tirol, Austria",
+    "date": "2026-08-13"
+  },
+  "longest_drive_km": {
+    "km_straight_line": 202.8,
+    "from": "A45 Neuberg, Germany",
+    "to": "Gelsenkirchen, Germany",
+    "note": "straight-line minimum"
+  },
+  "average_drive_time": "57 min",
+  "average_drive_time_minutes": 57.3,
+  "average_drive_km_straight_line": 52.0,
+  "northernmost_point": {
+    "lat": 52.402,
+    "lng": 5.329,
+    "place": "Almere, Netherlands"
+  },
+  "southernmost_point": {
+    "lat": 45.457,
+    "lng": 10.524,
+    "place": "Desenzano del Garda, Italy (Lago di Garda)"
+  },
+  "alpine_km_straight_line_estimate": 660,
+  "elevation_gain": "not available (no elevation service reachable offline)",
+  "verification": {
+    "drives": "41 (one per PDF row)",
+    "driving_time": "39h08m (control value matched exactly)",
+    "countries": "5 (control value matched exactly)",
+    "period": "4–13 August 2026 (control value matched exactly)"
+  }
+}
